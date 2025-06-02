@@ -55,3 +55,4 @@ export type BookingContext = {
 };
 
 export type CustomButtonType = "button" | "submit" | "reset";
+ export type CustomFormType =  "onSubmit" | "onChange" | "onBlur" | "all";
