@@ -31,10 +31,19 @@ import { Session } from "./interfaces";
 
 
 export type ModalHandler = {
-    onOpen: () => void;
-    onClose: () => void;
+    onOpen?: () => void;
+    onClose?: () => void;
 };
 
+export type BookingModalProps =LoginModalProps & {
+   loadedSession : Partial<Session>
+
+}
+
+export type LoginModalProps ={
+   isOpen:boolean;
+   onClose: ()=> void;
+}
 
 
 // CONTEXT TYPE
@@ -45,7 +54,7 @@ export type BookingState ={
 
 
 export type BookingActions =
-   | {type: 'ADD_SESSION'; payload: Session}
+   | {type: 'ADD_SESSION'; payload: Session | Partial<Session>}
    | {type: 'REMOVE_SESSION'; payload: string} // Assuming payload is session ID
 
 export type BookingContext = {

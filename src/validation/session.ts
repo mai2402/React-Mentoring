@@ -18,3 +18,10 @@ name: Zod.string()
 
 
 export type SessionFormData = Zod.infer<typeof sessionSchema>;
+
+  export const loginSchema = Zod.object({
+    email: Zod.string().email("Invalid email address"),
+     password: Zod.string().min(6, "Password must be at least 6 characters"),
+  })
+
+  export type LoginFormData = Zod.infer<typeof loginSchema>

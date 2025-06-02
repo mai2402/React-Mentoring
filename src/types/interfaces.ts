@@ -49,12 +49,15 @@ import { ZodSchema, ZodTypeDef } from "zod";
 
  export interface SessionDetailsProps {
     loadedSession: Session | null;
-   onLearnMoreClick: () => void;
+   onLearnMoreClick?: () => void;
   }
 
 
  export interface ModalProps {
+
    children: ReactNode;
+   isOpen: boolean;
+   onClose: ()=>void;
    title?: string;
    scrollable?: boolean;
  }
@@ -88,11 +91,15 @@ export interface CustomFormProps<T extends Record<string, any>> {
 
 // AUTHENTICATION
 export interface AuthContext {
+
   isAuthenticated: boolean;
-  login: ()=> void;
+  login: (email:string, password:string)=> Promise<void>;
   logout: ()=> void;
 }
 
 export interface AuthContextProviderProps {
   children : ReactNode;
 }
+
+
+ 

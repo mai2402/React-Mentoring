@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import {  AuthContextProviderProps, type AuthContext } from "../types/interfaces";
-
+import * as authService from "../services/authService";
 
 
 
@@ -10,14 +10,26 @@ const AuthContext = createContext<AuthContext | undefined>(undefined);
 
 export function AuthContextProvider ({children}: AuthContextProviderProps) {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [token, setToken] = useState(()=> authService.getToken());
 
-    const login = () => setIsAuthenticated(true);
-    const logout = () => setIsAuthenticated(false)
+    const login =  async (email:string, password: string) => {
+         
+        const newToken = await authService.login(email,password);
+        setToken(newToken);
+    }
+
+
+    const logout = () =>{
+        authService.logout();
+        setToken(null);
+    }
+
+
+   
 
 
     return(
-        <AuthContext.Provider value={{isAuthenticated,login,logout}}>
+        <AuthContext.Provider value={{isAuthenticated: !!token, login, logout}}>
             {children}
         </AuthContext.Provider>
     )

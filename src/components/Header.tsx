@@ -1,7 +1,7 @@
 
+import { useState } from "react";
 import { useBookingContext } from "../contexts/bookingContext";
 import { SessionAction } from "../enums/enums";
-import { useModal } from "../hooks/useModal";
 import Button from "./Button";
 import Modal from "./Modal";
 
@@ -9,7 +9,7 @@ import Modal from "./Modal";
 
 
 export default function Header() {
-   const {handleOpenModal, handleCloseModal ,modalRef} = useModal();
+   const[isOpen, setIsOpen]= useState(false)
    const {state , dispatch} = useBookingContext()
    const upcomingSessions = state.sessions;
    
@@ -30,14 +30,14 @@ export default function Header() {
                    <Button className="header__link" textOnly={true} to="/sessions"> Browse Sessions</Button>
                 </li>  
                   <li>
-                   <Button onClick={handleOpenModal}>Upcoming Sessions</Button>
+                   <Button onClick={()=> setIsOpen(true)}>Upcoming Sessions</Button>
                 </li>
               </ul>
            </nav>
                  
         </header>
 
-        <Modal ref={modalRef} title="Upcoming" scrollable={upcomingSessions.length > 3}>
+        <Modal onClose={()=>setIsOpen(false)} isOpen={isOpen} title="Upcoming" scrollable={upcomingSessions.length > 3}>
           <ul>
               {upcomingSessions.map((session)=>
               <div className="upcoming .form-actions">
@@ -45,9 +45,9 @@ export default function Header() {
                   <h3 className="upcoming__info h3">{session.title}</h3>
                   <p className="upcoming__info p">{session.summary}</p>
                   <time className="upcoming__info time ">{session.date}</time>
-                  {/* <div style={{display: 'flex', gap: '1rem', alignItems:'flex-end'}}> */}
+                  <div style={{display: 'flex', gap: '1rem', alignItems:'flex-end'}}>
                   <Button textOnly onClick={()=>handleCancelSession(session.id)}>cancel</Button>
-                  {/* </div> */}
+                  </div>
                </li>
               </div>
                   )
@@ -55,7 +55,7 @@ export default function Header() {
           </ul>
             {upcomingSessions.length === 0 && <p>No upcoming sessions</p>}
             <div className="form-actions">
-            <Button onClick={handleCloseModal}>Close</Button>
+            <Button onClick={()=> setIsOpen(false)}>Close</Button>
             </div>
            
         </Modal>
