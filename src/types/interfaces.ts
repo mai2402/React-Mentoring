@@ -25,7 +25,7 @@ import { ZodType } from "zod/v4";
  export interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
     error?: string;
-    register?: UseFormRegister<FieldValues>; // Adjust type as needed, e.g., use `UseFormRegister` from react-hook-form
+   
     
  } 
 

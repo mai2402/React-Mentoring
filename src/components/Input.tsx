@@ -4,7 +4,7 @@ import { CustomInputProps } from "../types/interfaces";
 
 
  const Input = forwardRef<HTMLInputElement, CustomInputProps>((props, ref) => {
-  const { label ,name ,id,...rest} = props;
+  const { label ,name ,id,error,...rest} = props;
   const inputId = name ?? id ;
 
     return(
@@ -13,6 +13,7 @@ import { CustomInputProps } from "../types/interfaces";
               {label}
             </label>
             <input className="input-group input" name={name} id={inputId} ref={ref} {...rest} />
+             {error && <p className="input-group error">{error}</p>}
         </div>
     )
 });

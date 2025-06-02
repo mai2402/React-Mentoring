@@ -1,9 +1,9 @@
 import studentsImg from '../assets/students.jpg';
 import listImg from '../assets/list.jpg';
 import certificateImg from '../assets/certificate.jpg';
-// import Modal from '../components/Modal';
-// import Input from '../components/Input';
-// import Button from '../components/Button';
+
+
+
 
 
 export default function HomePage() {

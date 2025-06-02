@@ -51,9 +51,9 @@
                   >
                     {({ register, formState:{errors} }) => (
                       <>
-                        <Input label="Name" type="text" required {...register('name')}  error={errors.name?.message}/>
-                        <Input label="Email" type="email" required {...register('email')} error={errors.email?.message}/>
-                        <Input label="Phone" type="tel" required {...register('phone')} error={errors.phone?.message}/>
+                        <Input label="Name" type="text"  {...register('name')}  error={errors.name?.message}/>
+                        <Input label="Email" type="email"  {...register('email')} error={errors.email?.message}/>
+                        <Input label="Phone" type="tel"  {...register('phone')} error={errors.phone?.message}/>
                         <div className="form-actions">
                           <Button type="button" textOnly={true} onClick={handleCloseModal}>
                             Cancel
