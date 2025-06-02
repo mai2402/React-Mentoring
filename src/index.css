@@ -269,6 +269,7 @@ ul {
 .session-detail__date {
   color: #b6adc5;
   font-size: 1rem;
+  margin-right: 1rem;
 }
 
 .session-detail__content {
@@ -357,6 +358,16 @@ ul {
 
 
 }
+
+.modal-content--scrollable {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 8px; /* optional for scrollbar spacing */
+  scrollbar-width: thin;
+  scrollbar-color: #b68ef7 transparent;
+}
+
+
 
 @keyframes fade-slide-down {
   from {

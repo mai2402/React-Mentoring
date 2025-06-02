@@ -6,8 +6,9 @@ import { createPortal } from "react-dom";
 
 
 
-const Modal = forwardRef<ModalHandler, ModalProps> (({children, title}, ref)=>{
+const Modal = forwardRef<ModalHandler, ModalProps> (({children, title,scrollable}, ref)=>{
     const[isOpen, setIsOpen] = useState(false);
+
 
     useImperativeHandle(ref, () => ({
         onOpen: () => setIsOpen(true),
@@ -24,7 +25,7 @@ const Modal = forwardRef<ModalHandler, ModalProps> (({children, title}, ref)=>{
             <h2 className="modal-title">
             {title}
             </h2>
-            <div >
+            <div  className={`modal-content ${scrollable ? 'modal-content--scrollable' : ''}`}>
                 {children}
             </div>
          

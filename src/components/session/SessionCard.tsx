@@ -1,6 +1,6 @@
 
-import {  SessionCardProps } from "../types/interfaces";
-import Button from "./Button";
+import {  SessionCardProps } from "../../types/interfaces";
+import Button from "../Button";
 
 
 
