@@ -1,10 +1,10 @@
 // CUSTOM BUTTON INTERFACES
 
 import { InputHTMLAttributes, type ReactNode } from "react";
-import { CustomButtonType, CustomFormType } from "./types";
-import { UseFormRegister, FieldValues, SubmitHandler, UseFormReturn, DefaultValues } from "react-hook-form";
+import { CustomButtonType } from "./types";
+import { UseFormReturn, DefaultValues } from "react-hook-form";
 import { ZodSchema, ZodTypeDef } from "zod";
-import { ZodType } from "zod/v4";
+
 
 
  export interface CustomButtonProps {
@@ -84,4 +84,15 @@ export interface CustomFormProps<T extends Record<string, any>> {
   onSubmit: (data: T, methods: UseFormReturn<T>) => void;
   schema: ZodSchema<T, ZodTypeDef, T>
   defaultValues: DefaultValues<T>;
+}
+
+// AUTHENTICATION
+export interface AuthContext {
+  isAuthenticated: boolean;
+  login: ()=> void;
+  logout: ()=> void;
+}
+
+export interface AuthContextProviderProps {
+  children : ReactNode;
 }

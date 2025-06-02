@@ -6,6 +6,10 @@ import SessionPage from './pages/Session.tsx';
 import Root from './pages/Root.tsx';
 import { BookingContextProvider } from './contexts/bookingContext.tsx';
 import { Toaster } from 'react-hot-toast';
+import { Dashboard } from './pages/DashBoard.tsx';
+import { Login } from './pages/Login.tsx';
+import { AuthContextProvider } from './contexts/authContext.tsx';
+import { ProtectedRoute } from './components/ProtectedRoute.tsx';
 
 
 const Router = createBrowserRouter([
@@ -17,8 +21,15 @@ const Router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
+      { path: '/login', element:<Login/>},
       { path: 'sessions', element: <SessionsPage /> },
       { path: 'sessions/:id', element: <SessionPage /> },
+      { path: '/dashboard', 
+        element:
+      <ProtectedRoute>
+        <Dashboard/>
+      </ProtectedRoute>
+      }
  
     ],
   },
@@ -27,10 +38,12 @@ const Router = createBrowserRouter([
 function App() {
   
   return (
+    <AuthContextProvider>
     <BookingContextProvider>
       <RouterProvider router={Router} />
       <Toaster position='top-center' reverseOrder={false} />
     </BookingContextProvider>
+    </AuthContextProvider>
   );
 }
 
