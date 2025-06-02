@@ -1,4 +1,4 @@
-import SessionCard from '../components/SessionCard.tsx';
+import SessionCard from '../components/session/SessionCard.tsx';
 import {SESSIONS} from '../dummy-sessions.ts';
 
 export default function SessionsPage() {

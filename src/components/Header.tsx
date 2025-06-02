@@ -10,7 +10,8 @@ import Modal from "./Modal";
 
 export default function Header() {
    const {handleOpenModal, handleCloseModal ,modalRef} = useModal();
-   const {state : upcomingSessions, dispatch} = useBookingContext()
+   const {state , dispatch} = useBookingContext()
+   const upcomingSessions = state.sessions;
    
    const handleCancelSession = (sessionId: string) => {
       dispatch({type:SessionAction.REMOVE_SESSION, payload: sessionId})
@@ -36,22 +37,26 @@ export default function Header() {
                  
         </header>
 
-        <Modal ref={modalRef} title="Upcoming">
+        <Modal ref={modalRef} title="Upcoming" scrollable={upcomingSessions.length > 3}>
           <ul>
-              {upcomingSessions.sessions.map((session)=>
+              {upcomingSessions.map((session)=>
               <div className="upcoming .form-actions">
                 <li key={session.id} className="upcoming-session">
                   <h3 className="upcoming__info h3">{session.title}</h3>
                   <p className="upcoming__info p">{session.summary}</p>
                   <time className="upcoming__info time ">{session.date}</time>
+                  {/* <div style={{display: 'flex', gap: '1rem', alignItems:'flex-end'}}> */}
                   <Button textOnly onClick={()=>handleCancelSession(session.id)}>cancel</Button>
+                  {/* </div> */}
                </li>
               </div>
                   )
               }
           </ul>
-            {upcomingSessions.sessions.length === 0 && <p>No upcoming sessions</p>}
+            {upcomingSessions.length === 0 && <p>No upcoming sessions</p>}
+            <div className="form-actions">
             <Button onClick={handleCloseModal}>Close</Button>
+            </div>
            
         </Modal>
         </>
