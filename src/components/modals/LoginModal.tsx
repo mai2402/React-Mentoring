@@ -19,7 +19,7 @@ export function LoginModal ({ onClose, isOpen }: LoginModalProps){
 
      login(email,password);
      navigate("/dashboard")
-     console.log("logged in....")
+     console.log("logged in....",email,password )
 
   }
     return(

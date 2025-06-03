@@ -3,31 +3,32 @@
 
 import { useState } from "react";
 import { useAuthenticationContext } from "../../contexts/authContext";
-import { SessionCardProps } from "../../types/interfaces";
+import { SessionCardProps } from "../../interfaces/interfaces";
 import Button from "../Button";
 import { LoginModal } from "../modals/LoginModal";
 import { BookingModal } from "../modals/BookingModal";
 import { SESSIONS } from "../../dummy-sessions";
+import { useNavigate } from "react-router-dom";
 
 export default function SessionCard({ session }: SessionCardProps) {
   const { title, summary, image, id } = session;
   const { isAuthenticated } = useAuthenticationContext();
-
+  const navigate = useNavigate()
 
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showBookingModal, setShowBookingModal] = useState(false);
-
+  
   const handleLearnMoreClick = () => {
+
   console.log("Learn more clicked"); // should see this
   if (!isAuthenticated) {
     setShowLoginModal(true);
   } else {
-    setShowBookingModal(true);
+    navigate(`/sessions/${id}`)
   }
 };
 
 
-  const loadedSession = SESSIONS.find((s) => s.id === id);
+
 
   return (
     <>
@@ -45,16 +46,7 @@ export default function SessionCard({ session }: SessionCardProps) {
 
   
     <LoginModal onClose={() => setShowLoginModal(false)}  isOpen={showLoginModal}/>
-  
 
-
-      { loadedSession && (
-        <BookingModal
-          isOpen={showBookingModal}
-          loadedSession={loadedSession}
-          onClose={() => setShowBookingModal(false)}
-        />
-      )}
    </>
   )
   

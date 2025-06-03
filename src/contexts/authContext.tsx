@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import {  AuthContextProviderProps, type AuthContext } from "../types/interfaces";
+import {  AuthContextProviderProps, type AuthContext } from "../interfaces/interfaces";
 import * as authService from "../services/authService";
 
 

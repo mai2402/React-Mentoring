@@ -4,7 +4,7 @@ import Button from "../Button";
 import Form from "../Form";
 import Input from "../Input";
 import Modal from "../Modal";
-import { BookingFormData } from "../../types/interfaces";
+import { BookingFormData } from "../../interfaces/interfaces";
 import { SessionAction } from "../../enums";
 import { sessionSchema } from "../../validation/session";
 import { BookingModalProps } from "../../types/types";
@@ -26,6 +26,7 @@ export function BookingModal ({loadedSession, onClose, isOpen}: BookingModalProp
         },
       });
       console.log('Session booked:', data);
+      onClose()
       
       
       toast.success('Session booked successfully!');
@@ -40,7 +41,7 @@ export function BookingModal ({loadedSession, onClose, isOpen}: BookingModalProp
                   <Form
                     onSubmit={onSubmit}
                     schema={sessionSchema}
-                    defaultValues={{ name: '', email: '', phone: '' }}
+                    defaultValues={{ name: '', phone: '' }}
                   >
                     {({ register, formState:{errors} }) => (
                       <>

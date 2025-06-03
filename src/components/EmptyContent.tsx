@@ -1,4 +1,4 @@
-import { EmptyContentProps } from "../types/interfaces";
+import { EmptyContentProps } from "../interfaces/interfaces";
 
 
 

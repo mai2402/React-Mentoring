@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { CustomButtonProps } from "../types/interfaces";
+import { CustomButtonProps } from "../interfaces/interfaces";
 
 export default function Button(props: CustomButtonProps): JSX.Element {
 

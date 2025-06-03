@@ -6,8 +6,6 @@ export const sessionSchema = Zod.object({
 name: Zod.string()
   .min(1, "Name is required")
   .regex(/^[^\d]+$/, "Name cannot contain numbers"),
-
-  email: Zod.string().email("Invalid email address"),
   
   phone: Zod
     .string()

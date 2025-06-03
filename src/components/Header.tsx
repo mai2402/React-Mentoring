@@ -37,7 +37,7 @@ export default function Header() {
                  
         </header>
 
-        <Modal onClose={()=>setIsOpen(false)} isOpen={isOpen} title="Upcoming" scrollable={upcomingSessions.length > 3}>
+        <Modal  isOpen={isOpen} title="Upcoming" scrollable={upcomingSessions.length > 3}>
           <ul>
               {upcomingSessions.map((session)=>
               <div className="upcoming .form-actions">

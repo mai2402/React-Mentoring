@@ -1,0 +1,1 @@
+export type CustomFormType =  "onSubmit" | "onChange" | "onBlur" | "all";

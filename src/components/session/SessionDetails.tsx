@@ -1,11 +1,11 @@
 
 import EmptyContent from "../EmptyContent";
-import { SessionDetailsProps } from "../../types/interfaces";
+import { SessionDetailsProps } from "../../interfaces/interfaces";
 import Button from "../Button";
 
 
 export default function SessionDetails(props: SessionDetailsProps) {
-  const { loadedSession , onLearnMoreClick } = props;
+  const { loadedSession , onBookSession } = props;
 
   // If no session is loaded, return an empty content component
 
@@ -36,7 +36,7 @@ if (!loadedSession) {
                 year: 'numeric',
               })}
             </time>
-              <Button type='button' onClick={onLearnMoreClick}>Book Session</Button>
+              <Button type='button' onClick={onBookSession}>Book Session</Button>
             </div>
             </header>
           <p className="session-detail__content">{loadedSession.description}</p>  

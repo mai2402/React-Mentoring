@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { CustomInputProps } from "../types/interfaces";
+import { CustomInputProps } from "../interfaces/interfaces";
 
 
 
