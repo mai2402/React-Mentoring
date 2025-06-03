@@ -1,4 +1,4 @@
-import { ModalProps } from "../interfaces/interfaces";
+import { ModalProps } from "../../interfaces/interfaces";
 import { createPortal } from "react-dom";
 
 

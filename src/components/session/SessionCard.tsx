@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { useAuthenticationContext } from "../../contexts/authContext";
 import { SessionCardProps } from "../../interfaces/interfaces";
-import Button from "../Button";
+import Button from "../shared/Button";
 import { LoginModal } from "../modals/LoginModal";
 import { BookingModal } from "../modals/BookingModal";
 import { SESSIONS } from "../../dummy-sessions";

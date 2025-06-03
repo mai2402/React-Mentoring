@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { CustomFormProps } from "../interfaces/interfaces";
+import { CustomFormProps } from "../../interfaces/interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 

@@ -1,7 +1,7 @@
 
-import EmptyContent from "../EmptyContent";
+import EmptyContent from "../shared/EmptyContent";
 import { SessionDetailsProps } from "../../interfaces/interfaces";
-import Button from "../Button";
+import Button from "../shared/Button";
 
 
 export default function SessionDetails(props: SessionDetailsProps) {

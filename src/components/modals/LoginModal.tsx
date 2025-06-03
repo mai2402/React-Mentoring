@@ -1,24 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import { useAuthenticationContext } from "../../contexts/authContext";
 import { LoginFormData, loginSchema } from "../../validation/session";
-import Form from "../Form";
-import Modal from "../Modal";
-import Input from "../Input";
-import Button from "../Button";
-import { LoginModalProps } from "../../types/types";
+import Form from "../shared/Form";
+import Modal from "../shared/Modal";
+import Input from "../shared/Input";
+import Button from "../shared/Button";
+import { LoginModalProps } from "../../interfaces/modal";
 
 
 
 export function LoginModal ({ onClose, isOpen }: LoginModalProps){
 
     const { login} = useAuthenticationContext()
-  
-  const navigate = useNavigate()
+   const navigate = useNavigate()
 
     function handleLogin({email,password}:LoginFormData) {
 
      login(email,password);
-     navigate("/dashboard")
+     navigate("/")
+     
+  
      console.log("logged in....",email,password )
 
   }

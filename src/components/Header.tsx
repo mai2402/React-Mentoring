@@ -2,8 +2,9 @@
 import { useState } from "react";
 import { useBookingContext } from "../contexts/bookingContext";
 import { SessionAction } from "../enums/enums";
-import Button from "./Button";
-import Modal from "./Modal";
+import Button from "./shared/Button";
+import Modal from "./shared/Modal";
+import { useAuthenticationContext } from "../contexts/authContext";
 
 
 
@@ -12,6 +13,7 @@ export default function Header() {
    const[isOpen, setIsOpen]= useState(false)
    const {state , dispatch} = useBookingContext()
    const upcomingSessions = state.sessions;
+   const {isAuthenticated}= useAuthenticationContext()
    
    const handleCancelSession = (sessionId: string) => {
       dispatch({type:SessionAction.REMOVE_SESSION, payload: sessionId})
@@ -24,11 +26,14 @@ export default function Header() {
            <nav >
               <ul  className="header__nav-list">
                 <li>
-                   <Button className="header__link"  textOnly={true} to="/">Our Mission</Button>
+                   <Button className="header__link"  textOnly to="/">Our Mission</Button>
                 </li>  
                 <li>
-                   <Button className="header__link" textOnly={true} to="/sessions"> Browse Sessions</Button>
+                   <Button className="header__link" textOnly to="/sessions"> Browse Sessions</Button>
                 </li>  
+                 <li>
+                  {isAuthenticated && <Button className="header__link" textOnly to="/dashboard"> Dashboard</Button>}
+                </li> 
                   <li>
                    <Button onClick={()=> setIsOpen(true)}>Upcoming Sessions</Button>
                 </li>

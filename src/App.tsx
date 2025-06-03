@@ -8,7 +8,7 @@ import { BookingContextProvider } from './contexts/bookingContext.tsx';
 import { Toaster } from 'react-hot-toast';
 import { Dashboard } from './pages/DashBoard.tsx';
 import { AuthContextProvider } from './contexts/authContext.tsx';
-import { ProtectedRoute } from './components/ProtectedRoute.tsx';
+import { ProtectedRoute } from './components/shared/ProtectedRoute.tsx';
 
 
 

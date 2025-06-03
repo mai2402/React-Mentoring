@@ -4,6 +4,7 @@ import * as authService from "../services/authService";
 
 
 
+
 const AuthContext = createContext<AuthContext | undefined>(undefined);
 
 
@@ -11,11 +12,14 @@ const AuthContext = createContext<AuthContext | undefined>(undefined);
 export function AuthContextProvider ({children}: AuthContextProviderProps) {
 
     const [token, setToken] = useState(()=> authService.getToken());
+   
 
     const login =  async (email:string, password: string) => {
          
         const newToken = await authService.login(email,password);
         setToken(newToken);
+    
+      
     }
 
 
