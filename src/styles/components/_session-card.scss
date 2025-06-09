@@ -1,0 +1,40 @@
+.session-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #352e41;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+
+  &__image {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  &__title {
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+    color: #c7b0ee;
+  }
+
+  &__description {
+    color: #eae3f6;
+    font-size: 1rem;
+  }
+
+  &__footer {
+    margin-top: auto;
+    text-align: right;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+  }
+}

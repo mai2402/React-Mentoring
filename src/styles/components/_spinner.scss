@@ -1,0 +1,12 @@
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  svg {
+    animation: spin 1s linear infinite;
+  }
+}
+
+

@@ -1,0 +1,33 @@
+.header {
+  width: 80%;
+  max-width: 80rem;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__title {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #cebfe7;
+  }
+
+  &__nav-list {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: #c6a8f5;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+
+    &:hover,
+    &:active,
+    &.active {
+      border-color: #c6a8f5;
+    }
+  }
+}

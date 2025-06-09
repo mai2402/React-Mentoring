@@ -1,0 +1,38 @@
+.input-group {
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    color: #d3cedc;
+    text-transform: uppercase;
+  }
+
+  input {
+    width: 100%;
+    max-width: 35rem;
+    font: inherit;
+    font-size: 1.25rem;
+    border: 1px solid #d3cedc;
+    border-radius: 4px;
+    padding: 0.5rem;
+  }
+
+  &.error {
+    color: #ebb0af;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    padding-left: 2px;
+    line-height: 1.4;
+    animation: fadeIn 0.2s ease-in-out;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  text-align: right;
+}

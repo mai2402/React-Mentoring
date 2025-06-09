@@ -1,0 +1,26 @@
+.sessions {
+  width: 80%;
+  max-width: 80rem;
+  margin: 3rem auto;
+
+  &__heading {
+    font-size: 1.5rem;
+    color: #bba4de;
+    margin-bottom: 0.5rem;
+  }
+
+  &__intro {
+    margin: 0;
+    color: #b6adc5;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 3rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: #5a5563;
+  }
+}
