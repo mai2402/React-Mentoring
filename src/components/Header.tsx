@@ -5,6 +5,9 @@ import { SessionAction } from "../enums/enums";
 import Button from "./shared/Button";
 import Modal from "./shared/Modal";
 import { useAuthenticationContext } from "../contexts/authContext";
+import { logout } from "../services/authService";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 
@@ -13,10 +16,22 @@ export default function Header() {
    const[isOpen, setIsOpen]= useState(false)
    const {state , dispatch} = useBookingContext()
    const upcomingSessions = state.sessions;
-   const {isAuthenticated}= useAuthenticationContext()
+   const {isAuthenticated,setIsAuthenticated}= useAuthenticationContext()
+   const navigate = useNavigate();
    
    const handleCancelSession = (sessionId: string) => {
       dispatch({type:SessionAction.REMOVE_SESSION, payload: sessionId})
+   }
+
+   const handleLogout = async () => {
+      try {
+         await logout();
+         setIsAuthenticated(false);
+         toast.success("Logged out successfully!");
+         navigate("/");
+      } catch (error) {
+         console.error("Logout failed:", error);
+      }
    }
 
     return (
@@ -32,17 +47,21 @@ export default function Header() {
                    <Button className="header__link" textOnly to="/sessions"> Browse Sessions</Button>
                 </li>  
                  <li>
-                  {isAuthenticated && <Button className="header__link" textOnly to="/dashboard"> Dashboard</Button>}
+                  {isAuthenticated && <Button className="header__link" textOnly to="/profile"> Profile</Button>}
                 </li> 
                   <li>
-                   <Button onClick={()=> setIsOpen(true)}>Upcoming Sessions</Button>
+                   { isAuthenticated && <Button onClick={()=> setIsOpen(true)}>Upcoming Sessions</Button>}
                 </li>
+                 <li>
+                   { isAuthenticated && <Button onClick={handleLogout}>Logout</Button>}
+                </li>
+
               </ul>
            </nav>
                  
         </header>
-
-        <Modal  isOpen={isOpen} title="Upcoming" scrollable={upcomingSessions.length > 3}>
+      
+        <Modal  isOpen={isOpen} title="Upcoming" onClose={()=>setIsOpen(false)} scrollable={upcomingSessions.length > 3}>
           <ul>
               {upcomingSessions.map((session)=>
               <div className="upcoming .form-actions">
@@ -64,7 +83,7 @@ export default function Header() {
             </div>
            
         </Modal>
+            
         </>
-
     )
 }

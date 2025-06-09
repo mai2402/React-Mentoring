@@ -1,31 +1,38 @@
 
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthenticationContext } from "../../contexts/authContext";
 import { SessionCardProps } from "../../interfaces/interfaces";
 import Button from "../shared/Button";
 import { LoginModal } from "../modals/LoginModal";
-import { BookingModal } from "../modals/BookingModal";
-import { SESSIONS } from "../../dummy-sessions";
+import { supabase } from "../../supabase/client";
 import { useNavigate } from "react-router-dom";
+import { getUserProfile } from "../../services/userServices";
+
 
 export default function SessionCard({ session }: SessionCardProps) {
   const { title, summary, image, id } = session;
   const { isAuthenticated } = useAuthenticationContext();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+ 
 
   const [showLoginModal, setShowLoginModal] = useState(false);
   
   const handleLearnMoreClick = () => {
 
-  console.log("Learn more clicked"); // should see this
-  if (!isAuthenticated) {
-    setShowLoginModal(true);
-  } else {
-    navigate(`/sessions/${id}`)
+
+     if (!isAuthenticated) setShowLoginModal(true);
+    else {
+      navigate(`/sessions/${id}`);
+      getUserProfile();
+    }
+
   }
-};
+
+  
+
+
 
 
 
@@ -45,7 +52,7 @@ export default function SessionCard({ session }: SessionCardProps) {
       </article>
 
   
-    <LoginModal onClose={() => setShowLoginModal(false)}  isOpen={showLoginModal}/>
+    <LoginModal onClose={() => setShowLoginModal(false)} sessionId={id}  isOpen={showLoginModal}/>
 
    </>
   )
