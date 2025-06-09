@@ -6,21 +6,29 @@ import Modal from "../shared/Modal";
 import Input from "../shared/Input";
 import Button from "../shared/Button";
 import { LoginModalProps } from "../../interfaces/modal";
+import toast from "react-hot-toast";
 
 
 
-export function LoginModal ({ onClose, isOpen }: LoginModalProps){
+export function LoginModal ({ onClose, isOpen, sessionId }: LoginModalProps){
 
     const { login} = useAuthenticationContext()
    const navigate = useNavigate()
 
-    function handleLogin({email,password}:LoginFormData) {
+     async function handleLogin(data:LoginFormData) {
+      try{
+         const {email, password} = data;
 
-     login(email,password);
-     navigate("/")
+         await  login(email,password);
+         navigate(`/sessions/${sessionId}`)
      
   
      console.log("logged in....",email,password )
+      }
+      catch(err){
+        toast.error((err as Error).message)
+      }
+      
 
   }
     return(

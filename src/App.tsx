@@ -9,6 +9,9 @@ import { Toaster } from 'react-hot-toast';
 import { Dashboard } from './pages/DashBoard.tsx';
 import { AuthContextProvider } from './contexts/authContext.tsx';
 import { ProtectedRoute } from './components/shared/ProtectedRoute.tsx';
+import NotFound from './pages/NotFound.tsx';
+import NotFoundPage from './pages/NotFound.tsx';
+import Profile from './pages/Profile.tsx';
 
 
 
@@ -22,12 +25,13 @@ const Router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
+      { path:'*', element:<NotFoundPage/>},
       { path: 'sessions', element: <SessionsPage /> },
       { path: 'sessions/:id', element: <SessionPage /> },
-      { path: '/dashboard', 
+      { path: '/profile', 
         element:
       <ProtectedRoute>
-        <Dashboard/>
+        <Profile/>
       </ProtectedRoute>
       }
  

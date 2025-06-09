@@ -1,12 +1,18 @@
 
 import { useAuthenticationContext } from "../../contexts/authContext";
 import { Navigate, useLocation } from "react-router-dom";
+import Spinner from "./Spinner";
 
 
 export function ProtectedRoute ({children}: {children: JSX.Element}){
-    const {isAuthenticated} = useAuthenticationContext()
+    const {isAuthenticated,isLoading} = useAuthenticationContext()
     const location = useLocation()
      
+   if (isLoading) {
+      return <Spinner/>
+   }
+
+    
    if (!isAuthenticated){
       return <Navigate to="/" state={{from: location}} replace/>
    }

@@ -1,6 +1,7 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {  AuthContextProviderProps, type AuthContext } from "../interfaces/interfaces";
 import * as authService from "../services/authService";
+
 
 
 
@@ -11,21 +12,47 @@ const AuthContext = createContext<AuthContext | undefined>(undefined);
 
 export function AuthContextProvider ({children}: AuthContextProviderProps) {
 
-    const [token, setToken] = useState(()=> authService.getToken());
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
    
+
+    useEffect(()=>{
+
+        const checkAuth = async () => {
+            try{
+                const token = await authService.getToken();
+                if(token){
+                    setIsAuthenticated(true);
+                    ;
+                }else{
+                    setIsAuthenticated(false);
+                   
+                }
+            }catch(err){
+                console.error("Error checking authentication", err);
+                setIsAuthenticated(false);
+            }
+            finally {
+                setIsLoading(false);
+            }
+
+        } 
+        checkAuth();
+    },[]);
 
     const login =  async (email:string, password: string) => {
          
-        const newToken = await authService.login(email,password);
-        setToken(newToken);
-    
+        await authService.login(email,password);
+        setIsAuthenticated(true)
+      
       
     }
 
 
     const logout = () =>{
         authService.logout();
-        setToken(null);
+        setIsAuthenticated(false)
+       
     }
 
 
@@ -33,7 +60,7 @@ export function AuthContextProvider ({children}: AuthContextProviderProps) {
 
 
     return(
-        <AuthContext.Provider value={{isAuthenticated: !!token, login, logout}}>
+        <AuthContext.Provider value={{isAuthenticated, login, logout, isLoading}}>
             {children}
         </AuthContext.Provider>
     )

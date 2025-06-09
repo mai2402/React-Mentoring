@@ -1,3 +1,5 @@
+
+import { supabase } from "../supabase/client";
 import { loginSchema } from "../validation/session";
 
 
@@ -5,24 +7,34 @@ import { loginSchema } from "../validation/session";
 
 
 export async function login(email: string, password: string): Promise<string> {
-    // throws if invalid
+    
  loginSchema.parse({ email, password }); 
 
-  const token = "FAKE-JWT-TOKEN";
-  localStorage.setItem('token', token);
-  return token;
+ 
+ const { data : userData, error } = await supabase.auth.signInWithPassword({
+  email: email,
+  password: password,
+})
+
+
+if (error) throw new Error(error.message);
+
+return userData.session?.access_token || '';
+ 
 }
 
 
-export function logout (){
+export  async function logout (){
 
-    localStorage.removeItem('token');
+     await supabase.auth.signOut()
 
 }
 
 
-export function getToken (){
-     return localStorage.getItem('token')
+export  async function getToken (){
+      const {data} = await supabase.auth.getSession();
+
+      return data.session?.access_token || null;
 }
 
 

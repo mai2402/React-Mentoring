@@ -15,6 +15,7 @@ import { Session } from "./session";
  export interface LoginModalProps {
     isOpen:boolean;
    onClose: ()=> void;
+   sessionId?: string;
  }
 
 
