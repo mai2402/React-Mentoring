@@ -1,32 +1,34 @@
 # 📚 React Mentoring Session Booking Platform
 
-A dummy project built with **React** for booking mentorship sessions. Designed to demonstrate common frontend patterns, reusable components, state management, and routing in a session-based platform.
+A dummy project built with **React + TypeScript** for booking mentorship sessions. It demonstrates common frontend architecture, authentication, form handling, and session management using modern tools.
 
 ---
 
 ## 🔥 Features
 
-- 📅 Browse available sessions
-- 👨‍🏫 Book a session with a mentor
-- ✅ Session confirmation flow
+- 📅 Browse and book available mentorship sessions
+- 👨‍🏫 Mentor session details & upcoming booking reminders
+- ✅ Full session booking & confirmation flow
 - 🧩 Reusable UI components (Buttons, Modals, Inputs)
-- 🧠 State management using `Context API` + `useReducer`
-- 📦 Local storage integration (e.g., saved sessions or auth)
-- 🌐 React Router-based navigation
-- ✨ Responsive and accessible design
+- 🧠 Global state management with `Context API` + `useReducer`
+- 🗂 Form validation using `React Hook Form` + `Zod`
+- 🔐 Auth & session storage powered by **Supabase**
+- 🌐 Client-side routing with React Router
+- 🎨 Styled using **Sass** and utility-first design
+- 💾 Persistent data via localStorage
+
 
 ---
 
 ## 🛠️ Tech Stack
 
-- React (with TypeScript)
-- React Router DOM
-- Context API + useReducer
-- Tailwind CSS / SCSS (depending on your setup)
-- LocalStorage API
-
----
-
+- **React** (with TypeScript)
+- **React Router DOM**
+- **React Hook Form** + **Zod**
+- **Supabase** (Auth & backend)
+- **Context API** + `useReducer`
+- **Sass (SCSS)** for styling
+- **LocalStorage API**
 
 ---
 
@@ -36,7 +38,7 @@ A dummy project built with **React** for booking mentorship sessions. Designed t
 # Clone the repo
 git clone https://github.com/your-username/mentoring-platform.git
 
-# Navigate in
+# Navigate into the project
 cd mentoring-platform
 
 # Install dependencies
@@ -44,4 +46,3 @@ npm install
 
 # Start the dev server
 npm run dev
-
