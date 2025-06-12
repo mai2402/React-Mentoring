@@ -9,12 +9,14 @@ import { Session } from "./session";
    onClose?: ()=>void;
    title?: string;
    scrollable?: boolean;
+   modalClassName?: string;
+   containerClassName?: string;
  }
 
 
  export interface LoginModalProps {
     isOpen:boolean;
-   onClose: ()=> void;
+   onClose?: ()=> void;
    sessionId?: string;
  }
 

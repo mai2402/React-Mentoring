@@ -8,5 +8,6 @@ import { CustomButtonType } from "../types/button";
     type?: CustomButtonType;
     children: ReactNode;
     textOnly?: boolean;
+    disabled?: boolean;
     className?: string;
  }

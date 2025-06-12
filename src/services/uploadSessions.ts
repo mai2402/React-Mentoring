@@ -11,7 +11,7 @@ export async function deleteSessions() {
 export async function createSessions() {
   const simplifiedSessions = SESSIONS.map(({ image, ...session }) => ({
     ...session,
-    image: image.split("/").pop(), // just the filename if needed
+    image: image // just the filename if needed
   }));
 
   const { error } = await supabase.from("sessions").insert(simplifiedSessions);

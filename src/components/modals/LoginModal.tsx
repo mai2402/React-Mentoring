@@ -21,12 +21,16 @@ export function LoginModal ({ onClose, isOpen, sessionId }: LoginModalProps){
 
          await  login(email,password);
          navigate(`/sessions/${sessionId}`)
+         if(!sessionId) {
+           navigate('/profile')
+         }
      
   
      console.log("logged in....",email,password )
       }
       catch(err){
-        toast.error((err as Error).message)
+        toast.error("Login failed. Please check your credentials and try again.");
+        console.error("Login error:", err);
       }
       
 

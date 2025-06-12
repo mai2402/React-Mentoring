@@ -6,12 +6,11 @@ import SessionPage from './pages/Session.tsx';
 import Root from './pages/Root.tsx';
 import { BookingContextProvider } from './contexts/bookingContext.tsx';
 import { Toaster } from 'react-hot-toast';
-import { Dashboard } from './pages/DashBoard.tsx';
 import { AuthContextProvider } from './contexts/authContext.tsx';
 import { ProtectedRoute } from './components/shared/ProtectedRoute.tsx';
-import NotFound from './pages/NotFound.tsx';
 import NotFoundPage from './pages/NotFound.tsx';
 import Profile from './pages/Profile.tsx';
+import Login from './pages/Login.tsx';
 
 
 
@@ -26,6 +25,7 @@ const Router = createBrowserRouter([
         element: <HomePage />,
       },
       { path:'*', element:<NotFoundPage/>},
+      { path:'/login', element: <Login/>},
       { path: 'sessions', element: <SessionsPage /> },
       { path: 'sessions/:id', element: <SessionPage /> },
       { path: '/profile', 

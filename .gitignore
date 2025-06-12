@@ -4,6 +4,8 @@ dist/
 build/
 .env
 .env.local
+json.lock
+
 
 # logs
 npm-debug.log*
