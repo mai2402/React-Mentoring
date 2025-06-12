@@ -6,6 +6,11 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+
+    &.dropdown-backdrop {
+    background: transparent;
+  }
+
 }
 
 .modal-container {
@@ -17,6 +22,16 @@
   max-width: 35rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   animation: fade-slide-down 0.3s ease-out forwards;
+
+
+   &.dropdown-menu {
+    position: absolute;
+    top: 4rem;       // adjust to sit below your avatar
+    right: 2rem;     // adjust to align under avatar
+    width: 12rem;
+    margin: 0;       // cancel auto-centering
+    padding: 0.5rem 0;
+   }
 }
 
 .modal-title {

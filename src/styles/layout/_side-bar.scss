@@ -1,0 +1,73 @@
+@use '../base/variables' as vars;
+
+
+.sidebar{
+  width: 20%;
+  height:100vh;
+  position: fixed;
+  background: #cebfe7;
+  color: vars.$neutral-1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+
+
+    &__avatar{
+         width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: map-get(vars.$space, md);
+
+     img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+
+    }
+
+    &__name{
+
+         font-family: vars.$font-stack;
+    font-size: 1.25rem;
+     margin-bottom: 1rem;
+
+    }
+
+    &__nav{
+
+        display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: map-get(vars.$space, sm);
+    }
+
+    &__link{
+
+   display: block;
+    width: 100%;
+    padding: map-get(vars.$space, sm) map-get(vars.$space, md);
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    transition: background .2s;
+
+    &.active,
+    &:hover {
+      background: #c6a8f5;
+      color: vars.$neutral-9;
+    }
+
+        &--button{
+
+             background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+        }
+    }
+}

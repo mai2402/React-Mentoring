@@ -1,33 +1,77 @@
-.header {
-  width: 80%;
-  max-width: 80rem;
-  margin: 2rem auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+@use '../base/variables' as vars;
 
-  &__title {
-    margin: 0;
-    font-size: 1.5rem;
-    color: #cebfe7;
+.header {
+  background: linear-gradient(90deg, #49464f 0, #373240 100%);
+  color: vars.$neutral-1;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  &__inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  &__nav-list {
+  &__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #b592ed;
+  }
+
+  &__nav {
     display: flex;
     gap: 1.5rem;
     align-items: center;
+
+    .header__link {
+      color: #b592ed;
+      font-weight: 500;
+      &:hover,
+      &.active {
+        color: #ccb2f6;
+      }
+    }
   }
 
-  &__link {
-    text-decoration: none;
-    color: #c6a8f5;
-    padding: 0.25rem 0;
-    border-bottom: 2px solid transparent;
+  &__profile {
+    position: relative;
+  }
 
-    &:hover,
-    &:active,
-    &.active {
-      border-color: #c6a8f5;
+  &__avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__dropdown-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li + li {
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    a, button {
+      display: block;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      color: vars.$neutral-9;
+      background: none;
+      text-align: left;
+      border: none;
+      font-family: vars.$font-stack;
+      font-size: 0.95rem;
+      cursor: pointer;
+
+      &:hover {
+        background: vars.$neutral-1;
+      }
     }
   }
 }

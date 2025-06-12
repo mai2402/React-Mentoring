@@ -1,4 +1,5 @@
 @use 'base/reset';
+@use 'base/variables';
 
 @use 'components/animations';
 @use 'components/buttons';
@@ -11,6 +12,7 @@
 
 
 @use 'layout/header';
+@use 'layout/side-bar';
 
 @use 'pages/home';
 @use 'pages/not-found';
