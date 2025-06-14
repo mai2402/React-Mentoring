@@ -12,7 +12,3 @@ export interface CustomFormProps<T extends Record<string, any>> {
 
 
 
- export interface BookingFormData {
-   name: string;
-   phone: string;
- }

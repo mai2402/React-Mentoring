@@ -11,6 +11,7 @@ import { ProtectedRoute } from './components/shared/ProtectedRoute.tsx';
 import NotFoundPage from './pages/NotFound.tsx';
 import Profile from './pages/Profile.tsx';
 import Login from './pages/Login.tsx';
+import UpComingSessions from './pages/UpComing.tsx';
 
 
 
@@ -32,6 +33,12 @@ const Router = createBrowserRouter([
         element:
       <ProtectedRoute>
         <Profile/>
+      </ProtectedRoute>
+      },
+        { path: '/upcoming', 
+        element:
+      <ProtectedRoute>
+        <UpComingSessions/>
       </ProtectedRoute>
       }
  

@@ -3,7 +3,7 @@
     title: string;
     summary:string;
     description: string;
-    date: string; // TODO: Change to Date type if needed
+    date: string; 
     image: string;
  }
 

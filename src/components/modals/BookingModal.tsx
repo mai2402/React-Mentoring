@@ -4,26 +4,32 @@ import Button from "../shared/Button";
 import Form from "../shared/Form";
 import Input from "../shared/Input";
 import Modal from "../shared/Modal";
-import { BookingFormData, BookingModalProps } from "../../interfaces/interfaces";
+import { BookingModalProps, Session } from "../../interfaces/interfaces";
 import { SessionAction } from "../../enums";
 import { sessionSchema } from "../../validation/session";
+import {  BookingDTO } from "../../interfaces/booking/booking-dto";
+import { useNavigate } from "react-router-dom";
 
 export function BookingModal({ loadedSession, onClose, isOpen }: BookingModalProps) {
   const { dispatch } = useBookingContext();
+  const navigate = useNavigate();
 
-  const onSubmit = (data: BookingFormData) => {
+  const onSubmit = (data:  { name: string; phone: string }) => {
     dispatch({
       type: SessionAction.ADD_SESSION,
-      payload: { ...loadedSession, ...data },
+      payload: { ...loadedSession, ...data } as BookingDTO,
     });
 
     toast.success("Session booked successfully!");
-    onClose();
+    
+    onClose!!();
+    navigate("/upcoming");
   };
 
   return (
     <Modal onClose={onClose} isOpen={isOpen} title="Book Session">
-      <Form
+      <Form <{ name: string; phone: string }>
+
         onSubmit={onSubmit}
         schema={sessionSchema}
         defaultValues={{ name: "", phone: "" }}

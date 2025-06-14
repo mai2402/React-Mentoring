@@ -1,3 +1,5 @@
+import { SessionAction } from "../enums";
+import { BookingDTO } from "../interfaces/booking/booking-dto";
 import { Session } from "../interfaces/session";
 
 export type BookingState ={
@@ -6,8 +8,9 @@ export type BookingState ={
 
 
 export type BookingActions =
-   | {type: 'ADD_SESSION'; payload: Session | Partial<Session>}
-   | {type: 'REMOVE_SESSION'; payload: string} // Assuming payload is session ID
+
+   | {type: SessionAction.ADD_SESSION; payload: Session | BookingDTO}
+   | {type: SessionAction.REMOVE_SESSION ; payload: string} // Assuming payload is session ID
 
 export type BookingContext = {
     
