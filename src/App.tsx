@@ -4,14 +4,13 @@ import HomePage from './pages/Home.tsx';
 import SessionsPage from './pages/Sessions.tsx';
 import SessionPage from './pages/Session.tsx';
 import Root from './pages/Root.tsx';
-import { BookingContextProvider } from './contexts/bookingContext.tsx';
 import { Toaster } from 'react-hot-toast';
 import { AuthContextProvider } from './contexts/authContext.tsx';
 import { ProtectedRoute } from './components/shared/ProtectedRoute.tsx';
 import NotFoundPage from './pages/NotFound.tsx';
 import Profile from './pages/Profile.tsx';
 import Login from './pages/Login.tsx';
-import UpComingSessions from './pages/UpComing.tsx';
+import UpComingSessionsPage from './pages/UpComing.tsx';
 
 
 
@@ -38,7 +37,7 @@ const Router = createBrowserRouter([
         { path: '/upcoming', 
         element:
       <ProtectedRoute>
-        <UpComingSessions/>
+        <UpComingSessionsPage/>
       </ProtectedRoute>
       }
  
@@ -50,10 +49,10 @@ function App() {
   
   return (
     <AuthContextProvider>
-    <BookingContextProvider>
+    
       <RouterProvider router={Router} />
       <Toaster position='top-center' reverseOrder={false} />
-    </BookingContextProvider>
+  
     </AuthContextProvider>
   );
 }

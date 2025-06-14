@@ -11,7 +11,11 @@ const { data: { user }, error: userError } = await supabase.auth.getUser();
         throw new Error("User not found");
     }
 
-    const {data, error} = await supabase.from("users").select("*").eq("id", user.id).single();
+    const {data, error} = await supabase
+    .from("users")
+    .select("*")
+    .eq("user_id", user.id)
+    .single();
     
   if (error) throw new Error(error.message);
   return data;

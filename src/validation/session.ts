@@ -2,7 +2,7 @@ import { z  as Zod} from 'zod';
 
 
 
-export const sessionSchema = Zod.object({
+export const BookingDtoSchema = Zod.object({
 name: Zod.string()
   .min(1, "Name is required")
   .regex(/^[^\d]+$/, "Name cannot contain numbers"),
@@ -15,7 +15,7 @@ name: Zod.string()
 });
 
 
-export type SessionFormData = Zod.infer<typeof sessionSchema>;
+export type BookingFormData = Zod.infer<typeof BookingDtoSchema>;
 
   export const loginSchema = Zod.object({
     email: Zod.string().email("Invalid email address"),

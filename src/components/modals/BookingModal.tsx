@@ -1,37 +1,63 @@
-import toast from "react-hot-toast";
-import { useBookingContext } from "../../contexts/bookingContext";
 import Button from "../shared/Button";
 import Form from "../shared/Form";
 import Input from "../shared/Input";
 import Modal from "../shared/Modal";
-import { BookingModalProps, Session } from "../../interfaces/interfaces";
-import { SessionAction } from "../../enums";
-import { sessionSchema } from "../../validation/session";
+import { BookingModalProps } from "../../interfaces/interfaces";
+import { BookingDtoSchema, BookingFormData } from "../../validation/session";
 import {  BookingDTO } from "../../interfaces/booking/booking-dto";
+import { UseCreateBooking } from "../../hooks/bookings/useCreateBooking";
+import Spinner from "../shared/Spinner";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function BookingModal({ loadedSession, onClose, isOpen }: BookingModalProps) {
-  const { dispatch } = useBookingContext();
-  const navigate = useNavigate();
 
-  const onSubmit = (data:  { name: string; phone: string }) => {
-    dispatch({
-      type: SessionAction.ADD_SESSION,
-      payload: { ...loadedSession, ...data } as BookingDTO,
-    });
+     const {mutate: createBooking, isPending} = UseCreateBooking()
+     const navigate = useNavigate();
+     
 
-    toast.success("Session booked successfully!");
-    
-    onClose!!();
-    navigate("/upcoming");
-  };
+     const onSubmit = (data: BookingFormData)=>{
+       
+       const booking: BookingDTO = {
+            sessionId: loadedSession.id ?? "",
+            name: data.name,
+            phone: data.phone,
+            title: loadedSession.title ?? "",
+            summary: loadedSession.summary ?? "",
+            description: loadedSession.description ?? "",
+            date: loadedSession.date ?? "",
+            image: loadedSession.image  ?? "",
+       };
+
+      createBooking( booking  , {
+          onSuccess:()=>{
+            navigate("/upcoming");
+            toast.success("Booking created successfully!");
+            onClose?.();
+          }   ,
+          onError: ( error)=>{
+             toast.error(error.message.includes("already booked") ?
+                 "You have already booked this session."
+                : 
+                 "Failed to create booking. Please try again.");
+
+                navigate("/sessions"); 
+
+          }
+         
+        },
+        
+      )
+     }
+
+     if(isPending) return <Spinner/>
 
   return (
     <Modal onClose={onClose} isOpen={isOpen} title="Book Session">
-      <Form <{ name: string; phone: string }>
+      <Form <BookingFormData>
 
         onSubmit={onSubmit}
-        schema={sessionSchema}
+        schema={BookingDtoSchema}
         defaultValues={{ name: "", phone: "" }}
       >
         {({ register, formState: { errors } }) => (

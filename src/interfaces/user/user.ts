@@ -18,11 +18,8 @@ export interface UserProfile {
 
 }
 
-export interface User {
-    user: UserProfile;
-}
-
-
 export interface UserCard {
-    userProfile : UserProfile;
+    profile: UserProfile;
 }
+
+

@@ -1,10 +1,18 @@
-import { Session } from "../session";
 
 
 
 
 
-export interface BookingDTO extends Session {
-    name: string;
-    phone: string;
+
+export interface BookingDTO {
+    sessionId?: string;
+    name: string,
+    phone: string,
+    title: string,
+    summary: string,
+    description?: string,
+    date: string,
+    image?: string,
+
 }
+
