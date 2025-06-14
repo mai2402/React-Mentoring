@@ -14,7 +14,7 @@
 }
 
 .modal-container {
-  background-color: #6b5e81;
+  background-color: #b592ed;
   color: white;
   padding: 2rem;
   border-radius: 8px;
@@ -27,7 +27,7 @@
    &.dropdown-menu {
     position: absolute;
     top: 4rem;       // adjust to sit below your avatar
-    right: 2rem;     // adjust to align under avatar
+    right: .5rem;     // adjust to align under avatar
     width: 12rem;
     margin: 0;       // cancel auto-centering
     padding: 0.5rem 0;

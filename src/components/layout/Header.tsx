@@ -28,7 +28,7 @@ export default function Header() {
     };
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
+  }, [isAuthenticated]);
 
   const handleLogout = async () => {
            try {
@@ -45,6 +45,8 @@ export default function Header() {
     <header className="header">
       <div className="header__inner">
         <Button to="/" className="header__logo">ReactMentoring</Button>
+
+      <div className="header__nav--container">
         <nav className="header__nav">
           
             {!isAuthenticated && <Button to="/login" textOnly className="header__link">Login</Button>}
@@ -102,6 +104,7 @@ export default function Header() {
             </Modal>
           </div>
         )}
+      </div>
       </div>
     </header>
   );
