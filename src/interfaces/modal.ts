@@ -4,8 +4,8 @@ import { Session } from "./session";
 
  export interface ModalProps {
 
-   children: ReactNode;
-   isOpen: boolean;
+   children?: ReactNode;
+   isOpen?: boolean;
    onClose?: ()=>void;
    title?: string;
    scrollable?: boolean;
@@ -18,6 +18,13 @@ import { Session } from "./session";
     isOpen:boolean;
    onClose?: ()=> void;
    sessionId?: string;
+
+
+ }
+
+ export interface ConfirmModalProps extends ModalProps {
+   onConfirm: () => void;
+   onCancel?: () => void;
  }
 
 

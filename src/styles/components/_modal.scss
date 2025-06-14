@@ -47,3 +47,62 @@
   scrollbar-width: thin;
   scrollbar-color: #b68ef7 transparent;
 }
+
+
+.confirm__modal {
+  padding: 1rem 0;
+  background-color: rgba(0, 0, 0, 0.308);
+
+  &--container {
+    
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+  
+
+  &--message {
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &--actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+
+  }
+}
+
+
+.cancel-btn {
+  background-color: #e63946;
+  color: #fff;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background-color: #d62828;
+  }
+}
+
+.cancel-btn--text {
+  background: none;
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: #222;
+    text-decoration: underline;
+  }
+}

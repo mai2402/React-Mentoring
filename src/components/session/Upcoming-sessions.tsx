@@ -1,19 +1,36 @@
+import toast from "react-hot-toast";
 import { useGetMyBookings } from "../../hooks/bookings/useGetMyBookings";
+import { cancelBooking } from "../../services/booking";
 import Button from "../shared/Button";
 import EmptyContent from "../shared/EmptyContent";
 import Spinner from "../shared/Spinner";
+import { useState } from "react";
+import ConfirmModal from "../modals/ConfirmModal";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 export default function UpcomingSessions (){
 
-   
+  const [ cancelSession, setCancelSession ] = useState<string | null>(null);
   const {data: upcomingSessions, isLoading } = useGetMyBookings()
+  const queryClient = useQueryClient()
 
 
-    const handleCancelSession = (sessionId: string) => {
-        // Implement the logic to cancel the session
-        console.log(`Cancel session with ID: ${sessionId}`);
-    }
+const handleCancelSession = async () => {
+  if(!cancelSession) return;
+
+  try {
+    await cancelBooking(cancelSession);
+    toast.success("Session cancelled successfully");
+    queryClient.invalidateQueries({queryKey:["bookings"]})
+    setCancelSession(null);
+  } catch (error) {
+    console.error("Error cancelling session:", error);
+    toast.error("Failed to cancel session");
+  }
+};
+
+
  
    if(isLoading) return <Spinner/>
    if(!upcomingSessions || upcomingSessions.length === 0)
@@ -37,7 +54,14 @@ export default function UpcomingSessions (){
           </div>
           <div className="upcoming__actions">
             <Button textOnly onClick={()=>console.log('edit')}>Edit</Button>
-            <Button textOnly onClick={() => handleCancelSession(session.sessionId!)}>Cancel</Button>
+            <Button textOnly onClick={()=> setCancelSession(session.id)}>Cancel</Button>
+            <ConfirmModal
+            isOpen={!!cancelSession} 
+            onCancel={()=> setCancelSession(null)}
+            onClose={() => setCancelSession(null)}
+            onConfirm={handleCancelSession}
+            title="Cancel Session"
+            />
           </div>
         </li>
       ))}

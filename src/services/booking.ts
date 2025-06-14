@@ -77,7 +77,8 @@ export async function cancelBooking(bookingId: string): Promise<void> {
     .eq("id", bookingId);
 
   if (error) {
-    console.error("Error cancelling booking:", error.message);
+    console.log("Error cancelling booking:", error.message);
+    console.log("supabse error", error)
     throw error.message;
   }
 }
