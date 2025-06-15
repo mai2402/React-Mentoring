@@ -5,20 +5,22 @@ import Modal from "../shared/Modal";
 import { BookingModalProps } from "../../interfaces/interfaces";
 import { BookingDtoSchema, BookingFormData } from "../../validation/session";
 import {  BookingDTO } from "../../interfaces/booking/booking-dto";
-import { UseCreateBooking } from "../../hooks/bookings/useCreateBooking";
+import { UseCreateUpdateBooking } from "../../hooks/bookings/useCreateUpdateBooking";
 import Spinner from "../shared/Spinner";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-export function BookingModal({ loadedSession, onClose, isOpen }: BookingModalProps) {
 
-     const {mutate: createBooking, isPending} = UseCreateBooking()
+export function BookingModal({ loadedSession, onClose, isOpen, editBooking }: BookingModalProps) {
+
+     const {mutate: createUpdateBooking, isPending} = UseCreateUpdateBooking()
      const navigate = useNavigate();
      
 
      const onSubmit = (data: BookingFormData)=>{
        
        const booking: BookingDTO = {
+            ...editBooking,
             sessionId: loadedSession.id ?? "",
             name: data.name,
             phone: data.phone,
@@ -29,10 +31,11 @@ export function BookingModal({ loadedSession, onClose, isOpen }: BookingModalPro
             image: loadedSession.image  ?? "",
        };
 
-      createBooking( booking  , {
+      createUpdateBooking( booking  , {
+
           onSuccess:()=>{
             navigate("/upcoming");
-            toast.success("Booking created successfully!");
+            toast.success(editBooking? "Booking updated successfully" :"Booking created successfully!");
             onClose?.();
           }   ,
           onError: ( error)=>{
@@ -58,7 +61,8 @@ export function BookingModal({ loadedSession, onClose, isOpen }: BookingModalPro
 
         onSubmit={onSubmit}
         schema={BookingDtoSchema}
-        defaultValues={{ name: "", phone: "" }}
+        defaultValues={{ name: editBooking?.name || "",
+                         phone: editBooking?.phone || "" }}
       >
         {({ register, formState: { errors } }) => (
           <>
@@ -78,7 +82,7 @@ export function BookingModal({ loadedSession, onClose, isOpen }: BookingModalPro
               <Button type="button" textOnly onClick={onClose}>
                 Cancel
               </Button>
-              <Button type="submit">Book Session</Button>
+              <Button type="submit">{editBooking? "Update Session" : "Book Session"}</Button>
             </div>
           </>
         )}

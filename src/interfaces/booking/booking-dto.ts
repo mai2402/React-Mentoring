@@ -1,12 +1,8 @@
 
 
-
-
-
-
 export interface BookingDTO {
     sessionId?: string;
-    id: string;
+    id?: string;
     name: string,
     phone: string,
     title: string,

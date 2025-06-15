@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Session } from "./session";
+import { BookingDTO } from "./booking/booking-dto";
 
 
  export interface ModalProps {
@@ -30,4 +31,5 @@ import { Session } from "./session";
 
  export interface BookingModalProps extends LoginModalProps {
      loadedSession: Partial<Session>;
+     editBooking? : BookingDTO;
  }

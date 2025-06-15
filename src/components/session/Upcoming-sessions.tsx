@@ -7,16 +7,21 @@ import Spinner from "../shared/Spinner";
 import { useState } from "react";
 import ConfirmModal from "../modals/ConfirmModal";
 import { useQueryClient } from "@tanstack/react-query";
+import { BookingDTO } from "../../interfaces/booking/booking-dto";
+import { BookingModal } from "../modals/BookingModal";
+
 
 
 export default function UpcomingSessions (){
 
   const [ cancelSession, setCancelSession ] = useState<string | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<BookingDTO | null>(null)
+  const [isOpenModal, setIsOpenModal] = useState(false)
   const {data: upcomingSessions, isLoading } = useGetMyBookings()
   const queryClient = useQueryClient()
 
 
-const handleCancelSession = async () => {
+const handleCancelBooking = async () => {
   if(!cancelSession) return;
 
   try {
@@ -30,6 +35,11 @@ const handleCancelSession = async () => {
   }
 };
 
+const handleEditBooking = async (bookedSession: BookingDTO) => {
+  setSelectedBooking(bookedSession)
+  setIsOpenModal(true)
+}
+
 
  
    if(isLoading) return <Spinner/>
@@ -39,7 +49,7 @@ const handleCancelSession = async () => {
          <p>Go check our latest available sessions</p>
      </EmptyContent>
   
- return (
+ return (<>
  <div className="upcoming">
 
   <div className="upcoming-sessions">
@@ -53,13 +63,13 @@ const handleCancelSession = async () => {
             <time>{session.date}</time>
           </div>
           <div className="upcoming__actions">
-            <Button textOnly onClick={()=>console.log('edit')}>Edit</Button>
-            <Button textOnly onClick={()=> setCancelSession(session.id)}>Cancel</Button>
+            <Button textOnly onClick={()=>handleEditBooking(session)}>Edit</Button>
+            <Button textOnly onClick={()=> setCancelSession(session.id!)}>Cancel</Button>
             <ConfirmModal
             isOpen={!!cancelSession} 
             onCancel={()=> setCancelSession(null)}
             onClose={() => setCancelSession(null)}
-            onConfirm={handleCancelSession}
+            onConfirm={handleCancelBooking}
             title="Cancel Session"
             />
           </div>
@@ -69,5 +79,18 @@ const handleCancelSession = async () => {
   </div>
         </div>
 
+        {selectedBooking &&  
+        <BookingModal
+            isOpen={isOpenModal}
+            onClose={() => {
+            setIsOpenModal(false);
+            setSelectedBooking(null);
+            }}
+            loadedSession={selectedBooking}
+            editBooking={selectedBooking}
+        />
+        }
+
+            </>
     )
 }
