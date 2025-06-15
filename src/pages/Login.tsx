@@ -1,22 +1,26 @@
 import { useNavigate } from "react-router-dom";
 import { LoginModal } from "../components/modals/LoginModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useModal } from "../hooks/useModal";
 
 
 
 export default function Login() {
-    const [isOpen, setIsOpen] = useState(true);
+    const loginModal = useModal();
     const navigate = useNavigate();
    
+useEffect(() => {
+    loginModal.open();
+  }, []);
 
     const handleClose = () => {
-        setIsOpen(false)
+        loginModal.close()
         navigate("/"); 
     }
 
 
     return (
-        <LoginModal isOpen={isOpen} onClose={handleClose} />
+        <LoginModal isOpen={loginModal.isOpenModal} onClose={handleClose} />
 
        
     );

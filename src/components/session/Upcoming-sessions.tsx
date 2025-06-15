@@ -9,26 +9,25 @@ import ConfirmModal from "../modals/ConfirmModal";
 import { useQueryClient } from "@tanstack/react-query";
 import { BookingDTO } from "../../interfaces/booking/booking-dto";
 import { BookingModal } from "../modals/BookingModal";
+import { useModal } from "../../hooks/useModal";
 
 
 
 export default function UpcomingSessions (){
-
-  const [ cancelSession, setCancelSession ] = useState<string | null>(null);
-  const [selectedBooking, setSelectedBooking] = useState<BookingDTO | null>(null)
-  const [isOpenModal, setIsOpenModal] = useState(false)
+ const bookingModal = useModal<BookingDTO>();
+ const confirmModal = useModal<string>(); 
   const {data: upcomingSessions, isLoading } = useGetMyBookings()
   const queryClient = useQueryClient()
 
 
 const handleCancelBooking = async () => {
-  if(!cancelSession) return;
+  if(!confirmModal.payload) return;
 
   try {
-    await cancelBooking(cancelSession);
+    await cancelBooking(confirmModal.payload!);
     toast.success("Session cancelled successfully");
     queryClient.invalidateQueries({queryKey:["bookings"]})
-    setCancelSession(null);
+    confirmModal.close();
   } catch (error) {
     console.error("Error cancelling session:", error);
     toast.error("Failed to cancel session");
@@ -36,8 +35,8 @@ const handleCancelBooking = async () => {
 };
 
 const handleEditBooking = async (bookedSession: BookingDTO) => {
-  setSelectedBooking(bookedSession)
-  setIsOpenModal(true)
+  bookingModal.open(bookedSession)
+  
 }
 
 
@@ -64,11 +63,12 @@ const handleEditBooking = async (bookedSession: BookingDTO) => {
           </div>
           <div className="upcoming__actions">
             <Button textOnly onClick={()=>handleEditBooking(session)}>Edit</Button>
-            <Button textOnly onClick={()=> setCancelSession(session.id!)}>Cancel</Button>
+            <Button textOnly onClick={()=> confirmModal.open(session.id!)}>Cancel</Button>
             <ConfirmModal
-            isOpen={!!cancelSession} 
-            onCancel={()=> setCancelSession(null)}
-            onClose={() => setCancelSession(null)}
+
+            isOpen={confirmModal.isOpenModal} 
+            onCancel={confirmModal.close}
+            onClose={confirmModal.close}
             onConfirm={handleCancelBooking}
             title="Cancel Session"
             />
@@ -79,15 +79,12 @@ const handleEditBooking = async (bookedSession: BookingDTO) => {
   </div>
         </div>
 
-        {selectedBooking &&  
+        {bookingModal.payload &&  
         <BookingModal
-            isOpen={isOpenModal}
-            onClose={() => {
-            setIsOpenModal(false);
-            setSelectedBooking(null);
-            }}
-            loadedSession={selectedBooking}
-            editBooking={selectedBooking}
+            isOpen={bookingModal.isOpenModal }
+            onClose={bookingModal.close}
+            loadedSession={bookingModal.payload}
+            editBooking={bookingModal.payload}
         />
         }
 

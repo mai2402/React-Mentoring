@@ -2,7 +2,8 @@
   import { SESSIONS } from '../dummy-sessions.ts';
   import SessionDetails from '../components/session/SessionDetails.tsx';
 import { BookingModal } from '../components/modals/BookingModal.tsx';
-import { useState } from 'react';
+import { useModal } from '../hooks/useModal.ts';
+import { Session } from '../interfaces/session.ts';
 
 
 
@@ -13,12 +14,13 @@ import { useState } from 'react';
         const params = useParams<{ id: string }>();
         const sessionId = params.id;
         const loadedSession = SESSIONS.find((session) => session.id === sessionId);
-        const [showBookingModal, setShowBookingModal] = useState(false);
+        const bookingModal = useModal<Session>()
+        
 
 
       
    const handleBookSession = () =>{
-       setShowBookingModal(true)
+       bookingModal.open(loadedSession!)
    }
 
     return (
@@ -29,9 +31,9 @@ import { useState } from 'react';
               </div>  
 
           <BookingModal
-          isOpen={showBookingModal}
-          loadedSession={loadedSession!}
-          onClose={() => setShowBookingModal(false)}
+          isOpen={bookingModal.isOpenModal}
+          loadedSession={bookingModal.payload!}
+          onClose={bookingModal.close}
         />
       </main>
     );

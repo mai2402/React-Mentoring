@@ -13,20 +13,20 @@ import toast from "react-hot-toast";
 export function LoginModal ({ onClose, isOpen, sessionId }: LoginModalProps){
 
     const { login} = useAuthenticationContext()
-   const navigate = useNavigate()
+    const navigate = useNavigate()
 
-     async function handleLogin(data:LoginFormData) {
+    const defaultValues = { email: "", password: "" }
+
+     async function handleLogin(formData:LoginFormData) {
+
       try{
-         const {email, password} = data;
+         const {email, password} = formData;
 
          await  login(email,password);
          navigate(`/sessions/${sessionId}`)
          if(!sessionId) {
            navigate('/profile')
          }
-     
-  
-     console.log("logged in....",email,password )
       }
       catch(err){
         toast.error("Login failed. Please check your credentials and try again.");
@@ -36,11 +36,12 @@ export function LoginModal ({ onClose, isOpen, sessionId }: LoginModalProps){
 
   }
     return(
+
          <Modal title="Log in to continue" isOpen={isOpen} onClose={onClose}>
           <Form
             onSubmit={handleLogin}
             schema={loginSchema} 
-            defaultValues={{ email: "", password: "" }}
+            defaultValues={defaultValues}
           >
             {({register, formState:{errors}}) => (
               <>

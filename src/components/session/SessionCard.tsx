@@ -1,40 +1,31 @@
 
 
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuthenticationContext } from "../../contexts/authContext";
 import { SessionCardProps } from "../../interfaces/interfaces";
 import Button from "../shared/Button";
 import { LoginModal } from "../modals/LoginModal";
-import { supabase } from "../../supabase/client";
 import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../../services/userServices";
+import { useModal } from "../../hooks/useModal";
 
 
 export default function SessionCard({ session }: SessionCardProps) {
   const { title, summary, image, id } = session;
   const { isAuthenticated } = useAuthenticationContext();
+  const loginModal = useModal<string>();
   const navigate = useNavigate();
  
-
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  
   const handleLearnMoreClick = () => {
 
-
-     if (!isAuthenticated) setShowLoginModal(true);
+    if (!isAuthenticated) loginModal.open(id);
     else {
       navigate(`/sessions/${id}`);
       getUserProfile();
     }
 
   }
-
-  
-
-
-
-
 
 
   return (
@@ -52,7 +43,11 @@ export default function SessionCard({ session }: SessionCardProps) {
       </article>
 
   
-    <LoginModal onClose={() => setShowLoginModal(false)} sessionId={id}  isOpen={showLoginModal}/>
+    <LoginModal
+        onClose={loginModal.close} 
+        sessionId={loginModal.payload!}  
+        isOpen={loginModal.isOpenModal}
+    />
 
    </>
   )
