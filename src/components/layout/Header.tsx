@@ -1,11 +1,13 @@
-import { useState, useRef, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useState, useRef, useEffect, act } from 'react';
+import {useNavigate } from 'react-router-dom';
 import Button from "../shared/Button";
 import Modal from "../shared/Modal";
 import { useAuthenticationContext } from "../../contexts/authContext";
 import { useGetUserProfile } from "../../hooks/users/useGetUserProfile";
 import { logout } from "../../services/authService";
 import toast from 'react-hot-toast';
+import DropDownItem from '../shared/DropDownItem';
+import { useDropDownModal } from '../../hooks/useDropDownModal';
 
 
 const NAV_ITEMS = [
@@ -13,22 +15,20 @@ const NAV_ITEMS = [
   { to: '/sessions', label: 'Browse Sessions' },
 ];
 
+
+const DROPDOWN_ITEMS =[
+  { label: 'My Profile', to: '/profile' },
+  { label: 'Upcoming Sessions', to: '/upcoming' },
+  { label: 'Logout', action: 'logout' },
+]
+
 export default function Header() {
   const { isAuthenticated , setIsAuthenticated} = useAuthenticationContext();
-  const navigate = useNavigate();
+  const {menuOpen, menuRef, handleOpenModal} = useDropDownModal();
   const { data: user } = useGetUserProfile();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent)=> {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [isAuthenticated]);
 
   const handleLogout = async () => {
            try {
@@ -41,6 +41,8 @@ export default function Header() {
            }
         }
 
+
+
   return (
     <header className="header">
       <div className="header__inner">
@@ -49,7 +51,7 @@ export default function Header() {
       <div className="header__nav--container">
         <nav className="header__nav">
           
-            {!isAuthenticated && <Button to="/login" textOnly className="header__link">Login</Button>}
+      {!isAuthenticated && <Button to="/login" textOnly className="header__link">Login</Button>}
           {
             NAV_ITEMS.map(({ to, label }) => (
               <Button
@@ -64,42 +66,44 @@ export default function Header() {
           }
         </nav>
         
-        {isAuthenticated && (
+        {isAuthenticated && user &&  (
           <div className="header__profile" ref={menuRef}>
+
             <Button
-              
-              onClick={() => setMenuOpen(v => !v)}
+              onClick={handleOpenModal}
               textOnly
             >
               <img
                 src={user?.avatar_url}
-                alt={user?.name}
+                alt={user?.name || "user avatar"}
                 className="header__avatar"
               />
             </Button>
 
             <Modal
               isOpen={menuOpen}
-              onClose={() => setMenuOpen(false)}
+              onClose={handleOpenModal}
               modalClassName="dropdown-backdrop"
               containerClassName="dropdown-menu"
             >
               <ul className="header__dropdown-list">
-                <li>
-                  <Button to="/profile" onClick={() => setMenuOpen(false)}>
-                    My Profile
-                  </Button>
-                </li>
-                <li>
-                  <Button to="/upcoming" onClick={() => setMenuOpen(false)}>
-                    Upcoming Sessions
-                  </Button>
-                </li>
-                <li>
-                  <Button textOnly onClick={handleLogout}>
-                    Logout
-                  </Button>
-                </li>
+
+                {DROPDOWN_ITEMS.map(({label,action,to})=> (
+                  <li key={label}>
+
+                  <DropDownItem 
+                      to={to}
+                      textOnly={!to}
+                      onClick={()=>{
+                           handleOpenModal();
+                        if(action === 'logout')
+                           handleLogout();
+                      }}
+                   >
+                        {label}
+                  </DropDownItem>
+                  </li>
+                ))}
               </ul>
             </Modal>
           </div>
