@@ -9,35 +9,33 @@ import { UseCreateUpdateBooking } from "../../hooks/bookings/useCreateUpdateBook
 import Spinner from "../shared/Spinner";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { buildBooking } from "../../utils/bookings/buildBooking";
 
 
 export function BookingModal({ loadedSession, onClose, isOpen, editBooking }: BookingModalProps) {
 
-     const {mutate: createUpdateBooking, isPending} = UseCreateUpdateBooking()
+     const {mutate: saveBookings, isPending} = UseCreateUpdateBooking()
      const navigate = useNavigate();
+     const isEditMode = Boolean(editBooking)
+
+     const defaultValues  = { name: editBooking?.name || "",
+                              phone: editBooking?.phone || "" };
+
+
      
+     if(isPending) return <Spinner/>
 
-     const onSubmit = (data: BookingFormData)=>{
+    const handleSubmit = (formData: BookingFormData)=>{
        
-       const booking: BookingDTO = {
-            ...editBooking,
-            sessionId: loadedSession.id ?? "",
-            name: data.name,
-            phone: data.phone,
-            title: loadedSession.title ?? "",
-            summary: loadedSession.summary ?? "",
-            description: loadedSession.description ?? "",
-            date: loadedSession.date ?? "",
-            image: loadedSession.image  ?? "",
-       };
+      const booking = buildBooking({formData,session: loadedSession, editBooking})
 
-      createUpdateBooking( booking  , {
-
+      saveBookings( booking  , {
           onSuccess:()=>{
             navigate("/upcoming");
-            toast.success(editBooking? "Booking updated successfully" :"Booking created successfully!");
+            toast.success(isEditMode? "Booking updated successfully" :"Booking created successfully!");
             onClose?.();
-          }   ,
+          },
+
           onError: ( error)=>{
              toast.error(error.message.includes("already booked") ?
                  "You have already booked this session."
@@ -46,23 +44,18 @@ export function BookingModal({ loadedSession, onClose, isOpen, editBooking }: Bo
 
                 navigate("/sessions"); 
 
-          }
-         
-        },
-        
-      )
-     }
+          }}, 
+      )}
 
-     if(isPending) return <Spinner/>
+     
 
   return (
     <Modal onClose={onClose} isOpen={isOpen} title="Book Session">
       <Form <BookingFormData>
 
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         schema={BookingDtoSchema}
-        defaultValues={{ name: editBooking?.name || "",
-                         phone: editBooking?.phone || "" }}
+        defaultValues={defaultValues}
       >
         {({ register, formState: { errors } }) => (
           <>
@@ -82,7 +75,7 @@ export function BookingModal({ loadedSession, onClose, isOpen, editBooking }: Bo
               <Button type="button" textOnly onClick={onClose}>
                 Cancel
               </Button>
-              <Button type="submit">{editBooking? "Update Session" : "Book Session"}</Button>
+              <Button type="submit">{isEditMode? "Update Session" : "Book Session"}</Button>
             </div>
           </>
         )}
