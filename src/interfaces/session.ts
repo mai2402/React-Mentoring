@@ -1,3 +1,5 @@
+import { BookingDTO } from "./booking/booking-dto";
+
  export interface Session {
     id: string;
     title: string;
@@ -16,4 +18,11 @@
      loadedSession: Session | null;
      onBookSession?: () => void;
    }
+
+
+export interface UpcomingSessionsItemProps {
+  onEdit: (booking: BookingDTO) => void;
+  onCancel: (bookingId: string) => void;
+  session: BookingDTO;
+}   
  

@@ -1,85 +1,60 @@
-import toast from "react-hot-toast";
-import { useGetMyBookings } from "../../hooks/bookings/useGetMyBookings";
-import { cancelBooking } from "../../services/booking";
-import Button from "../shared/Button";
 import EmptyContent from "../shared/EmptyContent";
 import Spinner from "../shared/Spinner";
-import { useState } from "react";
 import ConfirmModal from "../modals/ConfirmModal";
-import { useQueryClient } from "@tanstack/react-query";
-import { BookingDTO } from "../../interfaces/booking/booking-dto";
 import { BookingModal } from "../modals/BookingModal";
-import { useModal } from "../../hooks/useModal";
+import UpcomingSessionsItem from "./Upcoming-sessions-item";
+import { useUpcomingSessions } from "../../hooks/sessions/useUpcomingSessions";
 
 
 
 export default function UpcomingSessions (){
- const bookingModal = useModal<BookingDTO>();
- const confirmModal = useModal<string>(); 
-  const {data: upcomingSessions, isLoading } = useGetMyBookings()
-  const queryClient = useQueryClient()
+   const {bookings, 
+          isLoading,
+          confirmModal,
+          bookingModal,
+          handleCancelBooking,
+          handleEditBooking} = useUpcomingSessions();
 
-
-const handleCancelBooking = async () => {
-  if(!confirmModal.payload) return;
-
-  try {
-    await cancelBooking(confirmModal.payload!);
-    toast.success("Session cancelled successfully");
-    queryClient.invalidateQueries({queryKey:["bookings"]})
-    confirmModal.close();
-  } catch (error) {
-    console.error("Error cancelling session:", error);
-    toast.error("Failed to cancel session");
-  }
-};
-
-const handleEditBooking = async (bookedSession: BookingDTO) => {
-  bookingModal.open(bookedSession)
-  
-}
-
+    const uponCancel = (bookingId : string)=>{
+      confirmModal.open(bookingId)
+      handleCancelBooking();
+    }      
 
  
    if(isLoading) return <Spinner/>
-   if(!upcomingSessions || upcomingSessions.length === 0)
+
+   if(!bookings || bookings.length === 0)
+
      return<EmptyContent>
          <h2>No upcoming sessions</h2>
          <p>Go check our latest available sessions</p>
-     </EmptyContent>
+         </EmptyContent>
   
  return (<>
- <div className="upcoming">
-
-  <div className="upcoming-sessions">
-    <h1>Upcoming Sessions</h1>
-    <ul>
-      {upcomingSessions?.map((session) => (
-        <li key={session.sessionId} className="upcoming__session">
-          <div className="upcoming__info">
-            <h3>{session.title}</h3>
-            <p>{session.summary}</p>
-            <time>{session.date}</time>
+       <div className="upcoming">
+          <div className="upcoming-sessions">
+            <h1>Upcoming Sessions</h1>
+            <ul>
+              {bookings?.map((session) => (
+                <UpcomingSessionsItem
+                 session={session}
+                 onCancel={()=>uponCancel(session.id!)}
+                 onEdit={handleEditBooking}
+                />
+              ))}
+            </ul>
           </div>
-          <div className="upcoming__actions">
-            <Button textOnly onClick={()=>handleEditBooking(session)}>Edit</Button>
-            <Button textOnly onClick={()=> confirmModal.open(session.id!)}>Cancel</Button>
-            <ConfirmModal
-
+        </div>
+ 
+      <ConfirmModal
             isOpen={confirmModal.isOpenModal} 
             onCancel={confirmModal.close}
             onClose={confirmModal.close}
             onConfirm={handleCancelBooking}
             title="Cancel Session"
-            />
-          </div>
-        </li>
-      ))}
-    </ul>
-  </div>
-        </div>
-
-        {bookingModal.payload &&  
+       />
+     
+    {bookingModal.payload &&  
         <BookingModal
             isOpen={bookingModal.isOpenModal }
             onClose={bookingModal.close}
@@ -88,6 +63,7 @@ const handleEditBooking = async (bookedSession: BookingDTO) => {
         />
         }
 
-            </>
+
+      </>
     )
 }
