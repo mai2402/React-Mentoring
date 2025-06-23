@@ -1,13 +1,12 @@
-import { useState, useRef, useEffect, act } from 'react';
 import {useNavigate } from 'react-router-dom';
 import Button from "../shared/Button";
 import Modal from "../shared/Modal";
 import { useAuthenticationContext } from "../../contexts/authContext";
-import { useGetUserProfile } from "../../hooks/users/useGetUserProfile";
 import { logout } from "../../services/authService";
 import toast from 'react-hot-toast';
 import DropDownItem from '../shared/DropDownItem';
 import { useDropDownModal } from '../../hooks/useDropDownModal';
+import Spinner from '../shared/Spinner';
 
 
 const NAV_ITEMS = [
@@ -23,17 +22,15 @@ const DROPDOWN_ITEMS =[
 ]
 
 export default function Header() {
-  const { isAuthenticated , setIsAuthenticated} = useAuthenticationContext();
+  const { isAuthenticated  ,userProfile} = useAuthenticationContext();
   const {menuOpen, menuRef, handleOpenModal} = useDropDownModal();
-  const { data: user } = useGetUserProfile();
   const navigate = useNavigate();
   
-
-
+ 
+   console.log(isAuthenticated,"ana hena ")
   const handleLogout = async () => {
            try {
               await logout();
-              setIsAuthenticated(false);
               toast.success("Logged out successfully!");
               navigate("/");
            } catch (error) {
@@ -51,7 +48,7 @@ export default function Header() {
       <div className="header__nav--container">
         <nav className="header__nav">
           
-      {!isAuthenticated && <Button to="/login" textOnly className="header__link">Login</Button>}
+      
           {
             NAV_ITEMS.map(({ to, label }) => (
               <Button
@@ -66,7 +63,7 @@ export default function Header() {
           }
         </nav>
         
-        {isAuthenticated && user &&  (
+      {isAuthenticated && userProfile ? (
           <div className="header__profile" ref={menuRef}>
 
             <Button
@@ -74,8 +71,8 @@ export default function Header() {
               textOnly
             >
               <img
-                src={user?.avatar_url}
-                alt={user?.name || "user avatar"}
+                src={userProfile?.avatar_url}
+                alt={userProfile?.name || "user avatar"}
                 className="header__avatar"
               />
             </Button>
@@ -107,6 +104,9 @@ export default function Header() {
               </ul>
             </Modal>
           </div>
+        ) : (
+        
+             <Button to="/login" textOnly className="header__link">Login</Button>
         )}
       </div>
       </div>

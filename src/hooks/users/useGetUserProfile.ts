@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getUserProfile } from "../../services/userServices";
 
 
-export function useGetUserProfile(){
+export function useGetUserProfile(id:string){
  return useQuery({
-    queryKey: ["users"],
-    queryFn: getUserProfile,
+    queryKey: ["profiles"],
+    queryFn: ()=> getUserProfile(id),
   });
 
 

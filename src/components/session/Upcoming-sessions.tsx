@@ -37,6 +37,7 @@ export default function UpcomingSessions (){
             <ul>
               {bookings?.map((session) => (
                 <UpcomingSessionsItem
+                 key={session.id}
                  session={session}
                  onCancel={()=>uponCancel(session.id!)}
                  onEdit={handleEditBooking}

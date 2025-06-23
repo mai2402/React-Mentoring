@@ -55,8 +55,16 @@ export function LoginModal ({ onClose, isOpen, sessionId }: LoginModalProps){
                        {...register('password')} 
                        error={errors.password?.message} />
 
+                       
+                  <p className="signup-prompt">
+                    Don’t have an account?{" "}
+                    <Button textOnly to="/signUp" className="signup-link">Create one</Button>
+                  </p>
+
                 <Button type="submit">Login</Button>
                 <Button textOnly onClick={() => onClose?.()} >cancel</Button>
+          
+
               </>
             )}
           </Form>

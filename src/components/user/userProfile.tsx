@@ -1,20 +1,15 @@
 import UserProfileCard from "./UserProfileCard";
 import Spinner from "../shared/Spinner";
-import { useGetUserProfile } from "../../hooks/users/useGetUserProfile";
-import EmptyContent from "../shared/EmptyContent";
+import { useAuthenticationContext } from "../../contexts/authContext";
 
 
 export default function UserProfile() {
 
-  const { data: userProfile, isError, isLoading} = useGetUserProfile();
+  const {userProfile,isLoading} = useAuthenticationContext();
 
   console.log("User Profile Data:", userProfile);
 
   if (isLoading) return <Spinner />;
-
-  if (isError || !userProfile) {
-    return <EmptyContent message="Error loading user profile" />;
-  }
 
 
   return (

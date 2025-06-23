@@ -36,3 +36,51 @@
   gap: 1rem;
   text-align: right;
 }
+
+
+///SIGN UP FORM 
+
+.signup-prompt {
+   text-align: center;
+  font-size: 0.9rem;
+  color: white;
+  margin-top: 1.5rem;
+}
+
+.signup-link {
+    color: white; // primary color
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 0.25rem;
+
+    &:hover {
+      text-decoration: underline;
+      color: #ccb2f6;
+    }
+  }
+
+ .signup-form {
+  max-width: 40rem;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+
+  .input-field {
+    margin-bottom: 1.25rem;
+  }
+
+  .signup-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+
+    button {
+      min-width: 100px;
+    }
+  }
+}
+ 
+

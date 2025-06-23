@@ -3,43 +3,46 @@ import { supabase } from "../supabase/client";
 
 
 
-export async function getUserProfile() {
-    
-const { data: { user }, error: userError } = await supabase.auth.getUser();
-
-    if (  userError|| !user) {
-        throw new Error("User not found");
-    }
-
-    const {data, error} = await supabase
-    .from("users")
+export async function getUserProfile(id: string): Promise<UserProfile>  {
+     
+  
+     const { data, error } = await supabase
+        
+    .from("profiles")
     .select("*")
-    .eq("user_id", user.id)
+    .eq("id",id)
     .single();
-    
-  if (error) throw new Error(error.message);
-  return data;
 
+   
+    if (error || !data) throw new Error(error?.message || "Profile not found");
+   
+    console.log(data, " this is from get use profile  after the  errr")
+    
+    return data;
 }
 
 
-export async function updateUserProfile(updates: Partial<UserProfile>) {
+export async function updateUserProfile(updates: Partial<UserProfile>): Promise<UserProfile> {
 
-  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  const {data:{user}, error:userErr} = await supabase.auth.getUser()
 
-  if (userError || !user) {
-    throw new Error("User not found");
+
+  if (  userErr|| !user) {
+        throw new Error("Not Authenticated !!");
+    }
+  
+    // update the profiles table
+
+  const { data: profile, error: profileErr } = await supabase
+    .from("profiles")
+    .update(updates)
+    .eq("id", user.id)
+    .single();
 
     
-  }
-  console.log(user?.id)
-
-  const { data, error } = await supabase
-    .from("users")
-    .update(updates)
-    .eq("id", user.id);
-
-  if (error) throw new Error(error.message);
-  return data;
+    if (profileErr || !profile) throw new Error(profileErr?.message || "Profile not found");
+  
+    return profile;
+     
 
 }

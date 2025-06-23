@@ -42,7 +42,7 @@ export function BookingModal({ loadedSession, onClose, isOpen, editBooking }: Bo
                 : 
                  "Failed to create booking. Please try again.");
 
-                navigate("/sessions"); 
+                navigate("/upcoming"); 
 
           }}, 
       )}

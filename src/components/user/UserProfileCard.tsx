@@ -1,8 +1,9 @@
-import { UserCard } from "../../interfaces/user/user";
+import { UserCard, UserProfile } from "../../interfaces/user/user";
 
-export default function UserProfileCard(userProfile: UserCard) {
-  const { name, avatar_url, email, phone, bio, created_at } = userProfile.profile;
+export default function UserProfileCard(profile: UserCard) {
+  const { name, avatar_url, email, phone, bio, created_at } = profile.profile?? {} as UserProfile;
 
+  console.log('user profile', profile)
   return (
     <div className="profile">
       <div className="profile__card">
@@ -11,7 +12,7 @@ export default function UserProfileCard(userProfile: UserCard) {
           <h2 className="profile__name">{name}</h2>
           <p className="profile__email">{email}</p>
           <p className="profile__phone">{phone}</p>
-          <p className="profile__joined">Joined: {new Date(created_at).toLocaleDateString()}</p>
+          <p className="profile__joined">Joined: {new Date(created_at ?? new Date()).toLocaleDateString()}</p>
         </div>
       </div>
       <div className="profile__bio">

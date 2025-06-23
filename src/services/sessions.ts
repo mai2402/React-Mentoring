@@ -1,4 +1,4 @@
-import { BookingDTO } from "../interfaces/booking/booking-dto";
+
 import { supabase } from "../supabase/client";
 
 

@@ -4,11 +4,14 @@ import { supabase } from "../supabase/client";
 
 export async function createUpdateBooking(booking: BookingDTO) {
   // Get the currently authenticated user
-  const { data: { user }, error: userError } = await supabase.auth.getUser();
-  if (!user || userError) throw userError?.message;
+  const { data, error } = await supabase.auth.getUser();
+  if (!data.user || error) throw error?.message;
+
+
+  console.log(data.user," create booking ")
 
   // Prepare the booking payload with the user ID included
-  const insertPayload = { ...booking, user_id: user.id };
+  const insertPayload = { ...booking, user_id: data.user?.id };
 
   //if booking id exists then it updates the booking
   
@@ -28,9 +31,9 @@ export async function createUpdateBooking(booking: BookingDTO) {
   const { data: existingBooking, error: existingError } = await supabase
     .from('bookings')
     .select('id')
-    .eq('user_id', user.id)
+    .eq('user_id', data.user.id)
     .eq('sessionId', booking.sessionId)
-    .maybeSingle();
+   
 
   if (existingError) {
     throw new Error(`Error checking existing booking: ${existingError.message}`);

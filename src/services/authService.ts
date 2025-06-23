@@ -1,8 +1,32 @@
 
+
 import { supabase } from "../supabase/client";
 import { loginSchema } from "../validation/session";
+import { SignUpFormData } from "../validation/SignUpForm";
 
 
+export async function signUp ({email,password, name, phone}: SignUpFormData) {
+
+const { data } = await supabase.auth.signUp({
+  email: email,
+  password: password,  
+  options:{
+     data:{
+      name,
+      phone,
+      email,
+      role:"user",
+     }
+  }
+  
+})
+
+const user = data.user;
+  if (!user) throw new Error("No user returned after signUp");
+
+
+  return user;
+}
 
 
 
@@ -26,18 +50,11 @@ return userData.session?.access_token || '';
 
 export  async function logout (){
 
-     await supabase.auth.signOut()
+     await supabase.auth.signOut()  
 
 }
 
 
-export  async function getToken (){
-      const {data} = await supabase.auth.getSession();
-
-      return data.session?.access_token || null;
-}
 
 
-export function isAuthenticated (){
-    return !!getToken();
-}
+

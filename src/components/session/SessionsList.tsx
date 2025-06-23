@@ -1,3 +1,4 @@
+
 import { useGetSessions } from "../../hooks/sessions/useGetSessions";
 import EmptyContent from "../shared/EmptyContent";
 import Spinner from "../shared/Spinner";
@@ -9,11 +10,15 @@ export default function SessionsList() {
 
    if (isLoading) return <Spinner/>;
    if (error){
+
+    return (
     <EmptyContent>
-        <h2>Error loading sessions</h2>
-        <p>{error.message}</p>
-    </EmptyContent>
+        <h2>Failed loading sessions</h2>
+        </EmptyContent>)
    }
+
+
+
 
     return(
        <main className="sessions">

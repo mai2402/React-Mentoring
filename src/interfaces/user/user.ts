@@ -1,9 +1,18 @@
+export interface NewUser {
+    id: string;
+  name: string;
+  phone?: string;
+  role?: string;
+}
+
+
 export interface UserProfile {
     id: string;
     email: string;
-    phone?: number;
+    phone?: string;
     name: string;
     created_at: string;
+    role:string;
     avatar_url?: string;
     bio?: string;
     website?: string;
@@ -19,7 +28,7 @@ export interface UserProfile {
 }
 
 export interface UserCard {
-    profile: UserProfile;
+    profile: UserProfile | null;
 }
 
 

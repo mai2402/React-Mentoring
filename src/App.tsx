@@ -11,6 +11,7 @@ import NotFoundPage from './pages/NotFound.tsx';
 import Profile from './pages/Profile.tsx';
 import Login from './pages/Login.tsx';
 import UpComingSessionsPage from './pages/UpComing.tsx';
+import SignUpPage from './pages/SignUp.tsx';
 
 
 
@@ -26,6 +27,7 @@ const Router = createBrowserRouter([
       },
       { path:'*', element:<NotFoundPage/>},
       { path:'/login', element: <Login/>},
+      { path: '/signUp', element: <SignUpPage/>},
       { path: 'sessions', element: <SessionsPage /> },
       { path: 'sessions/:id', element: <SessionPage /> },
       { path: '/profile', 
@@ -48,12 +50,13 @@ const Router = createBrowserRouter([
 function App() {
   
   return (
-    <AuthContextProvider>
-    
+   
+    <>
       <RouterProvider router={Router} />
       <Toaster position='top-center' reverseOrder={false} />
+    </>
   
-    </AuthContextProvider>
+  
   );
 }
 
