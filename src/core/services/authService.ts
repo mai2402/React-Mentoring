@@ -1,8 +1,7 @@
-
-
 import { SignUpFormData } from "../../modules/auth/validation/SignUpForm";
 import { loginSchema } from "../../modules/sessions/validation/session";
 import { supabase } from "../supabase/client";
+
 
 
 
@@ -31,20 +30,34 @@ const user = data.user;
 
 
 
-export async function login(email: string, password: string): Promise<string> {
+export async function login(email: string, password: string): Promise<{ token: string; role: any }> {
     
  loginSchema.parse({ email, password }); 
 
- 
  const { data : userData, error } = await supabase.auth.signInWithPassword({
   email: email,
   password: password,
 })
 
+const userId = userData.user?.id;
+
+const {data} = await supabase
+
+    .from("profiles")
+    .select("role")
+    .eq("id", userId)
+    .single()
+    
+    if(!data)  throw new Error("user not found");
+    
+
 
 if (error) throw new Error(error.message);
 
-return userData.session?.access_token || '';
+return {
+    token: userData.session?.access_token || "",
+    role: data.role,
+  };
  
 }
 

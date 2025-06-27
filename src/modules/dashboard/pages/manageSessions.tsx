@@ -2,7 +2,7 @@
 
 
 
-export default function ManageUsers (){
+export default function ManageSessions (){
 
 
     return (

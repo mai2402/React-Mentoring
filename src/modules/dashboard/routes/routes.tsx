@@ -2,7 +2,7 @@ import RequireAdmin from "../guards/requireAdmin";
 import DashboardLayout from "../layout/dashboardLayout";
 import CreateAdminPage from "../pages/createAdmin";
 import DashboardHome from "../pages/dashboardHome";
-import ManageUsers from "../pages/manageUsers";
+import ManageSessions from "../pages/manageSessions";
 import Settings from "../pages/settings";
 
 
@@ -13,7 +13,7 @@ export const dashboardRoutes = [
     element: <RequireAdmin> <DashboardLayout /></RequireAdmin>,
     children: [
       { index: true, element: <DashboardHome /> },
-      { path: "users", element: <ManageUsers /> },
+      { path: "sessions", element: <ManageSessions /> },
       { path: "create-admin", element: <CreateAdminPage /> },
       { path: "settings", element: <Settings /> }
     ],
