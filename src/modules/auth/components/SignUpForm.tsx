@@ -39,7 +39,7 @@ import Button from "../../../shared/ui/Button";
 export default function SignUpForm() {
   const navigate = useNavigate();
   const { mutate: signUp, isPending} = useSignUpUser(() => {
-            toast.success("Account created!");
+            toast.success("Welcome on Board!!");
             navigate("/profile");
     }
   ) 

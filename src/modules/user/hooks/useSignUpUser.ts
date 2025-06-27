@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { SignUpFormData } from "../../auth/validation/SignUpForm";
 import { signUp } from "../../../core/services/authService"
-import { updateUserProfile } from "../services/userServices";
 import toast from "react-hot-toast";
 
 export function useSignUpUser(onSuccess?: () => void) {

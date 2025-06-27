@@ -10,6 +10,10 @@ import { ProtectedRoute } from '../shared/ui/ProtectedRoute';
 import Profile from '../modules/user/pages/Profile';
 import UpComingSessionsPage from '../modules/sessions/pages/UpComing';
 import { Toaster } from 'react-hot-toast';
+import { authRoutes } from '../modules/auth/routes/routes';
+import { sessionRoutes } from '../modules/sessions/routes/routes';
+import { userRoutes } from '../modules/user/routes/routes';
+import { dashboardRoutes } from '../modules/dashboard/routes/routes';
 
 
 
@@ -23,24 +27,11 @@ const Router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
-      { path:'*', element:<NotFoundPage/>},
-      { path:'/login', element: <Login/>},
-      { path: '/signUp', element: <SignUpPage/>},
-      { path: 'sessions', element: <SessionsPage /> },
-      { path: 'sessions/:id', element: <SessionPage /> },
-      { path: '/profile', 
-        element:
-      <ProtectedRoute>
-        <Profile/>
-      </ProtectedRoute>
-      },
-        { path: '/upcoming', 
-        element:
-      <ProtectedRoute>
-        <UpComingSessionsPage/>
-      </ProtectedRoute>
-      }
- 
+       ...authRoutes,
+       ...sessionRoutes,
+       ...userRoutes,
+       ...dashboardRoutes,
+       { path:'*', element:<NotFoundPage/>},
     ],
   },
 ]);
