@@ -28,6 +28,7 @@ export function AuthContextProvider ({children}: AuthContextProviderProps) {
        
     }
 
+
     return(
         <AuthContext.Provider value={{isAuthenticated, login, logout,userProfile, isLoading, session}}>
             {children}

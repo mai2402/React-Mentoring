@@ -3,7 +3,7 @@ import { UserCard, UserProfile } from "../interface/user";
 export default function UserProfileCard(profile: UserCard) {
   const { name, avatar_url, email, phone, bio, created_at } = profile.profile?? {} as UserProfile;
 
-  console.log('user profile', profile)
+
   return (
     <div className="profile">
       <div className="profile__card">

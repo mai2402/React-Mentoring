@@ -11,7 +11,7 @@ export function ProtectedRoute ({children,roleRequired}: ProtectedRouteProps){
     const {isAuthenticated,isLoading, userProfile} = useAuthenticationContext()
     const location = useLocation()
      
-   if (isLoading) {
+   if (isLoading || !userProfile) {
       return <Spinner/>
    }
 

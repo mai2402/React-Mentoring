@@ -16,7 +16,7 @@ export async function getUserProfile(id: string): Promise<UserProfile>  {
    
     if (error || !data) throw new Error(error?.message || "Profile not found");
    
-    console.log(data, " this is from get use profile  after the  errr")
+   
 
     return data;
 }

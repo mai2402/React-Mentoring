@@ -45,10 +45,9 @@ export function useAuthListener() {
     const init = async () => {
       try {
        
-
         // If session exists, fetch user profile
         if (session?.user?.id) {
-          console.log("Loading profile...");
+        
           await loadProfile(session.user.id);
         } else{
             setUserProfile(null)
