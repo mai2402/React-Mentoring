@@ -1,3 +1,4 @@
+import AdminSessionsList from "../components/sessions/AdminSessionsList";
 
 
 
@@ -6,6 +7,6 @@ export default function ManageSessions (){
 
 
     return (
-        <div>hello</div>
+       <AdminSessionsList/>
     )
 }

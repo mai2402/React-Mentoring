@@ -7,7 +7,7 @@ import { getRedirectPath } from "../utils/getRedirectPath";
 
 
 export function useHandleLogin (sessionId?: string){
-    const { login} = useAuthenticationContext();
+    const { login: setAuthContext} = useAuthenticationContext();
     const navigate = useNavigate()
     
 
@@ -15,14 +15,14 @@ export function useHandleLogin (sessionId?: string){
     
           try{
              const {email, password} = formData;
-             const {role} = await authService.login(email,password)
+
+             const {role} = await authService.login(email,password)// this authenticates
           
-             await  login(email,password);
-             // helper function to check whether admin or user to return the correct path to redirect
-             const path = getRedirectPath(role, sessionId!);
-             navigate(path);
+             await  setAuthContext(email,password); // context setter
+
         
-    
+             const path = getRedirectPath(role, sessionId!);// returns role-based path
+             navigate(path);
             
           }
           catch(err){

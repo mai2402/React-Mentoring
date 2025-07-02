@@ -1,12 +1,19 @@
 @use '../base/variables' as vars;
 
 .header {
-  background: linear-gradient(90deg, #49464f 0, #373240 100%);
-  color: vars.$neutral-1;
   position: sticky;
   top: 0;
   z-index: 1000;
-  
+  color: vars.$neutral-1;
+
+  &--user {
+    background: linear-gradient(90deg, #49464f 0, #373240 100%);
+  }
+
+  &--admin {
+    background-color: white;
+    border-bottom: 1px solid #e5e5e5;
+  }
 
   &__inner {
     max-width: 80rem;
@@ -21,8 +28,6 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: #b592ed;
-  
-  
   }
 
   &__nav {
@@ -36,25 +41,22 @@
       justify-content: end;
       gap: 1.5rem;
     }
-      
-   
-     
+  }
 
-    .header__link {
-      color: #b592ed;
-      font-weight: 500;
-      &:hover,
-      &.active {
-        color: #ccb2f6;
-      }
+  &__link {
+    color: #b592ed;
+    font-weight: 500;
+
+    &:hover,
+    &.active {
+      color: #ccb2f6;
     }
   }
 
   &__profile {
     position: relative;
-    top: .5rem;
+    top: 0.5rem;
     right: 1rem;
-    
   }
 
   &__avatar {
@@ -71,10 +73,11 @@
     list-style: none;
 
     li + li {
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    a, button {
+    a,
+    button {
       display: block;
       width: 100%;
       padding: 0.75rem 1rem;
@@ -90,5 +93,47 @@
         background: #c2afe0;
       }
     }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+  }
+
+  &__icon {
+    font-size: 1.2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+
+    &:hover {
+      color: #000;
+    }
+
+    &--notification {
+      position: relative;
+    }
+
+    &--profile {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: red;
+    color: white;
+    font-size: 0.7rem;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

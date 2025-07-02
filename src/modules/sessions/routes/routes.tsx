@@ -1,4 +1,4 @@
-import { ProtectedRoute } from "../../../shared/ui/ProtectedRoute";
+import { ProtectedRoute } from "../../auth/components/ProtectedRoute";
 import SessionPage from "../pages/Session";
 import SessionsPage from "../pages/Sessions";
 import UpComingSessionsPage from "../pages/UpComing";
@@ -11,7 +11,7 @@ export const sessionRoutes = [
   { path: 'sessions/:id', element: <SessionPage /> },
   { path: '/upcoming', 
           element:
-        <ProtectedRoute>
+        <ProtectedRoute roleRequired="user">
           <UpComingSessionsPage/>
         </ProtectedRoute>
         }
