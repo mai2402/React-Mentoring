@@ -11,12 +11,19 @@ export default function RestrictedToRole ({children,blockedRoles }:RestrictedToR
   
     const {isAuthenticated, isLoading, userProfile} = useAuthenticationContext();
 
-    if (isLoading || !userProfile) return <Spinner />;
-    if (!isAuthenticated) return <Navigate to="/login" replace />;
+        // Still loading auth state? Show spinner
+        if (isLoading) return <Spinner />;
 
-    if (blockedRoles.includes(userProfile?.role ?? "")) {
-        return <Navigate to="/dashboard" replace />;
-    }
+        // Not logged in? Allow public pages like HomePage
+        if (!isAuthenticated) return children;
 
-    return children;
+        // No role yet? Still allow access
+        if (!userProfile?.role) return children;
+
+        // Block specific roles
+        if (blockedRoles.includes(userProfile.role)) {
+            return <Navigate to="/dashboard" replace />;
+        }
+
+        return children;
 }
