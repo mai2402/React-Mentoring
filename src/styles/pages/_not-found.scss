@@ -1,22 +1,26 @@
+@use '../base/variables' as vars;
+@use 'sass:map';
+
 .not-found {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  height: 100vh;
   text-align: center;
-  padding: 2rem;
-  color: #fff;
-  background: linear-gradient(to bottom right, #2d2d44, #1f1f2e);
+  padding: map.get(vars.$space, lg);
+  color: vars.$neutral-9;
+  background: vars.$neutral-1;
 
   h2 {
     font-size: 3rem;
-    margin-bottom: 1rem;
+    margin-bottom: map.get(vars.$space, md);
+    color: vars.$primary;
   }
 
   p {
     font-size: 1.25rem;
-    margin-bottom: 2rem;
-    color: #ccc;
+    margin-bottom: map.get(vars.$space, lg);
+    color: lighten(vars.$neutral-9, 20%);
   }
 }

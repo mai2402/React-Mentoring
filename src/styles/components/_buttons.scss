@@ -1,6 +1,8 @@
+@use '../base/variables' as vars;
+
 .btn {
-  background-color: #b68ef7;
-  color: #0a0218;
+  background-color: vars.$primary;
+  color: vars.$neutral-1;
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1.5rem;
@@ -10,18 +12,18 @@
 
   &:hover,
   &:active {
-    background-color: #a16cf7;
+    background-color: darken(vars.$primary, 10%);
   }
 
   &--text-only {
     background-color: transparent;
-    color: #ccb2f6;
+    color: vars.$accent;
     border-bottom: 2px solid transparent;
 
     &:hover,
     &:active {
-      color: #b592ed;
-      border-color: #b592ed;
+      color: darken(vars.$accent, 10%);
+      border-color: darken(vars.$accent, 10%);
     }
   }
 }

@@ -1,26 +1,29 @@
+@use '../base/variables' as vars;
+@use 'sass:map';
+
 .sessions {
   width: 80%;
   max-width: 80rem;
-  margin: 3rem auto;
+  margin: map.get(vars.$space, xl) auto;
 
   &__heading {
     font-size: 1.5rem;
-    color: #bba4de;
-    margin-bottom: 0.5rem;
+    color: vars.$primary;
+    margin-bottom: map.get(vars.$space, sm);
   }
 
   &__intro {
     margin: 0;
-    color: #b6adc5;
+    color: lighten(vars.$neutral-9, 30%);
   }
 
   &__list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    gap: 3rem;
+    gap: map.get(vars.$space, xl);
     border-radius: 6px;
-    margin: 1rem 0;
-    padding: 1rem;
-    background-color: #5a5563;
+    margin: map.get(vars.$space, md) 0;
+    padding: map.get(vars.$space, md);
+    background-color: lighten(vars.$primary, 42%);
   }
 }

@@ -1,4 +1,5 @@
 @use '../base/variables' as vars;
+@use 'sass:map';
 
 .profile {
   display: flex;
@@ -9,21 +10,21 @@
   &__card {
     width: 100%;
     margin: auto;
-    padding: map-get(vars.$space, lg);
-    background: vars.$neutral-2;
-    border-radius: map-get(vars.$radius, md);
-    box-shadow: vars.$shadow-lg;
+    padding: map.get(vars.$space, lg);
+    background: lighten(vars.$neutral-1, 3%);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  &__avatar{
+  &__avatar {
     width: 20rem;
     height: 20rem;
     border-radius: 50%;
     overflow: hidden;
-    margin-bottom: map-get(vars.$space, md);
+    margin-bottom: map.get(vars.$space, md);
 
     img {
       width: 100%;
@@ -32,30 +33,31 @@
     }
   }
 
-  &__text{
+  &__text {
     align-items: center;
     display: flex;
     flex-direction: column;
   }
 
-  &__name{
-
+  &__name {
     font-family: vars.$font-stack;
     font-size: 1.5rem;
-    margin-bottom: map-get(vars.$space, sm);
-    color: vars.$primary-1;
+    margin-bottom: map.get(vars.$space, sm);
+    color: vars.$primary;
   }
-  &__email{
 
+  &__email {
     font-family: vars.$font-stack;
     font-size: 1.25rem;
-    margin-bottom: map-get(vars.$space, sm);
-    color: vars.$neutral-8;
+    margin-bottom: map.get(vars.$space, sm);
+    color: lighten(vars.$neutral-9, 30%);
   }
 
-    &__bio{
-    
+  &__bio {
     font-family: vars.$font-stack;
     font-size: 1rem;
-    }
+    color: vars.$neutral-9;
+    text-align: center;
+    max-width: 50ch;
+  }
 }

@@ -1,4 +1,3 @@
-// SmartHeader.tsx
 import { useNavigate } from 'react-router-dom';
 import { useAuthenticationContext } from '../../core/store/authContext';
 import { useDropDownModal } from '../hooks/useDropDownModal';
@@ -8,6 +7,7 @@ import Button from '../ui/Button';
 import Modal from '../ui/Modal';
 import DropDownItem from '../ui/DropDownItem';
 import { FaMoon, FaBell, FaUserCircle } from 'react-icons/fa';
+import Spinner from '../ui/Spinner';
 
 
 const NAV_ITEMS = [
@@ -29,12 +29,14 @@ const User_DROPDOWN_ITEMS = [
 ];
 
 export default function SmartHeader() {
-  const { isAuthenticated, userProfile } = useAuthenticationContext();
+  const { isAuthenticated, userProfile, isLoading } = useAuthenticationContext();
   const { menuOpen, menuRef, handleOpenModal } = useDropDownModal();
   
   const isAdmin = userProfile?.role === 'admin';
   const dropDownItems = isAdmin ? Admin_DROPDOWN_ITEMS : User_DROPDOWN_ITEMS;
   const navigate = useNavigate();
+
+  isLoading && <Spinner/>
 
   const handleLogout = async () => {
     try {

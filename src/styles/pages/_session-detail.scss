@@ -1,11 +1,14 @@
+@use '../base/variables' as vars;
+@use 'sass:map';
+
 .session-detail {
   width: 80%;
   max-width: 60rem;
-  margin: 3rem auto;
+  margin: map.get(vars.$space, xl) auto;
 
   &__header {
     display: flex;
-    gap: 1.5rem;
+    gap: map.get(vars.$space, lg);
   }
 
   &__image {
@@ -13,28 +16,28 @@
     height: 20rem;
     object-fit: cover;
     border-radius: 8px;
-    margin-bottom: 2rem;
+    margin-bottom: map.get(vars.$space, lg);
   }
 
   &__title {
     font-size: 2.5rem;
-    color: #e1d8f0;
-    margin: 0 0 0.5rem 0;
+    color: vars.$primary;
+    margin: 0 0 map.get(vars.$space, sm) 0;
   }
 
   &__date {
-    color: #b6adc5;
+    color: lighten(vars.$neutral-9, 30%);
     font-size: 1rem;
-    margin-right: 1rem;
+    margin-right: map.get(vars.$space, sm);
   }
 
   &__content {
     max-width: 60rem;
-    margin: 2rem auto;
-    padding: 1rem;
-    background-color: #5a5563;
+    margin: map.get(vars.$space, xl) auto;
+    padding: map.get(vars.$space, md);
+    background-color: lighten(vars.$primary, 42%);
     border-radius: 8px;
-    color: #e1d8f0;
+    color: vars.$neutral-9;
     font-size: 1.25rem;
     white-space: pre-wrap;
     animation: fade-slide-down 0.3s ease-out forwards;

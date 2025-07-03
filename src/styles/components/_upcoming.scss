@@ -1,16 +1,20 @@
+@use "../base/variables" as vars;
+@use "sass:map";
+
 .upcoming {
-  margin: 1rem auto;
-  padding: 1rem;
+  margin: map.get(vars.$space, md) auto;
+  padding: map.get(vars.$space, md);
   width: 50%;
-  background-color: white;
+  background-color: vars.$neutral-1;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: map.get(vars.$space, md);
 
   &__session {
-    padding: 1rem;
-    border: 1px solid #ddd;
+    padding: map.get(vars.$space, md);
+    margin: map.get(vars.$space, md) auto;
+    border: 1px solid lighten(vars.$neutral-9, 60%);
     border-radius: 6px;
     display: flex;
     justify-content: space-between;
@@ -22,7 +26,7 @@
 
     h3 {
       margin: 0 0 0.5rem;
-      color: #c7b0ee;
+      color: lighten(vars.$accent, 20%);
     }
 
     p {
@@ -30,7 +34,7 @@
     }
 
     time {
-      color: #b6adc5;
+      color: lighten(vars.$neutral-9, 40%);
       font-size: 0.85rem;
     }
   }
@@ -38,7 +42,7 @@
   &__actions {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: map.get(vars.$space, md);
     align-items: flex-end;
   }
 }
