@@ -15,6 +15,7 @@ import { useState } from "react";
 import ConfirmModal from "../../../../shared/components/ConfirmModal";
 
 
+
  interface ManageSessionsTableProps {
   sessions: Session[];
 }
@@ -30,18 +31,22 @@ export default function ManageSessionsTable({ sessions }: ManageSessionsTablePro
     queryClient.invalidateQueries({ queryKey: ["sessions"] });
   });
 
-  const handleEdit = () => navigate("/dashboard/sessions/edit-session");
+  const handleEdit = (session: Session) => {
+    
+    navigate(`/dashboard/sessions/edit-session/${session.id}`, {state: session})
+  };
+
   const handleConfirmDelete = () => {
     if(confirmDeleteId)
-    deleteSession(confirmDeleteId)
-    setConfirmDeleteId(null)
+      deleteSession(confirmDeleteId)
+      setConfirmDeleteId(null)
   };
 
   const actions = (session: Session) => [
     {
       label: "Edit",
       icon: "✏️",
-      action: handleEdit,
+      action: () => handleEdit(session),
     },
     {
       label: "Delete",

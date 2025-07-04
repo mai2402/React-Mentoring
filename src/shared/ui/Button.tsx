@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { CustomButtonProps } from "../interface/button";
 
 
@@ -10,9 +10,12 @@ export default function Button(props: CustomButtonProps): JSX.Element {
   if (to) {
 
     return (
-      <Link to={to} className={className} {...rest}>
-        {children}
-      </Link>
+      <NavLink to={to} 
+               className={({ isActive }) => `${className} ${isActive ? 'active' : ''}` } 
+               {...rest}
+         >
+           {children}
+      </NavLink>
     );
 
   }

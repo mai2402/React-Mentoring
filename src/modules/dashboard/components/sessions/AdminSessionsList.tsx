@@ -1,7 +1,7 @@
 import EmptyContent from "../../../../shared/ui/EmptyContent";
 import Spinner from "../../../../shared/ui/Spinner";
 import { useGetSessions } from "../../../sessions/hooks/useGetSessions";
-import ManageSessionsTable from "../table/manageSessionsTable";
+import ManageSessionsTable from "../tables/manageSessionsTable";
 
 
 

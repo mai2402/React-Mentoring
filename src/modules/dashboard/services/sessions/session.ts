@@ -3,38 +3,46 @@ import { Session } from "../../../sessions/interfaces/session";
 
 
 
-export async function addNewSession (newSession: Session){
-     const {data , error} = await supabase
-     .from("sessions")
-     .insert([newSession])
-     .select()
-     .single()
+export async function addEditSession(session: Session) {
 
-    if (error) {
-    console.error("Error adding session:", error.message);
-    throw error;
-  }
-
-  return data;
-
-}
-
-
-export async function editSession (sessionId: string, payload: Partial<Session>){ 
  
-const { data, error } = await supabase
-  .from('sessions')
-  .update(payload)
-  .eq("id", sessionId)
-  .select()
+const { data: existingSession } = await supabase
+  .from("sessions")
+  .select("id")
+  .eq("id", session.id)
+  .maybeSingle();
 
-    if (error) {
-    console.error("Error updating session:", error.message);
-    throw error;
+  const isEdit = !!existingSession;
+
+  if (isEdit) {
+    const { data, error } = await supabase
+      .from("sessions")
+      .update(session)
+      .eq("id", session.id)
+      .select()
+      .single();
+
+    if (error) throw error;
+   
+
+    return data;
   }
 
+  // Otherwise, insert
+  const { data, error } = await supabase
+    .from("sessions")
+    .insert([session])
+    .select()
+    .single();
+
+  if (error) throw error;
   return data;
 }
+
+
+
+
+
 
 
 

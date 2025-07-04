@@ -25,6 +25,7 @@ export const dashboardRoutes = [
         children: [
            { index: true , element: <ManageSessions />},
            { path: "add-session", element: <AddEditSessionForm/> },
+            { path: "edit-session/:sessionId", element: <AddEditSessionForm/> },
            ]
         },
        { path: "profile", element: <AdminProfile /> },

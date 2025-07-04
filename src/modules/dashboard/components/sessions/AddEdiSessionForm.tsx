@@ -1,11 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../../../shared/ui/Button";
 import Form from "../../../../shared/ui/Form";
 import Input from "../../../../shared/ui/Input";
 import Spinner from "../../../../shared/ui/Spinner";
-import { useAddSession } from "../../hooks/useEditAddSession";
+import { useEditAddSession } from "../../hooks/useEditAddSession";
 import { AddEditSessionFormData, sessionSchema } from "../../validation/AddEditSessionForm";
 import { useQueryClient } from "@tanstack/react-query";
+import { Session } from "@supabase/supabase-js";
+import toast from "react-hot-toast";
 
 
 
@@ -31,7 +33,7 @@ import { useQueryClient } from "@tanstack/react-query";
   },
   {
     name: "duration",
-    label: "Duration (minutes)",
+    label: "Duration (hr)",
     type: "number",
     placeholder: "e.g. 60",
     parseAsNumber: true,
@@ -51,18 +53,27 @@ import { useQueryClient } from "@tanstack/react-query";
 
 
 export default function AddEditSessionForm (){
+  const location = useLocation();
+  // Extend Session type to include 'id' if not present
+  type SessionWithId = Session & { id: string };
+  
+  const sessionFromState = location.state as SessionWithId | undefined;
+  const isEditMode = Boolean(sessionFromState);
+
    const navigate = useNavigate();
    const queryClient = useQueryClient();
 
-   const {mutate: addNewSession, isPending} = useAddSession(()=>{
-
+   const {mutate: addEditSession, isPending} = useEditAddSession(()=>{
+       toast.success("Session saved successfully!!!")
        queryClient.invalidateQueries({ queryKey: ["sessions"] });
        navigate("/dashboard/sessions");
   },
 );
 
 
- const defaultSessionValues = {
+ const defaultSessionValues =  sessionFromState ?
+ {...sessionFromState}:
+ {
   title: "",
   summary: "",
   description: "",
@@ -70,14 +81,19 @@ export default function AddEditSessionForm (){
   date: new Date().toISOString().split("T")[0], 
   image: "",
 };
-    const handleSubmit = (data:AddEditSessionFormData)=> {
 
-      const sessionWithId = {
+const handleSubmit = (data: AddEditSessionFormData) => {
+  console.log("🔥 Form submitted with data:", data); 
+  const sessionWithId = isEditMode
+    ? { ...sessionFromState, ...data, id: sessionFromState!.id } // ensure id is always present and a string
+    : {
         ...data,
-        id: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36),
+        id: crypto.randomUUID?.() || Math.random().toString(36),
       };
-      addNewSession(sessionWithId);
-    }
+
+  addEditSession(sessionWithId);
+};
+
 
     if(isPending) return <Spinner/>
 
@@ -106,7 +122,7 @@ export default function AddEditSessionForm (){
            )}
             
              <div className="signup-actions">
-                             <Button type="submit">Add Session</Button>
+                             <Button type="submit">{isEditMode?"Edit Session" :'Add Session'}</Button>
                              <Button textOnly to="/">Cancel</Button>
                            </div>
             </>
