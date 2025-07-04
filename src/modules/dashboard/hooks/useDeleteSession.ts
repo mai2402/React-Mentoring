@@ -9,7 +9,7 @@ export function useDeleteSession (onSuccess?: ()=> void){
 
     return useMutation({
         mutationFn: async (sessionId: string)=> {
-             console.log("🧨 useDeleteSession called with ID:", sessionId);
+          
              await deleteSession(sessionId)
         },
 

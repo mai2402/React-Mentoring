@@ -8,6 +8,9 @@ export default function ConfirmModal({
   title,
   onClose,
   isOpen,
+  message,
+  confirmLabel,
+  cancelLabel,
 }: ConfirmModalProps) {
 
   return (
@@ -19,12 +22,12 @@ export default function ConfirmModal({
       containerClassName="confirm__modal--container">
       <div>
         <p className="confirm__modal--message">
-          Are you sure you want to cancel this session?
+         {message}
         </p>
         <div className="confirm__modal--actions">
-          <Button className="cancel-btn" onClick={onConfirm}>Yes, Cancel</Button>
+          <Button className="cancel-btn" onClick={onConfirm}>{confirmLabel}</Button>
           <Button className="cancel-btn--text " onClick={onCancel} textOnly>
-            No
+           {cancelLabel}
           </Button>
         </div>
       </div>
