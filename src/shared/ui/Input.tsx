@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
-import { CustomInputProps } from "../../modules/sessions/interfaces/interfaces";
+import { CustomInputProps } from "../interface/input";
+
 
 
 
@@ -9,12 +10,13 @@ import { CustomInputProps } from "../../modules/sessions/interfaces/interfaces";
 
     return(
         <div className="input-group">
-            <label htmlFor={inputId} className="input-group label " >
+            <label htmlFor={inputId} className="label">
               {label}
             </label>
-            <input className="input-group input" name={name} id={inputId} ref={ref} {...rest} />
-             {error && <p className="input-group error">{error}</p>}
-        </div>
+            <input className="input" name={name} id={inputId} ref={ref} {...rest} />
+            {error && <p className="error">{error}</p>}
+       </div>
+
     )
 });
 

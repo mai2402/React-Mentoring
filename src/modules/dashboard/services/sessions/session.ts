@@ -3,7 +3,19 @@ import { Session } from "../../../sessions/interfaces/session";
 
 
 
-export function addNewSession (){
+export async function addNewSession (newSession: Session){
+     const {data , error} = await supabase
+     .from("sessions")
+     .insert([newSession])
+     .select()
+     .single()
+
+    if (error) {
+    console.error("Error adding session:", error.message);
+    throw error;
+  }
+
+  return data;
 
 }
 
@@ -28,8 +40,7 @@ const { data, error } = await supabase
 
 export async function deleteSession (sessionId: string){
 
-    
-const { error } = await supabase
+const {data , error } = await supabase
   .from('sessions')
   .delete()
   .eq("id", sessionId)
@@ -37,5 +48,8 @@ const { error } = await supabase
      if (error) {
     console.error("Error deleting session:", error.message);
      }
+
+
+     return data
 
 }

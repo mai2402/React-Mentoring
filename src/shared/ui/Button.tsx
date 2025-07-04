@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { CustomButtonProps } from "../../modules/sessions/interfaces/interfaces";
+import { CustomButtonProps } from "../interface/button";
+
 
 export default function Button(props: CustomButtonProps): JSX.Element {
 

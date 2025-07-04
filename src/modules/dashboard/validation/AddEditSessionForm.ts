@@ -19,7 +19,7 @@ export const sessionSchema = ZOD.object({
     (val) => !isNaN(Date.parse(val)),
     { message: "Invalid date format" }
   ),
-  image: ZOD.string().url("Image must be a valid URL"),
+  image: ZOD.string().url("Image must be a valid URL").optional().or(ZOD.literal("")),
 });
 
 

@@ -15,12 +15,7 @@ const NAV_ITEMS = [
   { to: '/sessions', label: 'Browse Sessions' },
 ];
 
-const Admin_DROPDOWN_ITEMS =[
-  { label: 'My Profile', to: '/dashboard/profile' },
-  { label: 'Settings', to: '/dashboard/settings' },
-  { label: 'Manage Sessions', to: '/dashboard/sessions' },
-  { label: 'Logout', action: 'logout' },
-]
+
 
 const User_DROPDOWN_ITEMS = [
   { label: 'My Profile', to: '/profile' },
@@ -33,7 +28,8 @@ export default function SmartHeader() {
   const { menuOpen, menuRef, handleOpenModal } = useDropDownModal();
   
   const isAdmin = userProfile?.role === 'admin';
-  const dropDownItems = isAdmin ? Admin_DROPDOWN_ITEMS : User_DROPDOWN_ITEMS;
+  const isUser = userProfile?.role === 'user';
+
   const navigate = useNavigate();
 
   isLoading && <Spinner/>
@@ -56,7 +52,7 @@ export default function SmartHeader() {
       containerClassName="dropdown-menu"
     >
      <ul className="header__dropdown-list">
-        {dropDownItems.map(({ label, action, to }) => (
+        {!isAdmin && User_DROPDOWN_ITEMS.map(({ label, action, to }) => (
           <li key={label}>
             <DropDownItem
               to={to}
@@ -106,20 +102,25 @@ export default function SmartHeader() {
               </>
             )}
 
-            {isAuthenticated && userProfile ? (
+            {isAuthenticated && isUser? (
               <div className="header__profile" ref={menuRef}>
                 <Button
                   onClick={handleOpenModal}
                   textOnly
                   className={`header__icon ${isAdmin ? 'header__icon--profile' : ''}`}
                 >
-                  {isAdmin ? <FaUserCircle /> : (
-                    <img
+                 
+                   { !userProfile.avatar_url  ?
+                    (<FaUserCircle/>)
+                    :
+
+                   ( <img
                       src={userProfile.avatar_url}
                       alt={userProfile.name || 'user avatar'}
                       className="header__avatar"
-                    />
-                  )}
+                    />)
+                    }
+               
                 </Button>
                 {renderDropdown()}
               </div>

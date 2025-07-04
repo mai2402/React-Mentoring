@@ -6,7 +6,8 @@ import { BookingDTO } from "../../bookings/interfaces/booking-dto";
     summary:string;
     description: string;
     date: string; 
-    image: string;
+    image?: string;
+    duration: number;
  }
 
 

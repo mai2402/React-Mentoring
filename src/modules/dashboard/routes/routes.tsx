@@ -1,4 +1,5 @@
 import { ProtectedRoute } from "../../auth/components/ProtectedRoute";
+import AddEditSessionForm from "../components/sessions/AddEdiSessionForm";
 import DashboardLayout from "../layout/dashboardLayout";
 import CreateAdminPage from "../pages/createAdmin";
 import DashboardHome from "../pages/dashboardHome";
@@ -20,7 +21,12 @@ export const dashboardRoutes = [
     ),
     children: [
       { index: true, element: <DashboardHome /> },
-      { path: "sessions", element: <ManageSessions /> },
+      { path: "sessions",
+        children: [
+           { index: true , element: <ManageSessions />},
+           { path: "add-session", element: <AddEditSessionForm/> },
+           ]
+        },
        { path: "profile", element: <AdminProfile /> },
       { path: "create-admin", element: <CreateAdminPage /> },
       { path: "settings", element: <Settings /> }

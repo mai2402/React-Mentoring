@@ -1,0 +1,33 @@
+@use '../base/variables' as vars;
+@use 'sass:map';
+
+.input-group {
+  margin-bottom: map.get(vars.$space, md);
+}
+
+.label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  color: vars.$neutral-9;
+  text-transform: uppercase;
+}
+
+.input {
+  width: 100%;
+  max-width: 35rem;
+  font: inherit;
+  font-size: 1.25rem;
+  border: 1px solid lighten(vars.$neutral-9, 40%);
+  border-radius: 4px;
+  padding: 0.5rem;
+  color: vars.$neutral-9;
+  background-color: vars.$neutral-1;
+}
+
+.error {
+  margin-top: 0.25rem;
+  color: red;
+  font-size: 0.85rem;
+}

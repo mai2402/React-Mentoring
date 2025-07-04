@@ -1,5 +1,6 @@
-import { ModalProps } from "../../modules/sessions/interfaces/interfaces";
+
 import { createPortal } from "react-dom";
+import { ModalProps } from "../interface/modal";
 
 
 
@@ -15,9 +16,8 @@ export default function Modal ({children, title,modalClassName, containerClassNa
            <div  onClick={(e) => e.stopPropagation()} 
                  className={`modal-container ${containerClassName}`}>
 
-            <h2 className="modal-title">
-                {title}
-            </h2>
+              {title && <h2 className="modal-title">{title}</h2>}
+
             <div  className={`modal-content ${scrollable ? 'modal-content--scrollable' : ''}`}>
                 {children}
             </div>
