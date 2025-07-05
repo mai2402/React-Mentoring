@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 
 
-export function useEditAddSession (onSuccess?:()=> void){
+export function useEditAddSession (onSuccess?:(newSession: Session)=> void){
     
 
     return useMutation({
@@ -13,10 +13,10 @@ export function useEditAddSession (onSuccess?:()=> void){
             return await addEditSession(session)
         },
 
-        onSuccess: ()=>{
+        onSuccess: (data)=>{
             
             if (onSuccess) {
-                onSuccess();
+                onSuccess(data);
             }
         },
         onError :(err) =>{

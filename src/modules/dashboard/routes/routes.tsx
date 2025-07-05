@@ -1,4 +1,5 @@
 import { ProtectedRoute } from "../../auth/components/ProtectedRoute";
+import CreateAdminForm from "../components/admin/createAdminForm";
 import AddEditSessionForm from "../components/sessions/AddEdiSessionForm";
 import DashboardLayout from "../layout/dashboardLayout";
 import CreateAdminPage from "../pages/createAdmin";
@@ -28,7 +29,7 @@ export const dashboardRoutes = [
             { path: "edit-session/:sessionId", element: <AddEditSessionForm/> },
            ]
         },
-       { path: "profile", element: <AdminProfile /> },
+       { path: "new-admin", element: <CreateAdminForm /> },
       { path: "create-admin", element: <CreateAdminPage /> },
       { path: "settings", element: <Settings /> }
     ],

@@ -6,8 +6,9 @@ import Spinner from "../../../../shared/ui/Spinner";
 import { useEditAddSession } from "../../hooks/useEditAddSession";
 import { AddEditSessionFormData, sessionSchema } from "../../validation/AddEditSessionForm";
 import { useQueryClient } from "@tanstack/react-query";
-import { Session } from "@supabase/supabase-js";
+
 import toast from "react-hot-toast";
+import { Session } from "../../../sessions/interfaces/session";
 
 
 
@@ -54,6 +55,7 @@ import toast from "react-hot-toast";
 
 export default function AddEditSessionForm (){
   const location = useLocation();
+
   // Extend Session type to include 'id' if not present
   type SessionWithId = Session & { id: string };
   
@@ -63,8 +65,17 @@ export default function AddEditSessionForm (){
    const navigate = useNavigate();
    const queryClient = useQueryClient();
 
-   const {mutate: addEditSession, isPending} = useEditAddSession(()=>{
+   const {mutate: addEditSession, isPending} = useEditAddSession((newSession)=>{
+
        toast.success("Session saved successfully!!!")
+     
+       // Optimistically update the cache
+        queryClient.setQueryData<Session[]>(["sessions"], (old) => {
+          const filtered = (old ?? []).filter(s => s.id !== newSession.id);
+          return [newSession, ...filtered];
+      });
+
+      // Refetch in background for data freshness
        queryClient.invalidateQueries({ queryKey: ["sessions"] });
        navigate("/dashboard/sessions");
   },
@@ -83,9 +94,9 @@ export default function AddEditSessionForm (){
 };
 
 const handleSubmit = (data: AddEditSessionFormData) => {
-  console.log("🔥 Form submitted with data:", data); 
+
   const sessionWithId = isEditMode
-    ? { ...sessionFromState, ...data, id: sessionFromState!.id } // ensure id is always present and a string
+    ? { ...sessionFromState, ...data, id: sessionFromState!.id } 
     : {
         ...data,
         id: crypto.randomUUID?.() || Math.random().toString(36),

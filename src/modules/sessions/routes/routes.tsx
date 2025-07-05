@@ -8,7 +8,7 @@ import UpComingSessionsPage from "../pages/UpComing";
 
 export const sessionRoutes = [
   {path: '/sessions' , element: <SessionsPage/>},
-  { path: 'sessions/:id', element: <SessionPage /> },
+  { path: 'sessions/:sessionId', element: <SessionPage /> },
   { path: '/upcoming', 
           element:
         <ProtectedRoute roleRequired="user">

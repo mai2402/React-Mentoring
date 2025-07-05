@@ -1,4 +1,4 @@
-import CreateAdminForm from "../components/createAdminForm";
+import CreateAdminForm from "../components/admin/createAdminForm";
 
 
 

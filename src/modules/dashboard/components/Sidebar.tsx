@@ -1,10 +1,9 @@
 import toast from "react-hot-toast";
 import { logout } from "../../../core/services/authService";
-import Button from "../../../shared/ui/Button"
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import {  NavLink, useNavigate } from "react-router-dom";
 
 const Admin_SideBar_Tabs =[
-  { label: 'My Profile', to: '/dashboard/profile' },
+  { label: '➕ Create new Admin', to: '/dashboard/new-admin' },
   { label: '⚙️ Settings', to: '/dashboard/settings' },
   { label: '📅  Manage Sessions', to: '/dashboard/sessions' },
   {label: '👥 Users' , to:'/dashboard/user'},
