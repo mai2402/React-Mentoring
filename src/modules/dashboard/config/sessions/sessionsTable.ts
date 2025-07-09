@@ -1,4 +1,5 @@
 import { Session } from "../../../sessions/interfaces/session";
+import { HourLabelsEnum } from "./timeLabelsConfig";
 
 
 export  const sessionTableColumns = [
@@ -8,6 +9,6 @@ export  const sessionTableColumns = [
     {
       key: "duration",
       label: "Duration",
-      render: (s: Session) => `${s.duration} hr`,
+      render: (s: Session) => `${s.duration} ${(s.duration > 1) ? HourLabelsEnum.Plural: HourLabelsEnum.singular}`,
     },
   ];
