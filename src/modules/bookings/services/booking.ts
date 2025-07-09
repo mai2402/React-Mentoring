@@ -9,10 +9,8 @@ export async function createUpdateBooking(booking: BookingDTO) {
   if (!data.user || error) throw error?.message;
 
 
-  console.log(data.user," create booking ")
-
   // Prepare the booking payload with the user ID included
-  const insertPayload = { ...booking, user_id: data.user?.id };
+  const insertPayload = { ...booking, user_id: data.user?.id};
 
   //if booking id exists then it updates the booking
   
@@ -41,7 +39,7 @@ export async function createUpdateBooking(booking: BookingDTO) {
   }
 
   // If a booking already exists, prevent duplicate booking
-  if (existingBooking) {
+  if (existingBooking.length > 0) {
     console.warn("Duplicate booking attempt.");
     throw new Error("You have already booked this session.");
   }

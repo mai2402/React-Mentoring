@@ -1,17 +1,28 @@
 @use '../base/variables' as vars;
+@use 'sass:map';
 
 .header {
-  background: linear-gradient(90deg, #49464f 0, #373240 100%);
-  color: vars.$neutral-1;
   position: sticky;
   top: 0;
   z-index: 1000;
-  
+  color: vars.$neutral-9;
+  background-color: vars.$neutral-1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+
+  &--user {
+    background-color: vars.$neutral-1;
+    border-bottom: 1px solid lighten(vars.$neutral-9, 70%);
+  }
+
+  &--admin {
+    background-color: vars.$neutral-1;
+    border-bottom: 1px solid lighten(vars.$neutral-9, 70%);
+  }
 
   &__inner {
     max-width: 80rem;
     margin: 0 auto;
-    padding: 1rem 1.5rem;
+    padding: map.get(vars.$space, md) map.get(vars.$space, lg);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -20,41 +31,36 @@
   &__logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #b592ed;
-  
-  
+    color: vars.$primary;
   }
 
   &__nav {
     display: flex;
-    gap: 1.5rem;
+    gap: map.get(vars.$space, lg);
     align-items: center;
 
     &--container {
       display: flex;
       align-items: center;
       justify-content: end;
-      gap: 1.5rem;
+      gap: map.get(vars.$space, lg);
     }
-      
-   
-     
+  }
 
-    .header__link {
-      color: #b592ed;
-      font-weight: 500;
-      &:hover,
-      &.active {
-        color: #ccb2f6;
-      }
+  &__link {
+    color: vars.$neutral-9;
+    font-weight: 500;
+
+    &:hover,
+    &.active {
+      color: vars.$accent;
     }
   }
 
   &__profile {
     position: relative;
-    top: .5rem;
+    top: 0.5rem;
     right: 1rem;
-    
   }
 
   &__avatar {
@@ -71,10 +77,11 @@
     list-style: none;
 
     li + li {
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
     }
 
-    a, button {
+    a,
+    button {
       display: block;
       width: 100%;
       padding: 0.75rem 1rem;
@@ -87,8 +94,50 @@
       cursor: pointer;
 
       &:hover {
-        background: #c2afe0;
+        background: lighten(vars.$primary, 45%);
       }
     }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: map.get(vars.$space, md);
+    position: relative;
+  }
+
+  &__icon {
+    font-size: 1.2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: vars.$neutral-9;
+
+    &:hover {
+      color: vars.$primary;
+    }
+
+    &--notification {
+      position: relative;
+    }
+
+    &--profile {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: red;
+    color: white;
+    font-size: 0.7rem;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

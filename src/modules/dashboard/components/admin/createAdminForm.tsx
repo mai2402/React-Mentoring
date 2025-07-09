@@ -1,20 +1,15 @@
-import Button from "../../../shared/ui/Button";
-import Form from "../../../shared/ui/Form";
-import Input from "../../../shared/ui/Input";
-import { CreateAdminFormData, createAdminSchema } from "../validation/createAdminForm";
-import { useCreateNewAdmin } from "../hooks/useCreateNewAdmin";
+import Button from "../../../../shared/ui/Button";
+import Form from "../../../../shared/ui/Form";
+import Input from "../../../../shared/ui/Input";
+import { CreateAdminFormData, createAdminSchema } from "../../validation/createAdminForm";
+import { useCreateNewAdmin } from "../../hooks/useCreateNewAdmin";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import Spinner from "../../../shared/ui/Spinner";
+import Spinner from "../../../../shared/ui/Spinner";
 
 
  const createAdminFields = [
-  {
-    name: "name",
-    label: "Full Name",
-    type: "text",
-    required: true,
-  },
+ 
   {
     name: "email",
     label: "Email",
@@ -27,12 +22,7 @@ import Spinner from "../../../shared/ui/Spinner";
     type: "password",
     required: true,
   },
-  {
-    name: "phone",
-    label: "Phone Number",
-    type: "tel",
-    required: false,
-  },
+
 ];
 
 
@@ -47,7 +37,7 @@ export default function CreateAdminForm (){
             navigate("/dashboard");
         }
  );
- const defaultValues = { name: "", email: "", password: "", phone: "" };
+ const defaultValues = { email: "", password: "" };
  
   const handleSubmit = (formData: CreateAdminFormData) => {
       createAdmin(formData)
@@ -59,8 +49,10 @@ export default function CreateAdminForm (){
      if(isPending) return <Spinner/>
   
     return (
+      <div className="signup-form">
+
         <Form<CreateAdminFormData>
-            onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
             schema={createAdminSchema}
             defaultValues={defaultValues}>
 
@@ -83,5 +75,6 @@ export default function CreateAdminForm (){
       )}
            
         </Form>
+      </div>
     )
 }

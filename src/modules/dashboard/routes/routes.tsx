@@ -1,8 +1,11 @@
-import RequireAdmin from "../guards/requireAdmin";
+import { ProtectedRoute } from "../../auth/components/ProtectedRoute";
+import CreateAdminForm from "../components/admin/createAdminForm";
+import AddEditSessionForm from "../components/sessions/AddEdiSessionForm";
 import DashboardLayout from "../layout/dashboardLayout";
 import CreateAdminPage from "../pages/createAdmin";
 import DashboardHome from "../pages/dashboardHome";
 import ManageSessions from "../pages/manageSessions";
+import { AdminProfile } from "../pages/profile";
 import Settings from "../pages/settings";
 
 
@@ -10,10 +13,23 @@ import Settings from "../pages/settings";
 export const dashboardRoutes = [
     {
     path: "/dashboard",
-    element: <RequireAdmin> <DashboardLayout /></RequireAdmin>,
+    element: (
+      <ProtectedRoute roleRequired="admin">
+        <>
+          <DashboardLayout />
+        </>
+      </ProtectedRoute>
+    ),
     children: [
       { index: true, element: <DashboardHome /> },
-      { path: "sessions", element: <ManageSessions /> },
+      { path: "sessions",
+        children: [
+           { index: true , element: <ManageSessions />},
+           { path: "add-session", element: <AddEditSessionForm/> },
+            { path: "edit-session/:sessionId", element: <AddEditSessionForm/> },
+           ]
+        },
+       { path: "new-admin", element: <CreateAdminForm /> },
       { path: "create-admin", element: <CreateAdminPage /> },
       { path: "settings", element: <Settings /> }
     ],

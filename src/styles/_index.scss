@@ -1,19 +1,24 @@
 @use 'base/reset';
 @use 'base/variables';
+@use 'base/typography';
+@use 'base/utils';
 
 @use 'components/animations';
 @use 'components/buttons';
+@use 'components/input';
 @use 'components/forms';
 @use 'components/modal';
 @use 'components/profile';
 @use 'components/session-card';
 @use 'components/upcoming';
 @use 'components/spinner';
+@use 'components/sidebar';
+@use 'components/table-admin-sessions';
 
 
 @use 'layout/header';
-@use 'layout/side-bar';
 @use 'layout/dashboardLayout';
+
 
 @use 'pages/home';
 @use 'pages/not-found';

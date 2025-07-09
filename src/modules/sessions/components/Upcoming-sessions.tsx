@@ -53,6 +53,9 @@ export default function UpcomingSessions (){
             onClose={confirmModal.close}
             onConfirm={handleCancelBooking}
             title="Cancel Session"
+            message="Are You Sure You Want To Cancel This Session?"
+            cancelLabel="Cancel"
+            confirmLabel="Yes, Cancel"
        />
      
     {bookingModal.payload &&  

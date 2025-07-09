@@ -1,0 +1,72 @@
+@use '../base/variables' as vars;
+@use 'sass:map';
+
+.sidebar {
+  width: 20%;
+  background-color: vars.$neutral-1;
+  color: vars.$accent;
+  padding: map.get(vars.$space, lg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: map.get(vars.$space, xl);
+    color: vars.$accent;
+    text-align: center;
+  }
+
+
+  &__nav {
+    flex: 1;
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      li:last-child {
+        margin-top: auto; // ⬅️ Just pushes logout to the bottom
+      }
+    }
+
+    li {
+      width: 100%;
+    }
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    font-family: vars.$font-stack;
+    font-weight: 500;
+    font-size: 1rem;
+    color: vars.$accent;
+    padding: 0.75rem 1rem;
+    border-left: 4px solid transparent;
+    border-radius: 4px;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      background-color: lighten(vars.$primary, 10%);
+      color: vars.$accent;
+      border-left-color: vars.$accent;
+    }
+
+    &.active {
+      background-color: lighten(vars.$primary, 12%);
+      color: vars.$accent;
+      border-left-color: vars.$accent;
+      font-weight: 600;
+    }
+  }
+}

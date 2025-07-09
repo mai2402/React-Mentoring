@@ -7,7 +7,7 @@ export default function UserProfile() {
 
   const {userProfile,isLoading} = useAuthenticationContext();
 
-  console.log("User Profile Data:", userProfile);
+
 
   if (isLoading) return <Spinner />;
 

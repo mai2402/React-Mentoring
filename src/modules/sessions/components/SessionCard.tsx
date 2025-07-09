@@ -1,14 +1,12 @@
 
 
 
-import { useState } from "react";
 import { useAuthenticationContext } from "../../../core/store/authContext";
-import { SessionCardProps } from "../interfaces/interfaces";
 import Button from "../../../shared/ui/Button";
 import { LoginModal } from "../../../shared/components/LoginModal";
 import { useNavigate } from "react-router-dom";
-import { getUserProfile } from "../../user/services/userServices";
 import { useModal } from "../../../shared/hooks/useModal";
+import { SessionCardProps } from "../interfaces/session";
 
 
 export default function SessionCard({ session }: SessionCardProps) {
@@ -22,7 +20,7 @@ export default function SessionCard({ session }: SessionCardProps) {
     if (!isAuthenticated) loginModal.open(id);
     else {
       navigate(`/sessions/${id}`);
-      getUserProfile();
+    
     }
 
   }

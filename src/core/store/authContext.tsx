@@ -14,7 +14,7 @@ const AuthContext = createContext<AuthContext | undefined>(undefined);
 
 export function AuthContextProvider ({children}: AuthContextProviderProps) {
 
-    const {isAuthenticated,userProfile,isLoading} = useAuthListener()
+    const {isAuthenticated,userProfile,isLoading, session} = useAuthListener()
     
    
     const login =  async (email:string, password: string) => {
@@ -28,8 +28,9 @@ export function AuthContextProvider ({children}: AuthContextProviderProps) {
        
     }
 
+
     return(
-        <AuthContext.Provider value={{isAuthenticated, login, logout,userProfile, isLoading}}>
+        <AuthContext.Provider value={{isAuthenticated, login, logout,userProfile, isLoading, session}}>
             {children}
         </AuthContext.Provider>
     )

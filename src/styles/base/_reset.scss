@@ -5,9 +5,14 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
   font-family: vars.$font-stack;
-  background: linear-gradient(90deg, #49464f 0, #373240 100%);
+  background: vars.$neutral-1;
+  color: vars.$neutral-9;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  scroll-behavior: smooth;
 }
 
 ul {

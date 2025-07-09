@@ -1,12 +1,13 @@
-import {useNavigate } from 'react-router-dom';
-import Button from "../ui/Button";
-import Modal from "../ui/Modal";
-import { useAuthenticationContext } from "../../core/store/authContext";
-import toast from 'react-hot-toast';
-import DropDownItem from '../ui/DropDownItem';
+import { useNavigate } from 'react-router-dom';
+import { useAuthenticationContext } from '../../core/store/authContext';
 import { useDropDownModal } from '../hooks/useDropDownModal';
 import { logout } from '../../core/services/authService';
-
+import toast from 'react-hot-toast';
+import Button from '../ui/Button';
+import Modal from '../ui/Modal';
+import DropDownItem from '../ui/DropDownItem';
+import { FaMoon, FaBell, FaUserCircle } from 'react-icons/fa';
+import Spinner from '../ui/Spinner';
 
 
 const NAV_ITEMS = [
@@ -15,101 +16,120 @@ const NAV_ITEMS = [
 ];
 
 
-const DROPDOWN_ITEMS =[
+
+const User_DROPDOWN_ITEMS = [
   { label: 'My Profile', to: '/profile' },
   { label: 'Upcoming Sessions', to: '/upcoming' },
   { label: 'Logout', action: 'logout' },
-]
+];
 
-export default function Header() {
-  const { isAuthenticated  ,userProfile} = useAuthenticationContext();
-  const {menuOpen, menuRef, handleOpenModal} = useDropDownModal();
-  const navigate = useNavigate();
+export default function SmartHeader() {
+  const { isAuthenticated, userProfile, isLoading } = useAuthenticationContext();
+  const { menuOpen, menuRef, handleOpenModal } = useDropDownModal();
   
- 
-   console.log(isAuthenticated,"ana hena ")
-  const handleLogout = async () => {
-           try {
-              await logout();
-              toast.success("Logged out successfully!");
-              navigate("/");
-           } catch (error) {
-              console.error("Logout failed:", error);
-           }
-        }
+  const isAdmin = userProfile?.role === 'admin';
+  const isUser = userProfile?.role === 'user';
 
+  const navigate = useNavigate();
+
+  isLoading && <Spinner/>
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast.success('Logged out successfully!');
+      navigate('/');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
+  const renderDropdown = () => (
+    <Modal
+      isOpen={menuOpen}
+      onClose={handleOpenModal}
+      modalClassName="dropdown-backdrop"
+      containerClassName="dropdown-menu"
+    >
+     <ul className="header__dropdown-list">
+        {!isAdmin && User_DROPDOWN_ITEMS.map(({ label, action, to }) => (
+          <li key={label}>
+            <DropDownItem
+              to={to}
+              textOnly={!to}
+              onClick={() => {
+                handleOpenModal();
+                if (action === 'logout') handleLogout();
+              }}
+            >
+              {label}
+            </DropDownItem>
+          </li>
+        ))}
+      </ul>
+    </Modal>
+  );
 
 
   return (
-    <header className="header">
+    <header className={`header ${isAdmin ? 'header--admin' : 'header--user'}`}>
       <div className="header__inner">
-        <Button to="/" className="header__logo">ReactMentoring</Button>
+        <Button to="/" className="header__logo">
+          {isAdmin ? 'Admin Dashboard' : 'ReactMentoring'}
+        </Button>
 
-      <div className="header__nav--container">
-        <nav className="header__nav">
-          
-      
-          {
-            NAV_ITEMS.map(({ to, label }) => (
-              <Button
-                key={to}
-                to={to}
-                className="header__link"
-                textOnly
-              >
-                {label}
-              </Button>
-            ))
-          }
-        </nav>
-        
-      {isAuthenticated && userProfile ? (
-          <div className="header__profile" ref={menuRef}>
+        <div className="header__nav--container">
+          {!isAdmin && (
+            <nav className="header__nav">
+              {NAV_ITEMS.map(({ to, label }) => (
+                <Button key={to} to={to} className="header__link" textOnly>
+                  {label}
+                </Button>
+              ))}
+            </nav>
+          )}
 
-            <Button
-              onClick={handleOpenModal}
-              textOnly
-            >
-              <img
-                src={userProfile?.avatar_url}
-                alt={userProfile?.name || "user avatar"}
-                className="header__avatar"
-              />
-            </Button>
+          <div className="header__actions">
+            {isAdmin && (
+              <>
+                <Button className="header__icon">
+                  <FaMoon />
+                </Button>
+                <Button className="header__icon header__icon--notification">
+                  <FaBell />
+                  <span className="header__badge">3</span>
+                </Button>
+              </>
+            )}
 
-            <Modal
-              isOpen={menuOpen}
-              onClose={handleOpenModal}
-              modalClassName="dropdown-backdrop"
-              containerClassName="dropdown-menu"
-            >
-              <ul className="header__dropdown-list">
+            {isAuthenticated && isUser? (
+              <div className="header__profile" ref={menuRef}>
+                <Button
+                  onClick={handleOpenModal}
+                  textOnly
+                  className={`header__icon ${isAdmin ? 'header__icon--profile' : ''}`}
+                >
+                 
+                   { !userProfile.avatar_url  ?
+                    (<FaUserCircle/>)
+                    :
 
-                {DROPDOWN_ITEMS.map(({label,action,to})=> (
-                  <li key={label}>
-
-                  <DropDownItem 
-                      to={to}
-                      textOnly={!to}
-                      onClick={()=>{
-                           handleOpenModal();
-                        if(action === 'logout')
-                           handleLogout();
-                      }}
-                   >
-                        {label}
-                  </DropDownItem>
-                  </li>
-                ))}
-              </ul>
-            </Modal>
+                   ( <img
+                      src={userProfile.avatar_url}
+                      alt={userProfile.name || 'user avatar'}
+                      className="header__avatar"
+                    />)
+                    }
+               
+                </Button>
+                {renderDropdown()}
+              </div>
+            ) : (
+              !isAdmin && <Button to="/login" textOnly className="header__link">Login</Button>
+            )}
           </div>
-        ) : (
-        
-             <Button to="/login" textOnly className="header__link">Login</Button>
-        )}
-      </div>
+        </div>
       </div>
     </header>
   );
-}
+} 

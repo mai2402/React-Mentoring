@@ -1,18 +1,21 @@
+@use '../base/variables' as vars;
+@use 'sass:map';
+
 .home {
   width: 80%;
   max-width: 60rem;
-  margin: 3rem auto;
-  color: white;
+  margin: map.get(vars.$space, xl) auto;
+  color: vars.$neutral-9;
 
   &__heading {
     font-size: 2.5rem;
-    color: #e1d8f0;
+    color: vars.$primary;
   }
 
   &__section {
     display: flex;
-    gap: 2rem;
-    margin: 3rem 0;
+    gap: map.get(vars.$space, xl);
+    margin: map.get(vars.$space, xl) 0;
 
     &--reverse {
       flex-direction: row-reverse;
@@ -28,12 +31,12 @@
 
   &__subheading {
     font-size: 1.5rem;
-    color: #c7b0ee;
+    color: vars.$accent;
   }
 
   &__text {
     max-width: 60ch;
     font-size: 1.25rem;
-    color: #d5cbe7;
+    color: lighten(vars.$neutral-9, 20%);
   }
 }

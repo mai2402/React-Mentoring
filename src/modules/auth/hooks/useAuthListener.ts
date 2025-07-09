@@ -44,11 +44,10 @@ export function useAuthListener() {
     // On component mount or when session changes, initialize profile loading
     const init = async () => {
       try {
-        console.log("session from inside init", session);
-
+       
         // If session exists, fetch user profile
         if (session?.user?.id) {
-          console.log("Loading profile...");
+        
           await loadProfile(session.user.id);
         } else{
             setUserProfile(null)

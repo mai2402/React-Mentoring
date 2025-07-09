@@ -26,6 +26,9 @@ export interface LoginModalProps extends BaseModalProps {
 export interface ConfirmModalProps extends ModalProps {
   onConfirm: () => void;
   onCancel?: () => void;
+  message?: string;
+  confirmLabel?: string;
+  cancelLabel?: string;
 }
 
 /** Booking modal props (edit/create mode) */

@@ -1,4 +1,5 @@
-import { EmptyContentProps } from "../../modules/sessions/interfaces/interfaces";
+import { EmptyContentProps } from "../interface/emptyContent";
+
 
 
 

@@ -1,0 +1,61 @@
+@use '../base/variables' as vars;
+@use 'sass:map';
+
+.session-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: map.get(vars.$space, lg);
+  background: vars.$neutral-1;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+
+  th, td {
+    text-align: left;
+    padding: map.get(vars.$space, md);
+    border-bottom: 1px solid lighten(vars.$neutral-9, 80%);
+  }
+
+  th {
+    background-color: lighten(vars.$primary, 35%);
+    color: vars.$neutral-9;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+
+  td {
+    font-size: 0.95rem;
+    color: vars.$neutral-9;
+  }
+
+  &__actions {
+    display: flex;
+    gap: map.get(vars.$space, sm);
+    position: relative;
+   
+    }
+
+    .modal-backdrop.dropdown-backdrop {
+      position: absolute;
+      inset: unset;
+      background: none;
+      box-shadow: none;
+      display: block;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .modal-container.dropdown-menu {
+      position: absolute;
+      top: 2rem;
+      right: 0;
+      width: 12rem;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 0.5rem 0;
+      z-index: 101;
+      pointer-events: auto;
+    }
+  }
+
