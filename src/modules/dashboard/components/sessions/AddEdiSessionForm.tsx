@@ -9,6 +9,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import toast from "react-hot-toast";
 import { Session } from "../../../sessions/interfaces/session";
+import { ZodUUID } from "zod/v4";
 
 
 
@@ -57,7 +58,7 @@ export default function AddEditSessionForm (){
   const location = useLocation();
 
   // Extend Session type to include 'id' if not present
-  type SessionWithId = Session & { id: string };
+  type SessionWithId = Session & { id: ZodUUID };
   
   const sessionFromState = location.state as SessionWithId | undefined;
   const isEditMode = Boolean(sessionFromState);
@@ -82,27 +83,28 @@ export default function AddEditSessionForm (){
 );
 
 
- const defaultSessionValues =  sessionFromState ?
- {...sessionFromState}:
- {
-  title: "",
-  summary: "",
-  description: "",
-  duration: 0,
-  date: new Date().toISOString().split("T")[0], 
-  image: "",
-};
+const defaultSessionValues: AddEditSessionFormData = sessionFromState
+  ? { 
+      ...sessionFromState, 
+      id: sessionFromState.id?.toString?.() ?? sessionFromState.id 
+    }
+  : {
+      title: "",
+      summary: "",
+      description: "",
+      duration: 0,
+      date: new Date().toISOString().split("T")[0],
+      image: "",
+    };
+
 
 const handleSubmit = (data: AddEditSessionFormData) => {
 
   const sessionWithId = isEditMode
-    ? { ...sessionFromState, ...data, id: sessionFromState!.id } 
-    : {
-        ...data,
-        id: crypto.randomUUID?.() || Math.random().toString(36),
-      };
+    ? { ...sessionFromState, ...data, id: sessionFromState!.id }
+    : data;
 
-  addEditSession(sessionWithId);
+  addEditSession(sessionWithId as Session);
 };
 
 

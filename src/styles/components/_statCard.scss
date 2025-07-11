@@ -1,0 +1,42 @@
+@use '../base/variables' as vars;
+@use 'sass:map';
+
+.stat-card {
+  background: #fff;
+  padding: map.get(vars.$space, lg);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: map.get(vars.$space, sm);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: map.get(vars.$space, sm);
+
+    h4 {
+      color: vars.$neutral-9;
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: vars.$primary;
+  }
+
+  &__description {
+    font-size: 0.9rem;
+    color: vars.$neutral-9;
+  }
+}
+

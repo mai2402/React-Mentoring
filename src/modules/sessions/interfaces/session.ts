@@ -1,7 +1,8 @@
+import { ZodUUID } from "zod/v4";
 import { BookingDTO } from "../../bookings/interfaces/booking-dto";
 
  export interface Session {
-    id: string;
+    id?: ZodUUID;
     title: string;
     summary:string;
     description: string;

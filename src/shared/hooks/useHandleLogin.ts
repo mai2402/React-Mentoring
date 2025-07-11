@@ -4,12 +4,14 @@ import { LoginFormData } from "../../modules/sessions/validation/session";
 import * as authService from "../../core/services/authService";
 import toast from "react-hot-toast";
 import { getRedirectPath } from "../utils/getRedirectPath";
+import { supabase } from "../../core/supabase/client";
 
 
 export function useHandleLogin (sessionId?: string){
     const { login: setAuthContext} = useAuthenticationContext();
     const navigate = useNavigate()
-    
+   
+
 
     return async function handleLogin(formData:LoginFormData) {
     

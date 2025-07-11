@@ -9,14 +9,17 @@ export async function deleteSessions() {
 }
 
 export async function createSessions() {
-  const simplifiedSessions = SESSIONS.map(({ image, ...session }) => ({
+  const simplifiedSessions = SESSIONS.map(({ id, image, ...session }) => ({
     ...session,
-    image: image // just the filename if needed
+    image, // keep image if needed
   }));
 
   const { error } = await supabase.from("sessions").insert(simplifiedSessions);
-  if (error) console.log(error.message);
+
+  if (error) console.error("Insert failed:", error.message);
+  else console.log("✅ Sessions inserted successfully");
 }
+
 
 
 

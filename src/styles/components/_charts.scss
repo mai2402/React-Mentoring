@@ -1,0 +1,33 @@
+@use '../base/variables' as vars;
+@use 'sass:map';
+
+.chart-card {
+  background: #fff;
+  padding: 1.5rem; // roughly 24px
+  border-radius: 0.75rem; // 12px
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.05); // same as before
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__title {
+    font-size: 1.25rem; // 20px
+    font-weight: 600;
+    color: vars.$primary;
+  }
+
+  &__description {
+    font-size: 0.875rem; // 14px
+    color: vars.$neutral-9;
+  }
+
+  &__body {
+    height: 20rem; // 320px
+  }
+}

@@ -6,7 +6,7 @@ import { z as ZOD } from "zod";
 
 
 export const sessionSchema = ZOD.object({
-  id: ZOD.string().optional(),
+  id: ZOD.string().uuid().optional(),
   title: ZOD.string().min(3, "Title must be at least 3 characters"),
   summary: ZOD.string().min(10, "Summary must be at least 10 characters"),
   description: ZOD.string().min(15, "Description must be at least 15 characters"),

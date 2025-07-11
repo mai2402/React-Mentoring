@@ -1,7 +1,8 @@
 import studentsImg from "../../assets/students.jpg"
 import listImg from '../../assets/list.jpg';
 import certificateImg from '../../assets/certificate.jpg';
-// import Uploader from '../components/shared/Uploader';
+import Uploader from "../../shared/ui/Uploader";
+
 
 
 
@@ -49,7 +50,7 @@ export default function HomePage() {
           </p>
         </div>
       </section>
-    
+      {/* <Uploader/> */}
       
     </main>
   );

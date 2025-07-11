@@ -10,9 +10,11 @@ const { data: existingSession } = await supabase
   .from("sessions")
   .select("id")
   .eq("id", session.id)
+  .order("created_at", { ascending: true })
   .maybeSingle();
+  
 
-  const isEdit = !!existingSession;
+  const isEdit = !!session.id || !!existingSession;
 
   if (isEdit) {
     const { data, error } = await supabase
@@ -27,13 +29,17 @@ const { data: existingSession } = await supabase
 
     return data;
   }
+ 
 
-  // Otherwise, insert
+  const { id, ...sessionWithoutId } = session; // Remove id if it exists
+ 
+  
   const { data, error } = await supabase
     .from("sessions")
-    .insert([session])
+    .insert([sessionWithoutId])
     .select()
     .single();
+    
 
   if (error) throw error;
   return data;

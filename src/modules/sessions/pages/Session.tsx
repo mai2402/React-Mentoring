@@ -15,7 +15,7 @@ import Spinner from '../../../shared/ui/Spinner.tsx';
         const params = useParams<{ sessionId: string }>();
         const sessionId = params.sessionId;
         const {data : sessions, isLoading} = useGetSessions();
-        debugger
+   
         const loadedSession = sessions?.find((session) => session.id === sessionId);
         const bookingModal = useModal<Session>()
         
