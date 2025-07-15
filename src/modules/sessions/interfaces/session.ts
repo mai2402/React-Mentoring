@@ -24,7 +24,7 @@ import { BookingDTO } from "../../bookings/interfaces/booking-dto";
 
 export interface UpcomingSessionsItemProps {
   onEdit: (booking: BookingDTO) => void;
-  onCancel: (bookingId: string) => void;
+  onCancel: (bookingId: ZodUUID) => void;
   session: BookingDTO;
 }   
  

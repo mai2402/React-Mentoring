@@ -15,11 +15,12 @@ export function buildBooking({
         editBooking?: BookingDTO 
     }): BookingDTO
     {
+    
 
     return {
         
             ...editBooking,
-            sessionId: session.id ?? "",
+            sessionId: session.id ?? undefined,
             name: formData.name,
             phone: formData.phone,
             title: session.title ?? "",

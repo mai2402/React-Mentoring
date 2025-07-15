@@ -7,7 +7,7 @@ export default function UpcomingSessionsItem ({session,onEdit, onCancel }: Upcom
 
 
     return(
-                <li key={session.sessionId} className="upcoming__session">
+                <li key={String(session.sessionId)} className="upcoming__session">
                   <div className="upcoming__info">
                     <h3>{session.title}</h3>
                     <p>{session.summary}</p>

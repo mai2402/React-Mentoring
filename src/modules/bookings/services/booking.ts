@@ -1,3 +1,4 @@
+import { ZodUUID } from "zod/v4";
 import { supabase } from "../../../core/supabase/client";
 import { BookingDTO } from "../interfaces/booking-dto";
 
@@ -7,11 +8,11 @@ export async function createUpdateBooking(booking: BookingDTO) {
   // Get the currently authenticated user
   const { data, error } = await supabase.auth.getUser();
   if (!data.user || error) throw error?.message;
-
+   
 
   // Prepare the booking payload with the user ID included
   const insertPayload = { ...booking, user_id: data.user?.id};
-
+  
   //if booking id exists then it updates the booking
   
   if(booking.id){
@@ -19,6 +20,7 @@ export async function createUpdateBooking(booking: BookingDTO) {
     .from("bookings")
     .update(insertPayload)
     .eq("id", booking.id)
+     
 
       if (error) throw new Error(`Error updating booking: ${error.message}`);
     return {...booking};
@@ -32,7 +34,7 @@ export async function createUpdateBooking(booking: BookingDTO) {
     .select('id')
     .eq('user_id', data.user.id)
     .eq('sessionId', booking.sessionId)
-   
+
 
   if (existingError) {
     throw new Error(`Error checking existing booking: ${existingError.message}`);
@@ -79,7 +81,7 @@ export async function getMyBookings(): Promise<BookingDTO[]> {
 }
 
 // Cancel a booking by its ID
-export async function cancelBooking(bookingId: string): Promise<void> {
+export async function cancelBooking(bookingId: ZodUUID): Promise<void> {
   const { error } = await supabase
     .from("bookings")
     .delete()

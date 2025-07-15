@@ -26,9 +26,11 @@ export function BookingModal({ loadedSession, onClose, isOpen, editBooking }: Bo
      if(isPending) return <Spinner/>
 
     const handleSubmit = (formData: BookingFormData)=>{
+
+
        
       const booking = buildBooking({formData,session: loadedSession, editBooking})
-
+         
       saveBookings( booking  , {
           onSuccess:()=>{
             navigate("/upcoming");

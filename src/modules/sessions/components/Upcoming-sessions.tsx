@@ -4,6 +4,8 @@ import ConfirmModal from "../../../shared/components/ConfirmModal";
 import { BookingModal } from "../../../shared/components/BookingModal";
 import UpcomingSessionsItem from "./Upcoming-sessions-item";
 import { useUpcomingSessions } from "../hooks/useUpcomingSessions";
+import { ZodUUID } from "zod/v4";
+import Button from "../../../shared/ui/Button";
 
 
 
@@ -15,7 +17,7 @@ export default function UpcomingSessions (){
           handleCancelBooking,
           handleEditBooking} = useUpcomingSessions();
 
-    const uponCancel = (bookingId : string)=>{
+    const uponCancel = (bookingId : ZodUUID)=>{
       confirmModal.open(bookingId)
       handleCancelBooking();
     }      
@@ -28,6 +30,7 @@ export default function UpcomingSessions (){
      return<EmptyContent>
          <h2>No upcoming sessions</h2>
          <p>Go check our latest available sessions</p>
+         <Button textOnly to="/sessions" >Browse Sessions</Button>
          </EmptyContent>
   
  return (<>
@@ -37,7 +40,7 @@ export default function UpcomingSessions (){
             <ul>
               {bookings?.map((session) => (
                 <UpcomingSessionsItem
-                 key={session.id}
+                 key={String(session.id)}
                  session={session}
                  onCancel={()=>uponCancel(session.id!)}
                  onEdit={handleEditBooking}

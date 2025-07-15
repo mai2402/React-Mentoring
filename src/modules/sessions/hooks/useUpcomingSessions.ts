@@ -4,12 +4,13 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useGetMyBookings } from "../../bookings/hooks/useGetMyBookings";
 import { useModal } from "../../../shared/hooks/useModal";
 import { cancelBooking } from "../../bookings/services/booking";
+import { ZodUUID } from "zod/v4";
 
 
 export function useUpcomingSessions (){
 
     const bookingModal = useModal<BookingDTO>();
-     const confirmModal = useModal<string>(); 
+     const confirmModal = useModal<ZodUUID>(); 
       const {data: bookings, isLoading } = useGetMyBookings()
       const queryClient = useQueryClient()
     

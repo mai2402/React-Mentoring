@@ -4,10 +4,10 @@ import { LoginFormData } from "../../modules/sessions/validation/session";
 import * as authService from "../../core/services/authService";
 import toast from "react-hot-toast";
 import { getRedirectPath } from "../utils/getRedirectPath";
-import { supabase } from "../../core/supabase/client";
+import { ZodUUID } from "zod/v4";
 
 
-export function useHandleLogin (sessionId?: string){
+export function useHandleLogin (sessionId?: ZodUUID){
     const { login: setAuthContext} = useAuthenticationContext();
     const navigate = useNavigate()
    

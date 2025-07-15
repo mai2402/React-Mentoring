@@ -7,17 +7,18 @@ import { LoginModal } from "../../../shared/components/LoginModal";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../../shared/hooks/useModal";
 import { SessionCardProps } from "../interfaces/session";
+import { ZodUUID } from "zod/v4";
 
 
 export default function SessionCard({ session }: SessionCardProps) {
   const { title, summary, image, id } = session;
   const { isAuthenticated } = useAuthenticationContext();
-  const loginModal = useModal<string>();
+  const loginModal = useModal<ZodUUID>();
   const navigate = useNavigate();
  
   const handleLearnMoreClick = () => {
 
-    if (!isAuthenticated) loginModal.open(id);
+    if (!isAuthenticated) loginModal.open(id as ZodUUID);
     else {
       navigate(`/sessions/${id}`);
     

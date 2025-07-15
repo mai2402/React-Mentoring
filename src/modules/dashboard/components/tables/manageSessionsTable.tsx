@@ -13,6 +13,7 @@ import { FaPlus } from "react-icons/fa";
 import { sessionTableColumns } from "../../config/sessions/sessionsTable";
 import { useState } from "react";
 import ConfirmModal from "../../../../shared/components/ConfirmModal";
+import { ZodULID, ZodUUID } from "zod/v4";
 
 
 
@@ -21,7 +22,7 @@ import ConfirmModal from "../../../../shared/components/ConfirmModal";
 }
 
 export default function ManageSessionsTable({ sessions }: ManageSessionsTableProps) {
-  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>( null)
+  const [confirmDeleteId, setConfirmDeleteId] = useState<ZodUUID | null>( null)
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -51,7 +52,7 @@ export default function ManageSessionsTable({ sessions }: ManageSessionsTablePro
     {
       label: "Delete",
       icon: "🗑️",
-      action: () => setConfirmDeleteId(session.id),
+      action: () => setConfirmDeleteId(session.id as ZodUUID),
     },
   ];
 

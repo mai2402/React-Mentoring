@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Session } from "../../modules/sessions/interfaces/session";
 import { BookingDTO } from "../../modules/bookings/interfaces/booking-dto";
+import { ZodUUID } from "zod/v4";
 
 /** Base interface for all modal components */
 export interface BaseModalProps {
@@ -19,7 +20,7 @@ export interface ModalProps extends BaseModalProps {
 
 /** Login modal specific props */
 export interface LoginModalProps extends BaseModalProps {
-  sessionId?: string;
+  sessionId?: ZodUUID;
 }
 
 /** Confirmation modal props (extends base + title) */

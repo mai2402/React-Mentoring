@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { deleteSession } from "../services/sessions/session";
 import toast from "react-hot-toast";
+import { ZodUUID } from "zod/v4";
 
 
 
@@ -8,7 +9,7 @@ import toast from "react-hot-toast";
 export function useDeleteSession (onSuccess?: ()=> void){
 
     return useMutation({
-        mutationFn: async (sessionId: string)=> {
+        mutationFn: async (sessionId: ZodUUID)=> {
           
              await deleteSession(sessionId)
         },

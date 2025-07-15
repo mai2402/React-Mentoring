@@ -1,3 +1,4 @@
+import { ZodUUID } from "zod/v4";
 import { supabase } from "../../../../core/supabase/client";
 import { Session } from "../../../sessions/interfaces/session";
 
@@ -52,7 +53,7 @@ const { data: existingSession } = await supabase
 
 
 
-export async function deleteSession (sessionId: string){
+export async function deleteSession (sessionId: ZodUUID){
 
 const {data , error } = await supabase
   .from('sessions')
