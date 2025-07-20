@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { CreateAdminFormData } from "../validation/createAdminForm";
-import { createNewAdmin } from "../services/adminServices";
+import { createAdmin } from "../services/adminServices";
 import toast from "react-hot-toast";
 
 
@@ -14,7 +14,7 @@ export function useCreateNewAdmin (onSuccess?: () => void){
      > ({
         mutationFn: 
                 async (formData) => {
-                    await createNewAdmin(formData)
+                    await createAdmin(formData)
                 },
         onSuccess:() => {
         onSuccess?.();
