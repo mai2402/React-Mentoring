@@ -16,22 +16,26 @@ export default function UpcomingSessions (){
           bookingModal,
           handleCancelBooking,
           handleEditBooking} = useUpcomingSessions();
-
+      const sessionIdInBookings = bookings?.map((booking) => booking.sessionId);
     const uponCancel = (bookingId : ZodUUID)=>{
       confirmModal.open(bookingId)
       handleCancelBooking();
     }      
 
- 
    if(isLoading) return <Spinner/>
 
    if(!bookings || bookings.length === 0)
+  
 
-     return<EmptyContent>
+
+     return(
+        <EmptyContent>
          <h2>No upcoming sessions</h2>
          <p>Go check our latest available sessions</p>
          <Button textOnly to="/sessions" >Browse Sessions</Button>
-         </EmptyContent>
+        </EmptyContent>
+         )
+         
   
  return (<>
        <div className="upcoming">

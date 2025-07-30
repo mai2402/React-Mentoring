@@ -2,70 +2,75 @@ import { ZodUUID } from "zod/v4";
 import { supabase } from "../../../core/supabase/client";
 import { BookingDTO } from "../interfaces/booking-dto";
 
-
-
+/**
+ * Create or update a booking for a session.
+ * - Prevents duplicate bookings by the same user for the same session.
+ * - Updates booking if `booking.id` is present.
+ */
 export async function createUpdateBooking(booking: BookingDTO) {
-  // Get the currently authenticated user
-  const { data, error } = await supabase.auth.getUser();
-  if (!data.user || error) throw error?.message;
-   
+  // Fetch currently authenticated user
+  const { data: authData, error: authError } = await supabase.auth.getUser();
+  if (!authData.user || authError) throw authError?.message;
 
-  // Prepare the booking payload with the user ID included
-  const insertPayload = { ...booking, user_id: data.user?.id};
-  
-  //if booking id exists then it updates the booking
-  
-  if(booking.id){
-    const {error} = await supabase
+  const userId = authData.user.id;
+  const insertPayload = { ...booking, user_id: userId };
+
+  // If booking has an ID → update existing booking
+  if (booking.id) {
+    const { error: updateError } = await supabase
+      .from("bookings")
+      .update(insertPayload)
+      .eq("id", booking.id);
+
+    if (updateError) {
+      throw new Error(`Error updating booking: ${updateError.message}`);
+    }
+
+    return { ...booking };
+  }
+
+  // Otherwise → create new booking (with duplicate check)
+  const { data: existingBooking, error: existingBookingError } = await supabase
     .from("bookings")
-    .update(insertPayload)
-    .eq("id", booking.id)
-     
+    .select("id")
+    .eq("user_id", userId)
+    .eq("sessionId", booking.sessionId);
 
-      if (error) throw new Error(`Error updating booking: ${error.message}`);
-    return {...booking};
-  }
-  else {
-
-
-  // Check if the user already booked the same session
-  const { data: existingBooking, error: existingError } = await supabase
-    .from('bookings')
-    .select('id')
-    .eq('user_id', data.user.id)
-    .eq('sessionId', booking.sessionId)
-
-
-  if (existingError) {
-    throw new Error(`Error checking existing booking: ${existingError.message}`);
+  if (existingBookingError) {
+    throw new Error(`Error checking existing booking: ${existingBookingError.message}`);
   }
 
-  // If a booking already exists, prevent duplicate booking
   if (existingBooking.length > 0) {
-    console.warn("Duplicate booking attempt.");
-    throw new Error("You have already booked this session.");
+    // Prevent duplicate bookings
+    console.warn("User already booked this session.");
+    throw new Error("You've already booked this session.");
   }
 
-  // Insert the new booking into the database
-  const { data: insertedBooking, error } = await supabase
-    .from('bookings')
+  // Proceed to insert new booking
+  const { data: insertedBooking, error: insertError } = await supabase
+    .from("bookings")
     .insert([insertPayload])
     .select()
     .single();
 
-  if (error) {
-    console.error("Error booking session:", error.message);
-    console.log("booking payload:", booking);
-    console.log("Supabase error:", error);
-    throw new Error(error.message);
-  }
+  if (insertError) {
+    if (insertError.message.includes("unique_user_session") 
 
+       || insertError.message.includes("duplicate key")) {
+        
+      throw new Error("You've already booked this session.");
+    }
+
+    console.error("Booking insert failed:", insertError.message);
+    throw new Error(insertError.message);
+  }
 
   return insertedBooking || null;
 }
-}
 
-// Fetch all bookings for the current user, ordered by newest first
+/**
+ * Fetch all bookings for the current user, ordered by newest first.
+ */
 export async function getMyBookings(): Promise<BookingDTO[]> {
   const { data, error } = await supabase
     .from("bookings")
@@ -80,7 +85,9 @@ export async function getMyBookings(): Promise<BookingDTO[]> {
   return data || [];
 }
 
-// Cancel a booking by its ID
+/**
+ * Cancel a booking by its ID.
+ */
 export async function cancelBooking(bookingId: ZodUUID): Promise<void> {
   const { error } = await supabase
     .from("bookings")
@@ -88,11 +95,7 @@ export async function cancelBooking(bookingId: ZodUUID): Promise<void> {
     .eq("id", bookingId);
 
   if (error) {
-    console.log("Error cancelling booking:", error.message);
-    console.log("supabase error", error);
+    console.error("Error cancelling booking:", error.message);
     throw error.message;
   }
 }
-
-
-
