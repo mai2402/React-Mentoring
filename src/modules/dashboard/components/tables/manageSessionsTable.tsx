@@ -13,7 +13,7 @@ import { FaPlus } from "react-icons/fa";
 import { sessionTableColumns } from "../../config/sessions/sessionsTable";
 import { useState } from "react";
 import ConfirmModal from "../../../../shared/components/ConfirmModal";
-import { ZodULID, ZodUUID } from "zod/v4";
+import {ZodUUID } from "zod/v4";
 
 
 
@@ -60,12 +60,7 @@ export default function ManageSessionsTable({ sessions }: ManageSessionsTablePro
 
   return (
     <>
-      <div className="flex-between">
-        <h2>Available Sessions</h2>
-        <Button to="/dashboard/sessions/add-session">
-          Create <FaPlus />
-        </Button>
-      </div>
+
 
       <Table data={sessions} columns={sessionTableColumns} actions={actions} />
 

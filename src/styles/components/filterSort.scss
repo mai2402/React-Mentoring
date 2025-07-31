@@ -1,0 +1,33 @@
+@use '../base/variables' as vars;
+@use 'sass:map';
+
+.filter-sort-bar {
+  display: flex;
+  gap: map.get(vars.$space, md);
+  align-items: center;
+  margin-bottom: map.get(vars.$space, lg);
+  flex-wrap: wrap;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    color: vars.$primary;
+  }
+
+  select {
+    padding: 0.4rem 0.6rem;
+    margin-top: 0.3rem;
+    border: 1px solid vars.$accent;
+    border-radius: 4px;
+    background-color: vars.$neutral-1;
+    color: vars.$primary;
+    font-size: 1rem;
+    min-width: 180px;
+
+    &:focus {
+      border-color: vars.$primary;
+      outline: none;
+    }
+  }
+}
