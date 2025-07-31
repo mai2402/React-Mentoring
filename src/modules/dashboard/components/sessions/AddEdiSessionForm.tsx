@@ -3,13 +3,13 @@ import Button from "../../../../shared/ui/Button";
 import Form from "../../../../shared/ui/Form";
 import Input from "../../../../shared/ui/Input";
 import Spinner from "../../../../shared/ui/Spinner";
-import { useEditAddSession } from "../../hooks/useEditAddSession";
 import { AddEditSessionFormData, sessionSchema } from "../../validation/AddEditSessionForm";
 import { useQueryClient } from "@tanstack/react-query";
 
 import toast from "react-hot-toast";
 import { Session } from "../../../sessions/interfaces/session";
 import { ZodUUID } from "zod/v4";
+import { useEditAddSession } from "../../hooks/sessions/useEditAddSession";
 
 
 

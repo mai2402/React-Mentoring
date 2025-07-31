@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { addEditSession } from "../services/sessions/session";
-import { Session } from "../../sessions/interfaces/session";
+
 import toast from "react-hot-toast";
+import { Session } from "../../../sessions/interfaces/session";
+import { addEditSession } from "../../services/sessions/session";
 
 
 
