@@ -1,19 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
 import { Session } from "../../../sessions/interfaces/session";
-import { useDeleteSession } from "../../hooks/useDeleteSession";
-
 import Table from "../../../../shared/ui/Table";
-import Button from "../../../../shared/ui/Button";
 import Spinner from "../../../../shared/ui/Spinner";
-
-import { FaPlus } from "react-icons/fa";
 import { sessionTableColumns } from "../../config/sessions/sessionsTable";
 import { useState } from "react";
 import ConfirmModal from "../../../../shared/components/ConfirmModal";
 import {ZodUUID } from "zod/v4";
+import { useDeleteSession } from "../../hooks/sessions/useDeleteSession";
 
 
 

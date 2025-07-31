@@ -3,9 +3,9 @@ import Spinner from "../../../../shared/ui/Spinner";
 import { useGetSessions } from "../../../sessions/hooks/useGetSessions";
 import ManageSessionsTable from "../tables/manageSessionsTable";
 import { FilterSort } from "../../../../shared/ui/FilterSort";
-import { useState } from "react";
 import Button from "../../../../shared/ui/Button";
 import { FaPlus } from "react-icons/fa";
+import { useSessionsFilterSort } from "../../hooks/sessions/useSessionsFilterSort";
 
 
 const filterOptions= [
@@ -27,21 +27,10 @@ const sortOptions = [
 
 
 export default function AdminSessionsList (){
-  
-  
-  const [filter, setFilter] = useState("All");
-  const [sort, setSort] = useState("date_desc");
+  const {filter,sort,handleFilterChange,handleSortChange} = useSessionsFilterSort();
   const {data: sessionsList, isLoading, error} = useGetSessions(filter, sort)
 
-    const handleFilterChange = (value: string) => {
-        setFilter(value);
-        console.log("Filter changed to:", value);
-    }
-
-    const handleSortChange = (value: string) => {
-        setSort(value);
-        console.log("Sort changed to:", value);
-    }
+    
 
   if(isLoading) return <Spinner/>
 
