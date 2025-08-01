@@ -9,6 +9,6 @@
 
   svg {
     animation: spin 1s linear infinite;
-    stroke: vars.$accent;
+    stroke: map.get(vars.$colors, accent);
   }
 }

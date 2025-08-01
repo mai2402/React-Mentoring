@@ -5,11 +5,11 @@
   width: 80%;
   max-width: 60rem;
   margin: map.get(vars.$space, xl) auto;
-  color: vars.$neutral-9;
+  color: map.get(vars.$colors, neutral-9);
 
   &__heading {
     font-size: 2.5rem;
-    color: vars.$primary;
+    color: map.get(vars.$colors, primary);
   }
 
   &__section {
@@ -31,12 +31,12 @@
 
   &__subheading {
     font-size: 1.5rem;
-    color: vars.$accent;
+    color: map.get(vars.$colors, accent);
   }
 
   &__text {
     max-width: 60ch;
     font-size: 1.25rem;
-    color: lighten(vars.$neutral-9, 20%);
+    color: lighten(map.get(vars.$colors, neutral-9), 20%);
   }
 }

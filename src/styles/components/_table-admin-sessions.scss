@@ -5,7 +5,7 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: map.get(vars.$space, lg);
-  background: vars.$neutral-1;
+  background: map.get(vars.$colors, neutral-1);
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
   overflow: hidden;
@@ -13,19 +13,19 @@
   th, td {
     text-align: left;
     padding: map.get(vars.$space, md);
-    border-bottom: 1px solid lighten(vars.$neutral-9, 80%);
+    border-bottom: 1px solid lighten(map.get(vars.$colors, neutral-9), 80%);
   }
 
   th {
-    background-color: lighten(vars.$primary, 35%);
-    color: vars.$neutral-9;
+    background-color: lighten(map.get(vars.$colors, primary), 35%);
+    color: map.get(vars.$colors, neutral-9);
     font-weight: bold;
     font-size: 0.95rem;
   }
 
   td {
     font-size: 0.95rem;
-    color: vars.$neutral-9;
+    color: map.get(vars.$colors, neutral-9);
   }
 
   &__actions {

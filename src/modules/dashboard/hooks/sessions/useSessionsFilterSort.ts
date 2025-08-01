@@ -6,18 +6,34 @@ import { useSearchParams } from "react-router-dom";
 export function useSessionsFilterSort (){
  
     const[searchParams, setSearchParams] = useSearchParams();
-    const initialFilter = searchParams.get("filter") || "All";
+    
     const initialSort = searchParams.get("sort") || "date_desc";
 
-    const [filter, setFilter] = useState(initialFilter);
+    // Parse initial filter from search params
+    const initialFilters: string[] = searchParams.get("level")
+        ? searchParams.get("level")!.split(",")
+        : [];
+
+    const [filters, setFilter] = useState<{level: string[]}>({
+        level: initialFilters
+    });
+
     const [sort, setSort] = useState(initialSort);
 
-
-    const handleFilterChange = (value: string) => {
-            setFilter(value);
+ // Function to handle multi filter changes
+    const handleFilterChange = (updatedFilters: string[]) => {
+            setFilter((prev)=> ({...prev, level: updatedFilters}));
+            
             setSearchParams((prev)=>{
                 const newFilterParams = new URLSearchParams(prev);
-                newFilterParams.set("filter", value);
+
+                // Update the 'level' parameter with the new filters
+                newFilterParams.set("level", updatedFilters.join(","));
+
+                 // Remove the parameter if no filters are selected
+                if (updatedFilters.length === 0) {
+                    newFilterParams.delete("level");
+                }
                 return newFilterParams;
             })
         }
@@ -31,5 +47,5 @@ export function useSessionsFilterSort (){
             })
         }
 
-    return{filter, sort, handleFilterChange, handleSortChange};
+    return{filters, sort, handleFilterChange, handleSortChange};
 }

@@ -1,0 +1,37 @@
+@use "../base/variables" as vars;
+@use "sass:map";
+
+.multi-checkbox-filter {
+  display: flex;
+  flex-direction: column;
+  gap: map.get(vars.$space, sm);
+
+  &__label {
+    font-size: 1rem;
+    color: map.get(vars.$colors, primary);
+    margin-bottom: map.get(vars.$space, xs);
+  }
+
+  &__options {
+    display: flex;
+    gap: map.get(vars.$space, md);
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: map.get(vars.$space, xs);
+    font-size: 0.95rem;
+    color: map.get(vars.$colors, neutral-9);
+
+    input[type="checkbox"] {
+      accent-color: map.get(vars.$colors, primary);
+      transform: scale(1.1);
+    }
+
+    span {
+      text-transform: capitalize;
+    }
+  }
+}

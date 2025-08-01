@@ -10,7 +10,7 @@
   font-size: 0.85rem;
   font-weight: bold;
   margin-bottom: 0.25rem;
-  color: vars.$neutral-9;
+  color: map.get(vars.$colors, neutral-9);
   text-transform: uppercase;
 }
 
@@ -19,11 +19,11 @@
   max-width: 35rem;
   font: inherit;
   font-size: 1.25rem;
-  border: 1px solid lighten(vars.$neutral-9, 40%);
+  border: 1px solid lighten(map.get(vars.$colors, neutral-9), 40%);
   border-radius: 4px;
   padding: 0.5rem;
-  color: vars.$neutral-9;
-  background-color: vars.$neutral-1;
+  color: map.get(vars.$colors, neutral-9);
+  background-color: map.get(vars.$colors, neutral-1);
 }
 
 .error {

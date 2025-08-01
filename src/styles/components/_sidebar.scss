@@ -3,8 +3,8 @@
 
 .sidebar {
   width: 20%;
-  background-color: vars.$neutral-1;
-  color: vars.$accent;
+  background-color: map.get(vars.$colors, neutral-1);
+  color: map.get(vars.$colors, accent);
   padding: map.get(vars.$space, lg);
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: map.get(vars.$space, xl);
-    color: vars.$accent;
+    color: map.get(vars.$colors, accent);
     text-align: center;
   }
 
@@ -48,7 +48,7 @@
     font-family: vars.$font-stack;
     font-weight: 500;
     font-size: 1rem;
-    color: vars.$accent;
+    color: map.get(vars.$colors, accent);
     padding: 0.75rem 1rem;
     border-left: 4px solid transparent;
     border-radius: 4px;
@@ -57,15 +57,15 @@
     text-decoration: none;
 
     &:hover {
-      background-color: lighten(vars.$primary, 10%);
-      color: vars.$accent;
-      border-left-color: vars.$accent;
+      background-color: lighten(map.get(vars.$colors, primary), 10%);
+      color: map.get(vars.$colors, accent);
+      border-left-color: map.get(vars.$colors, accent);
     }
 
     &.active {
-      background-color: lighten(vars.$primary, 12%);
-      color: vars.$accent;
-      border-left-color: vars.$accent;
+      background-color: lighten(map.get(vars.$colors, primary), 12%);
+      color: map.get(vars.$colors, accent);
+      border-left-color: map.get(vars.$colors, accent);
       font-weight: 600;
     }
   }

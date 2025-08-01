@@ -20,7 +20,7 @@
   &__title {
     font-size: 1.5rem;
     font-weight: 600;
-    color: vars.$primary;
+    color: map.get(vars.$colors, primary);
     margin-bottom: map.get(vars.$space, md);
   }
 }

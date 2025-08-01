@@ -5,18 +5,18 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  color: vars.$neutral-9;
-  background-color: vars.$neutral-1;
+  color: map.get(vars.$colors, neutral-9);
+  background-color: map.get(vars.$colors, neutral-1) ;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 
   &--user {
-    background-color: vars.$neutral-1;
-    border-bottom: 1px solid lighten(vars.$neutral-9, 70%);
+    background-color: map.get(vars.$colors, neutral-1) ;
+    border-bottom: 1px solid lighten(map.get(vars.$colors, neutral-9), 70%);
   }
 
   &--admin {
-    background-color: vars.$neutral-1;
-    border-bottom: 1px solid lighten(vars.$neutral-9, 70%);
+    background-color: map.get(vars.$colors, neutral-1) ;
+    border-bottom: 1px solid lighten(map.get(vars.$colors, neutral-9), 70%);
   }
 
   &__inner {
@@ -31,7 +31,7 @@
   &__logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: vars.$primary;
+    color: map.get(vars.$colors, primary);
   }
 
   &__nav {
@@ -48,12 +48,12 @@
   }
 
   &__link {
-    color: vars.$neutral-9;
+    color: map.get(vars.$colors, neutral-9);
     font-weight: 500;
 
     &:hover,
     &.active {
-      color: vars.$accent;
+      color: map.get(vars.$colors, accent);
     }
   }
 
@@ -85,7 +85,7 @@
       display: block;
       width: 100%;
       padding: 0.75rem 1rem;
-      color: vars.$neutral-9;
+      color: map.get(vars.$colors, neutral-9);
       background: none;
       text-align: left;
       border: none;
@@ -94,7 +94,7 @@
       cursor: pointer;
 
       &:hover {
-        background: lighten(vars.$primary, 45%);
+        background: lighten(map.get(vars.$colors, primary), 45%);
       }
     }
   }
@@ -111,10 +111,10 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: vars.$neutral-9;
+    color: map.get(vars.$colors, neutral-9);
 
     &:hover {
-      color: vars.$primary;
+      color: map.get(vars.$colors, primary);
     }
 
     &--notification {

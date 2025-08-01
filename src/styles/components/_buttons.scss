@@ -1,8 +1,9 @@
 @use '../base/variables' as vars;
+@use 'sass:map';
 
 .btn {
-  background-color: vars.$primary;
-  color: vars.$neutral-1;
+  background-color: map.get(vars.$colors, primary);
+  color: map.get(vars.$colors, neutral-1);
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1.5rem;
@@ -12,18 +13,18 @@
 
   &:hover,
   &:active {
-    background-color: darken(vars.$primary, 10%);
+    background-color: darken(map.get(vars.$colors, primary), 10%);
   }
 
   &--text-only {
     background-color: transparent;
-    color: vars.$accent;
+    color: map.get(vars.$colors, accent);
     border-bottom: 2px solid transparent;
 
     &:hover,
     &:active {
-      color: darken(vars.$accent, 10%);
-      border-color: darken(vars.$accent, 10%);
+      color: darken(map.get(vars.$colors, accent), 10%);
+      border-color: darken(map.get(vars.$colors, accent), 10%);
     }
   }
 }

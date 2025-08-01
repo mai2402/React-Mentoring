@@ -6,13 +6,12 @@ import { FilterSort } from "../../../../shared/ui/FilterSort";
 import Button from "../../../../shared/ui/Button";
 import { FaPlus } from "react-icons/fa";
 import { useSessionsFilterSort } from "../../hooks/sessions/useSessionsFilterSort";
+import { MultiCheckBoxFilter } from "../../../../shared/ui/MultiCheckBoxFilter";
+import { DropDownMenu } from "../../../../shared/ui/DropDownMenu";
 
 
-const filterOptions= [
-    { label: "All", value: "all" },
-    { label: "Beginner", value: "beginner" },
-    { label: "Advanced", value: "advanced" }
-  ];
+
+const filterOptions= ["beginner", "intermediate", "advanced"];
 
 const sortOptions = [
   { label: "Newest", value: "date_desc" },
@@ -27,10 +26,9 @@ const sortOptions = [
 
 
 export default function AdminSessionsList (){
-  const {filter,sort,handleFilterChange,handleSortChange} = useSessionsFilterSort();
-  const {data: sessionsList, isLoading, error} = useGetSessions(filter, sort)
+  const {filters,sort,handleFilterChange,handleSortChange} = useSessionsFilterSort();
+  const {data: sessionsList, isLoading, error} = useGetSessions(filters, sort)
 
-    
 
   if(isLoading) return <Spinner/>
 
@@ -45,12 +43,19 @@ export default function AdminSessionsList (){
   <div className="flex-between">
 
    <div className="flex-between  flex-between__margin">
+    <DropDownMenu
+        trigger={<button className="filter-btn">Filter by Level ▾</button>}
 
-      <FilterSort
+     >
+
+       <MultiCheckBoxFilter
         options={filterOptions}
-        selectedOption={filter}
+        selectedOptions={filters.level}
         onOptionChange={handleFilterChange}
+        label="Filter by Level"
         />
+    </DropDownMenu>
+
         <FilterSort
         options={sortOptions}
         selectedOption={sort}

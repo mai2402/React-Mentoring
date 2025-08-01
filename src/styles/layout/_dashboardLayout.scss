@@ -4,12 +4,12 @@
 .dashboard-layout {
   display: flex;
   min-height: 100vh;
-  background-color: vars.$neutral-1;
+  background-color: map.get(vars.$colors, neutral-1);
 
   .dashboard-main {
     flex: 1;
     padding: map.get(vars.$space, xl);
-    background-color: vars.$neutral-1;
+    background-color: map.get(vars.$colors, neutral-1);
     overflow-y: auto;
 
     .dashboard-content {

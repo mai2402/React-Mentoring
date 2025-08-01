@@ -17,8 +17,8 @@
 }
 
 .modal-container {
-  background-color: vars.$primary;
-  color: vars.$neutral-1;
+  background-color: map.get(vars.$colors, primary);
+  color: map.get(vars.$colors, neutral-1);
   padding: map.get(vars.$space, lg);
   border-radius: 8px;
   width: 90%;
@@ -39,7 +39,7 @@
 .modal-title {
   max-width: 60ch;
   font-size: 1.25rem;
-  color: vars.$neutral-1;
+  color: map.get(vars.$colors, neutral-1);
 }
 
 .modal-content--scrollable {
@@ -47,7 +47,7 @@
   overflow-y: auto;
   padding-right: 8px;
   scrollbar-width: thin;
-  scrollbar-color: vars.$primary transparent;
+  scrollbar-color: map.get(vars.$colors, primary) transparent;
 }
 
 .confirm__modal {
@@ -62,7 +62,7 @@
 
   &--message {
     text-align: center;
-    color: vars.$neutral-1;
+    color: map.get(vars.$colors, neutral-1);
     font-size: 1rem;
     margin-bottom: map.get(vars.$space, md);
   }
@@ -76,7 +76,7 @@
 
 .cancel-btn {
   background-color: #e63946;
-  color: vars.$neutral-1;
+  color: map.get(vars.$colors, neutral-1);
   font-weight: 500;
   padding: 0.5rem 1.25rem;
   border-radius: 6px;
@@ -91,14 +91,14 @@
 
 .cancel-btn--text {
   background: none;
-  color: vars.$neutral-1;
+  color: map.get(vars.$colors, neutral-1);
   font-weight: 500;
   padding: 0.5rem 1rem;
   border: none;
   cursor: pointer;
 
   &:hover {
-    color: vars.$neutral-9;
+    color: map.get(vars.$colors, neutral-9);
     text-decoration: underline;
   }
 }

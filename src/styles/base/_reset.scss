@@ -1,4 +1,5 @@
 @use '../base/variables' as vars;
+@use "sass:map";
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 * {
@@ -7,8 +8,8 @@
 
 html, body {
   font-family: vars.$font-stack;
-  background: vars.$neutral-1;
-  color: vars.$neutral-9;
+  background: map.get(vars.$colors, neutral-1);
+  color: map.get(vars.$colors, neutral-9);
   margin: 0;
   padding: 0;
   height: 100%;

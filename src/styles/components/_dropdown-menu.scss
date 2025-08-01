@@ -1,0 +1,52 @@
+@use "../base/variables" as vars;
+@use "sass:map";
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  &__trigger {
+    cursor: pointer;
+    padding: map.get(vars.$space, sm) map.get(vars.$space, md);
+    border: 1px solid map.get(vars.$colors, primary);
+    border-radius: map.get(vars.$radius, md);
+    // background-color: vars.$surface;
+    color: map.get(vars.$colors, primary);
+    transition: background-color 0.2s ease;
+
+    // &:hover {
+    //   background-color: vars.$colors-hover;
+    // }
+  }
+
+  &__content {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    z-index: 1000;
+    min-width: 200px;
+    // background-color: vars.$background;
+    // border: 1px solid vars.$border;
+    border-radius: map.get(vars.$radius, md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: map.get(vars.$space, sm);
+    animation: fadeIn 0.2s ease-out;
+
+    // Dropdown items spacing
+    > * + * {
+      margin-top: map.get(vars.$space, xs);
+    }
+  }
+}
+
+// Optional: simple fade animation
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -19,12 +19,12 @@
   &__title {
     font-size: 1.25rem; // 20px
     font-weight: 600;
-    color: vars.$primary;
+    color: map.get(vars.$colors, primary);
   }
 
   &__description {
     font-size: 0.875rem; // 14px
-    color: vars.$neutral-9;
+    color: map.get(vars.$colors, neutral-9);
   }
 
   &__body {

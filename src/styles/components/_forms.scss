@@ -14,19 +14,19 @@
 .signup-prompt {
   text-align: center;
   font-size: 0.9rem;
-  color: vars.$neutral-1;
+  color: map.get(vars.$colors, neutral-1);
   margin-top: map.get(vars.$space, xl);
 }
 
 .signup-link {
-  color: vars.$accent;
+  color: map.get(vars.$colors, accent);
   text-decoration: none;
   font-weight: 500;
   margin-left: 0.25rem;
 
   &:hover {
     text-decoration: underline;
-    color: darken(vars.$accent, 10%);
+    color: darken(map.get(vars.$colors, accent), 10%);
   }
 }
 
@@ -35,7 +35,7 @@
   margin: map.get(vars.$space, lg) auto;
   margin-bottom: map.get(vars.$space, lg);
   padding: map.get(vars.$space, lg);
-  background-color: vars.$neutral-1;
+  background-color: map.get(vars.$colors, neutral-1);
   border-radius: 1rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
 

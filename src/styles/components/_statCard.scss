@@ -16,7 +16,7 @@
     gap: map.get(vars.$space, sm);
 
     h4 {
-      color: vars.$neutral-9;
+      color: map.get(vars.$colors, neutral-9);
       font-weight: 500;
       margin: 0;
     }
@@ -31,12 +31,12 @@
   &__value {
     font-size: 2rem;
     font-weight: 700;
-    color: vars.$primary;
+    color:map.get(vars.$colors, primary);
   }
 
   &__description {
     font-size: 0.9rem;
-    color: vars.$neutral-9;
+    color: map.get(vars.$colors, neutral-9);
   }
 }
 

@@ -1,12 +1,16 @@
 
-import { useGetSessions } from "../hooks/useGetSessions";
 import EmptyContent from "../../../shared/ui/EmptyContent";
 import Spinner from "../../../shared/ui/Spinner";
+import { useGetSessions } from "../hooks/useGetSessions";
 import SessionCard from "./SessionCard";
 
+interface SessionListProps {
+    filter:string ;
+    sort: string;
+}
 
-export default function SessionsList() {
-  const {data: sessions, isLoading, error} = useGetSessions();
+export default function SessionsList({filter, sort}: SessionListProps) {
+    const {data: sessions, isLoading, error} = useGetSessions(filter, sort);
 
    if (isLoading) return <Spinner/>;
    if (error){

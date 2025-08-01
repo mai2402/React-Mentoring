@@ -4,7 +4,7 @@
 .session-card {
   display: flex;
   flex-direction: column;
-  background-color: darken(vars.$primary, 15%);
+  background-color: darken(map.get(vars.$colors,primary), 15%);
   border-radius: 6px;
   overflow: hidden;
   height: 100%;
@@ -26,11 +26,11 @@
   &__title {
     margin-bottom: 0.25rem;
     font-size: 0.85rem;
-    color: lighten(vars.$accent, 20%);
+    color: lighten(map.get(vars.$colors, accent), 20%);
   }
 
   &__description {
-    color: vars.$neutral-1;
+    color: map.get(vars.$colors, neutral-1);
     font-size: 1rem;
   }
 

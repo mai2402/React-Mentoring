@@ -9,18 +9,18 @@
   height: 100vh;
   text-align: center;
   padding: map.get(vars.$space, lg);
-  color: vars.$neutral-9;
-  background: vars.$neutral-1;
+  color: map.get(vars.$colors, neutral-9);
+  background: map.get(vars.$colors, neutral-1);
 
   h2 {
     font-size: 3rem;
     margin-bottom: map.get(vars.$space, md);
-    color: vars.$primary;
+    color: map.get(vars.$colors, primary);
   }
 
   p {
     font-size: 1.25rem;
     margin-bottom: map.get(vars.$space, lg);
-    color: lighten(vars.$neutral-9, 20%);
+    color: lighten(map.get(vars.$colors, neutral-9), 20%);
   }
 }

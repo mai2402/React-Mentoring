@@ -4,8 +4,8 @@ type option = {
 };
 
 interface FilterSortProps {
-   options: option[];
-   selectedOption: string;
+    options: option[];
+    selectedOption: string;
     onOptionChange: (value: string) => void;
     label?: string;
     classname?: string;

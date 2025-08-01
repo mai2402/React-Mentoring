@@ -20,7 +20,8 @@ export default function ManageSessionsTable({ sessions }: ManageSessionsTablePro
   const [confirmDeleteId, setConfirmDeleteId] = useState<ZodUUID | null>( null)
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-
+ 
+  console.log("sessions", sessions);
 
   const { mutate: deleteSession, isPending } = useDeleteSession(() => {
     toast.success("Session deleted!");

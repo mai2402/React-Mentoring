@@ -2,7 +2,7 @@
 @use 'sass:map';
 
 h1, h2, h3, h4, h5, h6, p {
-  color: vars.$accent;
+  color: map.get(vars.$colors, accent);
   line-height: 1.4;
   margin-bottom: map.get(vars.$space, sm);
   font-family: vars.$font-stack;
@@ -41,6 +41,6 @@ h6 {
 p {
   font-size: 1rem;
   font-weight: 400;
-  color: vars.$neutral-9;
+  color: map.get(vars.$colors, neutral-9);
   line-height: 1.6;
 }

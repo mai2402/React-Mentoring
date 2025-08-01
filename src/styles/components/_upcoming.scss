@@ -5,7 +5,7 @@
   margin: map.get(vars.$space, md) auto;
   padding: map.get(vars.$space, md);
   width: 50%;
-  background-color: vars.$neutral-1;
+  background-color: map.get(vars.$colors, neutral-1);
   border-radius: 6px;
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@
   &__session {
     padding: map.get(vars.$space, md);
     margin: map.get(vars.$space, md) auto;
-    border: 1px solid lighten(vars.$neutral-9, 60%);
+    border: 1px solid lighten(map.get(vars.$colors, neutral-9), 60%);
     border-radius: 6px;
     display: flex;
     justify-content: space-between;
@@ -26,7 +26,7 @@
 
     h3 {
       margin: 0 0 0.5rem;
-      color: lighten(vars.$accent, 20%);
+      color: lighten(map.get(vars.$colors, accent), 20%);
     }
 
     p {
@@ -34,7 +34,7 @@
     }
 
     time {
-      color: lighten(vars.$neutral-9, 40%);
+      color: lighten(map.get(vars.$colors, neutral-9), 40%);
       font-size: 0.85rem;
     }
   }

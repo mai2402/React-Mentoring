@@ -8,13 +8,13 @@
 
   &__heading {
     font-size: 1.5rem;
-    color: vars.$primary;
+    color: map.get(vars.$colors, primary);
     margin-bottom: map.get(vars.$space, sm);
   }
 
   &__intro {
     margin: 0;
-    color: lighten(vars.$neutral-9, 30%);
+    color: lighten(map.get(vars.$colors, neutral-9), 30%);
   }
 
   &__list {
@@ -24,6 +24,6 @@
     border-radius: 6px;
     margin: map.get(vars.$space, md) 0;
     padding: map.get(vars.$space, md);
-    background-color: lighten(vars.$primary, 42%);
+    background-color: lighten(map.get(vars.$colors, primary), 42%);
   }
 }
