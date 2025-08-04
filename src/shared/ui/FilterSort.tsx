@@ -1,3 +1,6 @@
+import DropDownItem from "./DropDownItem";
+import { DropDownMenu } from "./DropDownMenu";
+
 type option = {
     value: string;
     label: string;
@@ -19,24 +22,28 @@ export function FilterSort({
     label,
 } : FilterSortProps) {
 
-    return (
-         <>
-      
-     <div className="filter-sort-bar">
-        <label>
-               {label && <span>{label}</span>}
-            <select value={selectedOption} onChange={(e) => onOptionChange(e.target.value)}>
-                {options?.map((option)=>(
-                    <option key={option.value} value={option.value}>
-                        {option.label}
-                    </option>))
-                    }
-            </select>
-        </label>
+    const selectedLabel = options.find((option)=> option.value === selectedOption)?.label || "Select an option";
 
-       
-    </div> 
-    </>
+    if (!options || options.length === 0) {
+        return <div className="filter-sort-bar">No options available</div>;
+    }
+
+    return (
+    <DropDownMenu
+      trigger={<div className="filter-btn">{label || "Sort by"} {selectedLabel} ▾</div>}
+     >
+      {options.map((option) => (
+        <DropDownItem
+          key={option.value}
+          onClick={() => onOptionChange(option.value)}
+          textOnly
+        >
+          {option.label} {option.value === selectedOption ? "✔" : ""}
+        </DropDownItem>
+      ))}
+
+         </DropDownMenu>
+    
     );
 
 

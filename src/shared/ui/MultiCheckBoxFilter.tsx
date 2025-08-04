@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { DropDownMenu } from "./DropDownMenu";
+
 interface MultiCheckBoxFilterProps {
     options : string[];
     selectedOptions : string[];
@@ -7,38 +10,64 @@ interface MultiCheckBoxFilterProps {
 }
 
 export function MultiCheckBoxFilter({options, selectedOptions, onOptionChange, label} : MultiCheckBoxFilterProps) {
+  const [tempSelectedOptions, setTempSelectedOptions] = useState<string[]>(selectedOptions);
+
+  // Update the local state when selectedOptions prop changes
+    useEffect(()=>{
+        setTempSelectedOptions(selectedOptions);
+    },[selectedOptions])
+
+
+
 
     const handleChange = (value : string) => {
-        const isSelected = selectedOptions.includes(value);
+        const isSelected = tempSelectedOptions.includes(value);
         const newSelectedOptions = isSelected
-            ? selectedOptions.filter(option => option !== value)
+            ? tempSelectedOptions.filter(option => option !== value)
             : [
-                ...selectedOptions,
+                ...tempSelectedOptions,
                 value
             ];
-        onOptionChange(newSelectedOptions);
+        setTempSelectedOptions(newSelectedOptions);
     }
 
-    return (
-        <div className="multi-checkbox-filter">
-            { label &&
-             <p className="multi-checkbox-filter__label">
-                <strong>{label}</strong>
-             </p>
-            }
+    
+    const handleApply = () =>{
+         onOptionChange(tempSelectedOptions)
+    }
 
-            <div className="multi-checkbox-filter__options">
-                {options.map((option) => (
-                    <label key={option} className="multi-checkbox-filter__item">
-                        <input
-                            type="checkbox"
-                            checked={selectedOptions.includes(option)}
-                            onChange={() => handleChange(option)}/>
-                        <span>{option}</span>
-                    </label>
-                ))}
-            </div>
+     const selectedLabel = selectedOptions.length > 0
+    ? selectedOptions.join(", ")
+    : "All";
+
+    return (
+   <DropDownMenu
+      trigger={
+        <div className="filter-btn">
+          {label ? `${label}: ` : ""}{selectedLabel} ▾
         </div>
+      }
+    >
+     
+        {options.map((option) => (
+      <div className="full-width" key={option}>
+          <label >
+            <input
+              type="checkbox"
+              checked={tempSelectedOptions.includes(option)}
+              onChange={() => handleChange(option)}
+              />
+            <span>{option}</span>
+          </label>
+              </div>
+       
+        ))}
+          <button className="apply-btn" onClick={handleApply}>
+             Apply Filters
+          </button>
+     
+    </DropDownMenu>
+
 
     )
 }

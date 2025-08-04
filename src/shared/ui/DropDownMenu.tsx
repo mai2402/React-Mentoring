@@ -4,11 +4,12 @@ interface DropDownMenuProps {
     trigger: ReactNode;
     children: ReactNode;
     className?: string;
+    align?: "left" | "right";
 }
 
-export function DropDownMenu({children, trigger, className}:DropDownMenuProps){
+export function DropDownMenu({children, trigger, className, align}:DropDownMenuProps){
     const[isOpen, setIsOpen] = useState(false);
-    const menuRef = useRef<HTMLDivElement>(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     const toggleMenu = () => {
         setIsOpen((prev) => !prev);
@@ -17,7 +18,7 @@ export function DropDownMenu({children, trigger, className}:DropDownMenuProps){
     useEffect(()=>{
         // Add event listener to close the menu when clicking outside
         const handleClickOutside = (e: MouseEvent)=>{
-            if(menuRef.current && !menuRef.current.contains(e.target as Node)){
+            if(dropdownRef.current && !dropdownRef.current.contains(e.target as Node)){
                 setIsOpen(false);
             } 
         }
@@ -30,15 +31,24 @@ export function DropDownMenu({children, trigger, className}:DropDownMenuProps){
 
 
     return(
-        <div className={`dropdown-menu ${className}`} ref={menuRef}>
-            <div className="dropdown-menu__trigger" onClick={toggleMenu}>
-                {trigger}
-            </div>
-            {isOpen && (
-                <div className="dropdown-menu__content">
-                    {children}
-                </div>
-            )}
+        <div
+      className={`dropdown ${className} ${isOpen ? "dropdown--open" : ""}`}
+      ref={dropdownRef}
+    >
+      <div
+        className="dropdown__trigger"
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        {trigger}
+      </div>
+
+      {isOpen && (
+        <div
+          className={`dropdown__menu dropdown--align-${align}`}
+        >
+          {children}
         </div>
+      )}
+    </div>
     )
 }

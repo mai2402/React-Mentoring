@@ -43,18 +43,15 @@ export default function AdminSessionsList (){
   <div className="flex-between">
 
    <div className="flex-between  flex-between__margin">
-    <DropDownMenu
-        trigger={<button className="filter-btn">Filter by Level ▾</button>}
-
-     >
-
+  
+      
        <MultiCheckBoxFilter
         options={filterOptions}
         selectedOptions={filters.level}
         onOptionChange={handleFilterChange}
         label="Filter by Level"
         />
-    </DropDownMenu>
+  
 
         <FilterSort
         options={sortOptions}

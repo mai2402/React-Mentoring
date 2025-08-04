@@ -31,3 +31,19 @@
     }
   }
 }
+
+.filter-btn{
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.6rem;
+  background-color: map.get(vars.$colors, neutral-1);
+  border: 1px solid map.get(vars.$colors, accent);
+  border-radius: 4px;
+  cursor: pointer;
+  color: map.get(vars.$colors, primary);
+  font-size: 1rem;
+
+  &:hover {
+    background-color: map.get(vars.$colors, neutral-2);
+  }
+}
