@@ -15,12 +15,12 @@ import { useGetAllUsers } from "./useGetAllUsers";
  */
 
 export function useDashboardData() {
-   
-    const {data: sessions, isLoading} = useGetSessions();
+    
+    const {data: sessions, isLoading} = useGetSessions({},"");
     const {data: bookings} = useGetMyBookings()
     const {data: users} = useGetAllUsers();
 
-      
+    
         // Create a map of session IDs to titles
         // This is useful for displaying session titles in the chart
          const sessionMap = sessions?.reduce((acc, session)=>{
@@ -45,7 +45,7 @@ export function useDashboardData() {
         bookingCount,
       }))
 
-
+       
       //  number of users per role
 
        const userRoleCount = users?.reduce((acc, user)=>{

@@ -18,6 +18,9 @@ export default function Dashboard() {
         userRoleData
     } = useDashboardData();
 
+
+    console.log(sessionBarData,"sessionBarData");
+
     if (isLoading) 
         return <Spinner/>;
     
@@ -60,6 +63,9 @@ export default function Dashboard() {
                 }
                 color = "#1E3A8A" />}/>
             </div>
+
+
+            
 
             {/* Number of booking bar chart  */}
             <section className="dashboard__section">
