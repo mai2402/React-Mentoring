@@ -4,7 +4,8 @@
 
 import { useGetMyBookings } from "../../bookings/hooks/useGetMyBookings";
 import { useGetSessions } from "../../sessions/hooks/useGetSessions";
-import { useGetAllUsers } from "./useGetAllUsers";
+import { useGetAllUsers } from "./users/useGetAllUsers";
+
 
 
 /**
@@ -28,12 +29,17 @@ export function useDashboardData() {
             return acc;
         }, {} as Record<string, string>);
     
+       
+
     
         // Gets the sessionTitle using the sessionId from sessionMap
          // Counts how many bookings each session title has
     const groupedBookings = bookings?.reduce((acc, booking) => {
         const sessionId = booking.sessionId as string | undefined;
-        const sessionTitle = sessionId ? sessionMap[sessionId] || "Unknown Session" : "Unknown Session";
+        let sessionTitle = "Unknown Session";
+        if (sessionId !== undefined) {
+            sessionTitle = sessionMap?.[sessionId] || "Unknown Session";
+        }
         acc[sessionTitle] = (acc[sessionTitle] || 0) + 1;
         return acc;
     }, {} as Record<string, number>);
