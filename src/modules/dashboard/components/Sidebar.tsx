@@ -6,7 +6,7 @@ const Admin_SideBar_Tabs =[
   { label: '➕ Create new Admin', to: '/dashboard/new-admin' },
   { label: '⚙️ Settings', to: '/dashboard/settings' },
   { label: '📅  Manage Sessions', to: '/dashboard/sessions' },
-  {label: '👥 Users' , to:'/dashboard/user'},
+  {label: '👥 Users' , to:'/dashboard/users'},
   { label: '🔓 Logout', action: 'logout' },
 ]
 

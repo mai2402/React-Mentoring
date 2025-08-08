@@ -7,6 +7,7 @@ import DashboardHome from "../pages/dashboardHome";
 import ManageSessions from "../pages/manageSessions";
 import { AdminProfile } from "../pages/profile";
 import Settings from "../pages/settings";
+import UsersPage from "../pages/users/users";
 
 
 
@@ -31,7 +32,8 @@ export const dashboardRoutes = [
         },
        { path: "new-admin", element: <CreateAdminForm /> },
       { path: "create-admin", element: <CreateAdminPage /> },
-      { path: "settings", element: <Settings /> }
+      { path: "settings", element: <Settings /> },
+       {path: "users", element: <UsersPage/>}
     ],
   },
 ]

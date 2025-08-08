@@ -21,7 +21,7 @@ export default function ManageSessionsTable({ sessions }: ManageSessionsTablePro
   const navigate = useNavigate();
   const queryClient = useQueryClient();
  
-  console.log("sessions", sessions);
+ 
 
   const { mutate: deleteSession, isPending } = useDeleteSession(() => {
     toast.success("Session deleted!");

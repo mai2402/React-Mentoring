@@ -23,6 +23,7 @@ export interface UserProfile {
         github?: string;
     };
     is_verified?: boolean;
+    isActive?: boolean;
 
 
 }
