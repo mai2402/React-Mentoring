@@ -9,7 +9,7 @@ export default function DropDownItem ({to, onClick, textOnly, children}:DropDown
     return (
         <ul>
             <li>
-                <Button  to={to} onClick={onClick} textOnly={textOnly}>
+                <Button  to={to} onClick={onClick} textOnly>
                     {children}
                 </Button>
             </li>

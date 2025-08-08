@@ -1,8 +1,9 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 
+type DropDownMenuChildren = ((close: () => void) => ReactNode) | ReactNode;
 interface DropDownMenuProps {
     trigger: ReactNode;
-    children: ReactNode;
+    children: DropDownMenuChildren;
     className?: string;
     align?: "left" | "right";
 }
@@ -14,6 +15,8 @@ export function DropDownMenu({children, trigger, className, align}:DropDownMenuP
     const toggleMenu = () => {
         setIsOpen((prev) => !prev);
     }
+    const closeMenu = () => setIsOpen(false); 
+
 
     useEffect(()=>{
         // Add event listener to close the menu when clicking outside
@@ -37,7 +40,7 @@ export function DropDownMenu({children, trigger, className, align}:DropDownMenuP
     >
       <div
         className="dropdown__trigger"
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={toggleMenu}
       >
         {trigger}
       </div>
@@ -46,7 +49,7 @@ export function DropDownMenu({children, trigger, className, align}:DropDownMenuP
         <div
           className={`dropdown__menu dropdown--align-${align}`}
         >
-          {children}
+         {typeof children === "function" ? children(closeMenu) : children}
         </div>
       )}
     </div>

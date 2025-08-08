@@ -2,6 +2,7 @@ import {useState} from "react";
 import {CustomTableProps} from "../interface/table";
 import Modal from "./Modal";
 import DropDownItem from "./DropDownItem";
+import { DropDownMenu } from "./DropDownMenu";
 
 export default function Table < T > ({data, columns, actions} : CustomTableProps < T >) {
 
@@ -33,37 +34,29 @@ export default function Table < T > ({data, columns, actions} : CustomTableProps
                         ))}
 
                        {/* Table Actions */}
-                        {actions && (
-                            <td>
-                                <div
-                                    className="session-table__actions"
-                                    onClick={() => setActiveDropdown(activeDropdown === index
-                                    ? null
-                                    : index)}>
-                                    <span
-                                        style={{
-                                        cursor: "pointer"
-                                    }}>⋮</span>
-
-                                    {activeDropdown === index && (
-                                        <Modal
-                                            isOpen={true}
-                                            onClose={() => setActiveDropdown(null)}
-                                            modalClassName="modal-backdrop dropdown-backdrop"
-                                            containerClassName="modal-container dropdown-menu">
-
-                                           {/* DROPDOWN MENU PART FOR ACTIONS */}
-                                            {actions(item).map((act) => (
-                                                <DropDownItem key={act.label} onClick={act.action}>
-                                                    {act.icon}
-                                                    {act.label}
-                                                </DropDownItem>
-                                            ))}
-                                        </Modal>
-                                    )}
-                                </div>
-                            </td>
-                        )}
+                    {actions && (
+                        <td>
+                            <DropDownMenu
+                                trigger={<span style={{ cursor: "pointer" }}>⋮</span>}
+                                align="right"
+                                className="session-table__actions"
+                            >
+                                {(close) =>
+                                    actions(item).map((act) => (
+                                        <DropDownItem
+                                            key={act.label}
+                                            onClick={() => {
+                                                act.action(); // run your action
+                                                close();
+                                            }}
+                                        >
+                                            {act.icon} {act.label}
+                                        </DropDownItem>
+                                    ))
+                                }
+                            </DropDownMenu>
+                        </td>
+                    )}
                     </tr>
                 ))}
             </tbody>

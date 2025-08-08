@@ -20,6 +20,8 @@
     background-color: transparent;
     color: map.get(vars.$colors, accent);
     border-bottom: 2px solid transparent;
+    width: 100%;
+    text-align: left;
 
     &:hover,
     &:active {
