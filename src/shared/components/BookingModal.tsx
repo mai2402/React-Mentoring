@@ -21,7 +21,7 @@ export function BookingModal(props: BookingModalProps){
      const isEditMode = mode === "edit";
      const editBooking = isEditMode ? props.editBooking : undefined;
      const sessionId = !isEditMode ? props.sessionId : undefined;
-     console.log("seesionid in booking modal", sessionId);
+   
 
      const defaultValues  = { name: editBooking?.name || "",
                               phone:editBooking?.phone || "" };
@@ -80,6 +80,7 @@ export function BookingModal(props: BookingModalProps){
             ? "You have already booked this session."
             : "Failed to create booking. Please try again."
         );
+        navigate("/upcoming");
       },
     });
   };
