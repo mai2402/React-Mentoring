@@ -7,47 +7,82 @@ import { UseCreateUpdateBooking } from "../../modules/bookings/hooks/useCreateUp
 import Spinner from "../ui/Spinner";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { BookingModalProps } from "../interface/modal";
-import { buildBooking } from "../../modules/bookings/utils/buildBooking";
+import { buildUpdateBooking, buildCreateBooking } from "../../modules/bookings/utils/buildBooking";
+import { BookingModalProps } from "../types/booking";
 
 
 
-export function BookingModal({ loadedSession, onClose, isOpen, editBooking }: BookingModalProps) {
 
+export function BookingModal(props: BookingModalProps){
+    const {mode, onClose, isOpen}= props;
      const {mutate: saveBookings, isPending} = UseCreateUpdateBooking()
      const navigate = useNavigate();
-     const isEditMode = Boolean(editBooking)
+
+     const isEditMode = mode === "edit";
+     const editBooking = isEditMode ? props.editBooking : undefined;
+     const sessionId = !isEditMode ? props.sessionId : undefined;
+     console.log("seesionid in booking modal", sessionId);
 
      const defaultValues  = { name: editBooking?.name || "",
-                              phone: editBooking?.phone || "" };
+                              phone:editBooking?.phone || "" };
 
 
      
      if(isPending) return <Spinner/>
 
-    const handleSubmit = (formData: BookingFormData)=>{
+     const handleSubmit = (formData: BookingFormData) => {
+    if (isEditMode) {
+      if (!editBooking) {
+        toast.error("No booking to edit.");
+        return;
+      }
+      const booking = buildUpdateBooking({
+        formData,
+        editBooking: {
+          id: editBooking.id,
+          session_id: editBooking.session_id, 
+        },
+      });
 
+      saveBookings(booking, {
+        onSuccess: () => {
+          toast.success("Booking updated successfully");
+          navigate("/upcoming");
+          onClose?.();
+        },
+        onError: (e: any) => toast.error(e?.message || "Failed to update booking"),
+      });
+      return; // ✅ stop here for edit
+    }
 
-       
-      const booking = buildBooking({formData,session: loadedSession, editBooking})
-         
-      saveBookings( booking  , {
-          onSuccess:()=>{
-            navigate("/upcoming");
-            toast.success(isEditMode? "Booking updated successfully" :"Booking created successfully!");
-            onClose?.();
-          },
+    
+    // CREATE mode
+    if (!sessionId) {
+    
+      toast.error("Session isn’t ready yet. Please reopen the modal.");
+      return;
+    }
 
-          onError: ( error)=>{
-             toast.error(error.message.includes("already booked") ?
-                 "You have already booked this session."
-                : 
-                 "Failed to create booking. Please try again.");
+    const booking = buildCreateBooking({
+      formData,
+      sessionId: sessionId,
+    });
 
-                navigate("/upcoming"); 
-
-          }}, 
-      )}
+    saveBookings(booking, {
+      onSuccess: () => {
+        toast.success("Booking created successfully!");
+        navigate("/upcoming");
+        onClose?.();
+      },
+      onError: (e: any) => {
+        toast.error(
+          e?.message?.includes("already booked")
+            ? "You have already booked this session."
+            : "Failed to create booking. Please try again."
+        );
+      },
+    });
+  };
 
      
 

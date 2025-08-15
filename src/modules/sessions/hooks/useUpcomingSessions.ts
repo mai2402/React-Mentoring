@@ -4,20 +4,24 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useGetMyBookings } from "../../bookings/hooks/useGetMyBookings";
 import { useModal } from "../../../shared/hooks/useModal";
 import { cancelBooking } from "../../bookings/services/booking";
-import { ZodUUID } from "zod/v4";
+import { ModalBookingState } from "../../../shared/types/booking";
+
+
+
 
 
 export function useUpcomingSessions (){
 
-    const bookingModal = useModal<BookingDTO>();
-     const confirmModal = useModal<ZodUUID>(); 
+    const bookingModal = useModal<ModalBookingState>();
+     const confirmModal = useModal<string>();
+     console.log("booking modal ", bookingModal); 
       const {data: bookings, isLoading } = useGetMyBookings()
       const queryClient = useQueryClient()
     
     
 
     const handleCancelBooking = async () => {
-
+    
         // it represents booking id
       if(!confirmModal.payload) return;
       
@@ -35,10 +39,14 @@ export function useUpcomingSessions (){
     };
     
     const handleEditBooking = async (bookedSession: BookingDTO) => {
-      bookingModal.open(bookedSession)
+      
+      bookingModal.open({mode: "edit", booking: bookedSession});
       
     }
     
+    const handleCreateBooking = (sessionId: string) => {
+      bookingModal.open({mode: "create", sessionId});
+    };
 
     return {
       bookings,
@@ -46,6 +54,7 @@ export function useUpcomingSessions (){
       bookingModal,
       confirmModal,
       handleCancelBooking,
-      handleEditBooking
+      handleEditBooking,
+      handleCreateBooking
     }
 }

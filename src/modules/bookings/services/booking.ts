@@ -1,4 +1,4 @@
-import { ZodUUID } from "zod/v4";
+
 import { supabase } from "../../../core/supabase/client";
 import { BookingDTO } from "../interfaces/booking-dto";
 
@@ -17,24 +17,25 @@ export async function createUpdateBooking(booking: BookingDTO) {
 
   // If booking has an ID → update existing booking
   if (booking.id) {
-    const { error: updateError } = await supabase
-      .from("bookings")
-      .update(insertPayload)
-      .eq("id", booking.id);
+  const { data, error } = await supabase
+    .from("bookings")
+    .update({ name: booking.name, phone: booking.phone })
+    .eq("id", booking.id)
+    .eq("user_id", userId)
+    .select()
+    .single();
 
-    if (updateError) {
-      throw new Error(`Error updating booking: ${updateError.message}`);
-    }
-
-    return { ...booking };
-  }
+  if (error) throw new Error(`Error updating booking: ${error.message}`);
+  
+  return data;
+}
 
   // Otherwise → create new booking (with duplicate check)
   const { data: existingBooking, error: existingBookingError } = await supabase
     .from("bookings")
     .select("id")
     .eq("user_id", userId)
-    .eq("sessionId", booking.sessionId);
+    .eq("session_id", booking.session_id);
 
   if (existingBookingError) {
     throw new Error(`Error checking existing booking: ${existingBookingError.message}`);
@@ -66,7 +67,13 @@ export async function createUpdateBooking(booking: BookingDTO) {
   }
 
   return insertedBooking || null;
+  
 }
+
+
+
+
+
 
 /**
  * Fetch all bookings for the current user, ordered by newest first.
@@ -88,7 +95,8 @@ export async function getMyBookings(): Promise<BookingDTO[]> {
 /**
  * Cancel a booking by its ID.
  */
-export async function cancelBooking(bookingId: ZodUUID): Promise<void> {
+export async function cancelBooking(bookingId: string): Promise<void> {
+  
   const { error } = await supabase
     .from("bookings")
     .delete()

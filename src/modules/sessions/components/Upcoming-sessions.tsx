@@ -4,8 +4,10 @@ import ConfirmModal from "../../../shared/components/ConfirmModal";
 import { BookingModal } from "../../../shared/components/BookingModal";
 import UpcomingSessionsItem from "./Upcoming-sessions-item";
 import { useUpcomingSessions } from "../hooks/useUpcomingSessions";
-import { ZodUUID } from "zod/v4";
+
 import Button from "../../../shared/ui/Button";
+
+
 
 
 
@@ -15,11 +17,16 @@ export default function UpcomingSessions (){
           confirmModal,
           bookingModal,
           handleCancelBooking,
-          handleEditBooking} = useUpcomingSessions();
-      const sessionIdInBookings = bookings?.map((booking) => booking.sessionId);
-    const uponCancel = (bookingId : ZodUUID)=>{
+          handleEditBooking,
+          handleCreateBooking} = useUpcomingSessions();
+
+         
+      
+      
+      const uponCancel = (bookingId : string)=>{
+        
       confirmModal.open(bookingId)
-      handleCancelBooking();
+      
     }      
 
    if(isLoading) return <Spinner/>
@@ -42,11 +49,11 @@ export default function UpcomingSessions (){
           <div className="upcoming-sessions">
             <h1>Upcoming Sessions</h1>
             <ul>
-              {bookings?.map((session) => (
+              {bookings?.map((booking) => (
                 <UpcomingSessionsItem
-                 key={String(session.id)}
-                 session={session}
-                 onCancel={()=>uponCancel(session.id!)}
+                 key={String(booking.id)}
+                 booking = {booking}
+                 onCancel={()=>uponCancel(booking.id! as string)}
                  onEdit={handleEditBooking}
                 />
               ))}
@@ -65,16 +72,25 @@ export default function UpcomingSessions (){
             confirmLabel="Yes, Cancel"
        />
      
-    {bookingModal.payload &&  
+  {bookingModal.payload && (
+      bookingModal.payload.mode === "edit" ? (
         <BookingModal
-            isOpen={bookingModal.isOpenModal }
-            onClose={bookingModal.close}
-            loadedSession={bookingModal.payload}
-            editBooking={bookingModal.payload}
+          isOpen={bookingModal.isOpenModal}
+          onClose={bookingModal.close}
+          mode="edit"
+          editBooking={bookingModal.payload.booking}   // ✅ pass booking
         />
-        }
-
+  ) : (
+        <BookingModal
+          isOpen={bookingModal.isOpenModal}
+          onClose={bookingModal.close}
+          mode="create"
+          sessionId={bookingModal.payload.sessionId}   // ✅ pass sessionId
+        />
+  )
+)}
 
       </>
+
     )
 }

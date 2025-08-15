@@ -5,6 +5,7 @@ import { useModal } from '../../../shared/hooks/useModal.ts';
 import { Session } from '../interfaces/session.ts';
 import { useGetSessions } from '../hooks/useGetSessions.ts';
 import Spinner from '../../../shared/ui/Spinner.tsx';
+import { ModalBookingState } from '../../../shared/types/booking.ts';
 
 
 
@@ -14,16 +15,16 @@ import Spinner from '../../../shared/ui/Spinner.tsx';
         
         const params = useParams<{ sessionId: string }>();
         const sessionId = params.sessionId;
-        const {data : sessions, isLoading} = useGetSessions();
+        const {data : sessions, isLoading} = useGetSessions({}, "");
    
         const loadedSession = sessions?.find((session) => session.id === sessionId);
-        const bookingModal = useModal<Session>()
+        const bookingModal = useModal<ModalBookingState>()
         
 
    if (isLoading) return <Spinner/>
       
    const handleBookSession = () =>{
-       bookingModal.open(loadedSession!)
+       bookingModal.open({mode: "create", sessionId: sessionId!});
    }
 
     return (
@@ -33,11 +34,15 @@ import Spinner from '../../../shared/ui/Spinner.tsx';
           
               </div>  
 
-          <BookingModal
+           {/* Render per mode and pass sessionId in create */}
+      {bookingModal.payload?.mode === "create" && (
+        <BookingModal
           isOpen={bookingModal.isOpenModal}
-          loadedSession={bookingModal.payload!}
           onClose={bookingModal.close}
+          mode="create"
+          sessionId={bookingModal.payload.sessionId}
         />
+      )}
       </main>
     );
   }

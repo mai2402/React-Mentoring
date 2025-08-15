@@ -1,11 +1,11 @@
 
 import EmptyContent from "../../../shared/ui/EmptyContent";
 import Spinner from "../../../shared/ui/Spinner";
-import { useGetSessions } from "../hooks/useGetSessions";
+import { Filters, useGetSessions } from "../hooks/useGetSessions";
 import SessionCard from "./SessionCard";
 
 interface SessionListProps {
-    filter:string ;
+    filter:Filters;
     sort: string;
 }
 

@@ -1,5 +1,6 @@
 import { ZodUUID } from "zod/v4";
 import { BookingDTO } from "../../bookings/interfaces/booking-dto";
+import { ModalBookingState } from "../../../shared/types/booking";
 
  export interface Session {
     id?: ZodUUID;
@@ -24,7 +25,9 @@ import { BookingDTO } from "../../bookings/interfaces/booking-dto";
 
 export interface UpcomingSessionsItemProps {
   onEdit: (booking: BookingDTO) => void;
-  onCancel: (bookingId: ZodUUID) => void;
-  session: BookingDTO;
-}   
+  onCancel: (bookingId: string) => void; // UUID string
+  booking: BookingDTO;
+  
+}
+
  

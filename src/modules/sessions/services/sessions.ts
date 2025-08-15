@@ -43,6 +43,23 @@ export async function getSessions(filters: Filters = {}, sort: string = "Newest"
  
  
 
+export async function getSessionById(id: string) {
+
+  const {data, error} = await supabase
+    .from('sessions')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+
+    if(error) {
+        console.error("Error fetching session by ID:", error.message);
+        return null;
+    }
+
+    return data || null;
+
+    }
 
 
 

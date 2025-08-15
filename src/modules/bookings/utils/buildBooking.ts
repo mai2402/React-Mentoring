@@ -1,33 +1,50 @@
-import { Session } from "../../sessions/interfaces/session";
+
 import { BookingFormData } from "../../sessions/validation/session";
 import { BookingDTO } from "../interfaces/booking-dto";
 
 
 
 
-export function buildBooking({
+export function buildCreateBooking({
      formData,
-     session,
-     editBooking}
+     sessionId,
+   }
     : {
         formData: BookingFormData,
-        session: Partial<Session>,
-        editBooking?: BookingDTO 
+        sessionId: string, 
     }): BookingDTO
     {
     
 
     return {
-        
-            ...editBooking,
-            sessionId: session.id ?? undefined,
+            session_id:sessionId,
             name: formData.name,
             phone: formData.phone,
-            title: session.title ?? "",
-            summary: session.summary ?? "",
-            description: session.description ?? "",
-            date: session.date ?? "",
-            image: session.image  ?? "",
+       };
+    
+
+}
+
+
+
+
+
+export function buildUpdateBooking({
+     formData,
+     editBooking,
+   }
+    : {
+        formData: BookingFormData,
+        editBooking: Pick<BookingDTO, "id" | "session_id">,
+    }): BookingDTO
+    {
+    
+
+    return {
+            id: editBooking.id,
+            session_id: editBooking.session_id,
+            name: formData.name,
+            phone: formData.phone,
        };
     
 

@@ -134,10 +134,13 @@ const handleSubmit = (data: AddEditSessionFormData) => {
             />
            )}
             
-             <div className="signup-actions">
+             
+                   < div className="modal-actions">
                              <Button type="submit">{isEditMode?"Edit Session" :'Add Session'}</Button>
+                             <div className="half-width">
                              <Button textOnly to="/">Cancel</Button>
-                           </div>
+                             </div>
+               </div>
             </>
             }
         </Form>

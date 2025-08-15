@@ -1,6 +1,4 @@
 import { ReactNode } from "react";
-import { Session } from "../../modules/sessions/interfaces/session";
-import { BookingDTO } from "../../modules/bookings/interfaces/booking-dto";
 import { ZodUUID } from "zod/v4";
 
 /** Base interface for all modal components */
@@ -32,8 +30,6 @@ export interface ConfirmModalProps extends ModalProps {
   cancelLabel?: string;
 }
 
-/** Booking modal props (edit/create mode) */
-export interface BookingModalProps extends BaseModalProps {
-  loadedSession: Partial<Session>;
-  editBooking?: BookingDTO;
-}
+
+
+
