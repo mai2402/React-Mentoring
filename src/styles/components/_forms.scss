@@ -6,9 +6,12 @@
 
 .form-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: map.get(vars.$space, md);
-  text-align: right;
+  gap: map.get(vars.$space, md); // keeps spacing from your Sass vars
+  width: 100%;                   // let them take full width
+}
+
+.form-actions > * {
+  flex: 1;                       // each child takes equal space
 }
 
 .signup-prompt {

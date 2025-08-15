@@ -15,7 +15,9 @@
     position: absolute;
     top: 100%;
     z-index: 999;
-    min-width: 200px;
+    width: max-content; // Adjust width as needed
+    min-width: 200px; // Default width if not set
+    max-width: 300px; // Optional max width
     background: map.get(vars.$colors, neutral-1);
     border: 1px solid map.get(vars.$colors, accent);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

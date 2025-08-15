@@ -1,23 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthenticationContext } from '../../core/store/authContext';
-import { useDropDownModal } from '../hooks/useDropDownModal';
 import { logout } from '../../core/services/authService';
 import toast from 'react-hot-toast';
+
 import Button from '../ui/Button';
-import Modal from '../ui/Modal';
-import DropDownItem from '../ui/DropDownItem';
+
+
+
 import { FaMoon, FaBell, FaUserCircle } from 'react-icons/fa';
 import Spinner from '../ui/Spinner';
-
+import { DropDownMenu } from '../ui/DropDownMenu';
+import DropDownItem from '../ui/DropDownItem';
 
 const NAV_ITEMS = [
   { to: '/', label: 'Our Mission' },
   { to: '/sessions', label: 'Browse Sessions' },
 ];
 
-
-
-const User_DROPDOWN_ITEMS = [
+const USER_DROPDOWN_ITEMS = [
   { label: 'My Profile', to: '/profile' },
   { label: 'Upcoming Sessions', to: '/upcoming' },
   { label: 'Logout', action: 'logout' },
@@ -25,14 +25,10 @@ const User_DROPDOWN_ITEMS = [
 
 export default function SmartHeader() {
   const { isAuthenticated, userProfile, isLoading } = useAuthenticationContext();
-  const { menuOpen, menuRef, handleOpenModal } = useDropDownModal();
-  
-  const isAdmin = userProfile?.role === 'admin';
-  const isUser = userProfile?.role === 'user';
-
   const navigate = useNavigate();
 
-  isLoading && <Spinner/>
+  const isAdmin = userProfile?.role === 'admin';
+  const isUser = userProfile?.role === 'user';
 
   const handleLogout = async () => {
     try {
@@ -44,32 +40,7 @@ export default function SmartHeader() {
     }
   };
 
-  const renderDropdown = () => (
-    <Modal
-      isOpen={menuOpen}
-      onClose={handleOpenModal}
-      modalClassName="dropdown-backdrop"
-      containerClassName="dropdown-menu"
-    >
-     <ul className="header__dropdown-list">
-        {!isAdmin && User_DROPDOWN_ITEMS.map(({ label, action, to }) => (
-          <li key={label}>
-            <DropDownItem
-              to={to}
-              textOnly={!to}
-              onClick={() => {
-                handleOpenModal();
-                if (action === 'logout') handleLogout();
-              }}
-            >
-              {label}
-            </DropDownItem>
-          </li>
-        ))}
-      </ul>
-    </Modal>
-  );
-
+  if (isLoading) return <Spinner />;
 
   return (
     <header className={`header ${isAdmin ? 'header--admin' : 'header--user'}`}>
@@ -102,34 +73,54 @@ export default function SmartHeader() {
               </>
             )}
 
-            {isAuthenticated && isUser? (
-              <div className="header__profile" ref={menuRef}>
-                <Button
-                  onClick={handleOpenModal}
-                  textOnly
-                  className={`header__icon ${isAdmin ? 'header__icon--profile' : ''}`}
-                >
-                 
-                   { !userProfile.avatar_url  ?
-                    (<FaUserCircle/>)
-                    :
-
-                   ( <img
-                      src={userProfile.avatar_url}
-                      alt={userProfile.name || 'user avatar'}
-                      className="header__avatar"
-                    />)
-                    }
-               
-                </Button>
-                {renderDropdown()}
-              </div>
+            {isAuthenticated && isUser ? (
+              <DropDownMenu
+                align="right"
+                trigger={
+                  <Button
+                    textOnly
+                    className={`header__icon ${isAdmin ? 'header__icon--profile' : ''}`}
+                  >
+                    {!userProfile.avatar_url ? (
+                      <FaUserCircle />
+                    ) : (
+                      <img
+                        src={userProfile.avatar_url}
+                        alt={userProfile.name || 'user avatar'}
+                        className="header__avatar"
+                      />
+                    )}
+                  </Button>
+                }
+              >
+                {(close) => (
+                  <ul className="header__dropdown-list">
+                    {USER_DROPDOWN_ITEMS.map(({ label, to, action }) => (
+                      <DropDownItem
+                        key={label}
+                        to={to}
+                        textOnly={!to}
+                        onClick={() => {
+                          close();
+                          if (action === 'logout') handleLogout();
+                        }}
+                      >
+                        {label}
+                      </DropDownItem>
+                    ))}
+                  </ul>
+                )}
+              </DropDownMenu>
             ) : (
-              !isAdmin && <Button to="/login" textOnly className="header__link">Login</Button>
+              !isAdmin && (
+                <Button to="/login" textOnly className="header__link">
+                  Login
+                </Button>
+              )
             )}
           </div>
         </div>
       </div>
     </header>
   );
-} 
+}

@@ -71,10 +71,21 @@ export default function SignUpForm() {
                 error={errors[field.name as keyof SignUpFormData]?.message}
               />
             ))}
-              <div className="signup-actions">
+              <p 
+               style={{ textAlign: "justify" , marginTop: "1rem" , color: "var(--color-text-secondary)"}}>
+              Already have an account?{" "}
+              <Button textOnly to="/login" className="login-link">
+                Log in
+              </Button>
+              </p>
+
+              <div className="signup-actions modal-actions">
                 <Button type="submit">Sign Up</Button>
+                <div className="half-width">
                 <Button textOnly to="/">Cancel</Button>
               </div>
+              </div>
+            
           </>
           )}
       </Form>

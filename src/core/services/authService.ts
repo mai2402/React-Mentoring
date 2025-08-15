@@ -50,8 +50,6 @@ const {data} = await supabase
     
     if(!data)  throw new Error("user not found");
     
-
-
 if (error) throw new Error(error.message);
 
 return {

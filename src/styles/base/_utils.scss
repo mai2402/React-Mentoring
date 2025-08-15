@@ -1,4 +1,6 @@
 
+@use '../base/variables' as vars;
+@use 'sass:map';
 
 .flex-between {
   display: flex;
@@ -16,4 +18,14 @@
   width: 100%;
 }
 
+.half-width {
+  width:25%;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-around;
+  gap: map.get(vars.$space, sm); // use your design spacing
+  margin-top: map.get(vars.$space, md); // optional spacing from fields
+}
 

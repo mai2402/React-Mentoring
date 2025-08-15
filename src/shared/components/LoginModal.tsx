@@ -40,10 +40,12 @@ export function LoginModal ({ onClose, isOpen, sessionId }: LoginModalProps){
                     Don’t have an account?{" "}
                     <Button textOnly to="/signUp" className="signup-link">Create one</Button>
                   </p>
-
+                <div className="modal-actions">
                 <Button type="submit">Login</Button>
+                <div className="half-width" >
                 <Button textOnly onClick={() => onClose?.()} >cancel</Button>
-          
+                </div>
+              </div>
 
               </>
             )}
