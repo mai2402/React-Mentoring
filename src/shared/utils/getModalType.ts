@@ -1,8 +1,12 @@
+
 import { UserRole } from "../../modules/user/enums/users";
 import { UserProfile } from "../../modules/user/interface/user";
+import { getChangeRoleConfirm, getChangeRoleMessage, getToggleActiveConfirm, getToggleActiveMessage, getToggleActiveTitle, ModalLabel, ModalMessage, ModalTitle, ModalType } from "../enums/modals";
 
 
-type ModalType = "delete" | "toggleActive" | "changeRole" | null;
+
+
+type ModalKind = ModalType | null;
 
 export function getModals({
   modalType,
@@ -12,49 +16,46 @@ export function getModals({
   handleToggleActive,
   handleChangeRole,
 }: {
-  modalType: ModalType;
+  modalType: ModalKind;
   targetUser: UserProfile | null;
-  setModalType: (type: ModalType) => void;
+  setModalType: (type: ModalKind) => void;
   handleDelete: () => void;
   handleToggleActive: () => void;
   handleChangeRole: () => void;
 }) {
+  const isActive = targetUser?.isActive;
+  const role = targetUser?.role as UserRole | undefined;
+
   return [
     {
-      type: "delete",
-      isOpen: modalType === "delete",
-      title: "Delete User",
-      cancelLabel: "Cancel",
-      message: "Are you sure you want to delete this user?",
-      confirmLabel: "Yes, Delete",
+      type: ModalType.Delete,
+      isOpen: modalType === ModalType.Delete,
+      title: ModalTitle.Delete,
+      message: ModalMessage.ConfirmDelete,
+      cancelLabel: ModalLabel.Cancel,
+      confirmLabel: ModalLabel.YesDelete,
       onConfirm: handleDelete,
       onCancel: () => setModalType(null),
     },
     {
-      type: "toggleActive",
-      isOpen: modalType === "toggleActive",
-      cancelLabel: "Cancel",
-      title: targetUser?.isActive ? "Deactivate User" : "Activate User",
-      message: `Are you sure you want to ${
-        targetUser?.isActive ? "deactivate" : "activate"
-      } this user?`,
-      confirmLabel: targetUser?.isActive
-        ? "Yes, Deactivate"
-        : "Yes, Activate",
+      type: ModalType.ToggleActive,
+      isOpen: modalType === ModalType.ToggleActive,
+      title: getToggleActiveTitle(isActive),
+      message: getToggleActiveMessage(isActive),
+      cancelLabel: ModalLabel.Cancel,
+      confirmLabel: getToggleActiveConfirm(isActive),
       onConfirm: handleToggleActive,
       onCancel: () => setModalType(null),
     },
     {
-      type: "changeRole",
-      isOpen: modalType === "changeRole",
-      title: "Change User Role",
-      message: targetUser?.role === UserRole.ADMIN
-        ? "Are you sure you want to make this user a regular user?"
-        : "Are you sure you want to make this user an admin?",
-      confirmLabel: targetUser?.role === UserRole.ADMIN ? "Yes, Make User" : "Yes, Make Admin",
-      cancelLabel: "Cancel",
+      type: ModalType.ChangeRole,
+      isOpen: modalType === ModalType.ChangeRole,
+      title: ModalTitle.ChangeRole,
+      message: getChangeRoleMessage(role),
+      cancelLabel: ModalLabel.Cancel,
+      confirmLabel: getChangeRoleConfirm(role),
       onConfirm: handleChangeRole,
       onCancel: () => setModalType(null),
     },
-  ];
+  ] as const;
 }
