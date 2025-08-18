@@ -6,6 +6,7 @@ import UpcomingSessionsItem from "./Upcoming-sessions-item";
 import { useUpcomingSessions } from "../hooks/useUpcomingSessions";
 
 import Button from "../../../shared/ui/Button";
+import { AppRoute } from "../../../app/enums/routes";
 
 
 
@@ -39,7 +40,7 @@ export default function UpcomingSessions (){
         <EmptyContent>
          <h2>No upcoming sessions</h2>
          <p>Go check our latest available sessions</p>
-         <Button textOnly to="/sessions" >Browse Sessions</Button>
+         <Button textOnly to={AppRoute.Sessions} >Browse Sessions</Button>
         </EmptyContent>
          )
          

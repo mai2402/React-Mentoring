@@ -2,6 +2,7 @@
 import { useAuthenticationContext } from "../../../core/store/authContext";
 import { Navigate, useLocation } from "react-router-dom";
 import Spinner from "../../../shared/ui/Spinner";
+import { AppRoute } from "../../../app/enums/routes";
 
 type ProtectedRouteProps ={
    children:JSX.Element;
@@ -17,12 +18,12 @@ export function ProtectedRoute ({children,roleRequired}: ProtectedRouteProps){
 
     
    if (!isAuthenticated){
-      return <Navigate to="/login" state={{from: location}} replace/>
+      return <Navigate to={AppRoute.Login} state={{from: location}} replace/>
    }
 
   if (roleRequired && userProfile?.role !== roleRequired){
 
-   return <Navigate to="/unauthorized" />;
+   return <Navigate to={AppRoute.Unauthorized} />;
   
   }
   

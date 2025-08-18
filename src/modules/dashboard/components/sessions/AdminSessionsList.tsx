@@ -8,6 +8,7 @@ import { FaPlus } from "react-icons/fa";
 import { useSessionsFilterSort } from "../../hooks/sessions/useSessionsFilterSort";
 import { MultiCheckBoxFilter } from "../../../../shared/ui/MultiCheckBoxFilter";
 import { DropDownMenu } from "../../../../shared/ui/DropDownMenu";
+import { AppRoute } from "../../../../app/enums/routes";
 
 
 
@@ -59,7 +60,7 @@ export default function AdminSessionsList (){
         onOptionChange={handleSortChange}
         />
     </div>
-         <Button to="/dashboard/sessions/add-session">
+         <Button to={AppRoute.AddSession} >
                   Create <FaPlus />
                 </Button>
         

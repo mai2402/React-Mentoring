@@ -79,7 +79,7 @@ export default function AddEditSessionForm (){
 
       // Refetch in background for data freshness
        queryClient.invalidateQueries({ queryKey: ["sessions"] });
-       navigate("/dashboard/sessions");
+       navigate(AppRoute.DashboardSessions);
   },
 );
 

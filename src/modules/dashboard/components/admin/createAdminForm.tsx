@@ -35,14 +35,14 @@ export default function CreateAdminForm (){
 
   ()=> {  
             toast.success("New Admin Created!!");
-            navigate("/dashboard");
+            navigate(AppRoute.Dashboard);
         }
  );
  const defaultValues = { email: "", password: "" };
  
   const handleSubmit = (formData: CreateAdminFormData) => {
       createAdmin(formData)
-     console.log("form data admin", formData)
+    
   }
 
 

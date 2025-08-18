@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useAuthenticationContext } from "../../../core/store/authContext";
 import Spinner from "../../../shared/ui/Spinner";
+import { AppRoute } from "../../../app/enums/routes";
 
 type RestrictedToRoleProps ={
    children:JSX.Element;
@@ -22,7 +23,7 @@ export default function RestrictedToRole ({children,blockedRoles }:RestrictedToR
 
         // Block specific roles
         if (blockedRoles.includes(userProfile.role)) {
-            return <Navigate to="/dashboard" replace />;
+            return <Navigate to={AppRoute.Dashboard} replace />;
         }
 
         return children;

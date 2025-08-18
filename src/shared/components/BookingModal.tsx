@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { buildUpdateBooking, buildCreateBooking } from "../../modules/bookings/utils/buildBooking";
 import { BookingModalProps } from "../types/booking";
+import { AppRoute } from "../../app/enums/routes";
 
 
 
@@ -47,7 +48,7 @@ export function BookingModal(props: BookingModalProps){
       saveBookings(booking, {
         onSuccess: () => {
           toast.success("Booking updated successfully");
-          navigate("/upcoming");
+          navigate(AppRoute.Upcoming);
           onClose?.();
         },
         onError: (e: any) => toast.error(e?.message || "Failed to update booking"),
@@ -71,7 +72,7 @@ export function BookingModal(props: BookingModalProps){
     saveBookings(booking, {
       onSuccess: () => {
         toast.success("Booking created successfully!");
-        navigate("/upcoming");
+        navigate(AppRoute.Upcoming);
         onClose?.();
       },
       onError: (e: any) => {
@@ -80,7 +81,7 @@ export function BookingModal(props: BookingModalProps){
             ? "You have already booked this session."
             : "Failed to create booking. Please try again."
         );
-        navigate("/upcoming");
+        navigate(AppRoute.Upcoming);
       },
     });
   };

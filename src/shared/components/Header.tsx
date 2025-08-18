@@ -115,7 +115,7 @@ export default function SmartHeader() {
               </DropDownMenu>
             ) : (
               !isAdmin && (
-                <Button to="/login" textOnly className="header__link">
+                <Button to={AppRoute.Login} textOnly className="header__link">
                   Login
                 </Button>
               )

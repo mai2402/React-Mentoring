@@ -5,6 +5,7 @@ import Input from "../ui/Input";
 import Button from "../ui/Button";
 import { LoginModalProps } from "../interface/modal";
 import { useHandleLogin } from "../hooks/useHandleLogin";
+import { AppRoute } from "../../app/enums/routes";
 
 
 
@@ -38,7 +39,7 @@ export function LoginModal ({ onClose, isOpen, sessionId }: LoginModalProps){
                        
                   <p className="signup-prompt">
                     Don’t have an account?{" "}
-                    <Button textOnly to="/signUp" className="signup-link">Create one</Button>
+                    <Button textOnly to={AppRoute.SignUp} className="signup-link">Create one</Button>
                   </p>
                 <div className="modal-actions">
                 <Button type="submit">Login</Button>
