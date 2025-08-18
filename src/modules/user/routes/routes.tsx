@@ -1,4 +1,6 @@
+import { AppRoute } from "../../../app/enums/routes";
 import { ProtectedRoute } from "../../auth/components/ProtectedRoute";
+import { UserRole } from "../enums/users";
 import Profile from "../pages/Profile";
 
 
@@ -6,9 +8,9 @@ import Profile from "../pages/Profile";
 
 
 export const userRoutes = [
-   { path: '/profile', 
+   { path: AppRoute.Profile, 
           element:
-        <ProtectedRoute roleRequired="user">
+        <ProtectedRoute roleRequired={UserRole.USER}>
           <Profile/>
         </ProtectedRoute>
         },

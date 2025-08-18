@@ -14,3 +14,4 @@ export const signUpSchema = ZOD.object({
 
 export type SignUpFormData = ZOD.infer<typeof signUpSchema>;
 
+export type FormField = keyof SignUpFormData;

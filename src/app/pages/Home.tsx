@@ -1,11 +1,6 @@
 import studentsImg from "../../assets/students.jpg"
 import listImg from '../../assets/list.jpg';
 import certificateImg from '../../assets/certificate.jpg';
-import Uploader from "../../shared/ui/Uploader";
-
-
-
-
 
 
 

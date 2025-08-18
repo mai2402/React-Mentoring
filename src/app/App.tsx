@@ -10,6 +10,7 @@ import { dashboardRoutes } from '../modules/dashboard/routes/routes';
 import NotAuthorizedPage from './pages/NotAuthorized';
 import RestrictedToRole from '../modules/auth/components/RestrictedToRole';
 import { UserRole } from '../modules/user/enums/users';
+import { AppRoute } from './enums/routes';
 
 
 
@@ -18,7 +19,7 @@ import { UserRole } from '../modules/user/enums/users';
 
 const Router = createBrowserRouter([
   {
-    path: '/',
+    path: AppRoute.Home,
     element: <Root />,
     children: [
       {
@@ -34,8 +35,8 @@ const Router = createBrowserRouter([
  
     ],
   },
-  { path:'*', element:<NotFoundPage/>},
-  {path: "/unauthorized"  , element:<NotAuthorizedPage/>},
+  { path:AppRoute.NotFound, element:<NotFoundPage/>},
+  {path: AppRoute.Unauthorized  , element:<NotAuthorizedPage/>},
   
 ]);
 

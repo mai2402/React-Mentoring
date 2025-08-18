@@ -6,6 +6,7 @@ import { useCreateNewAdmin } from "../../hooks/useCreateNewAdmin";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Spinner from "../../../../shared/ui/Spinner";
+import { AppRoute } from "../../../../app/enums/routes";
 
 
  const createAdminFields = [
@@ -69,7 +70,7 @@ export default function CreateAdminForm (){
                  )}
                   <div className="signup-actions">
                                  <Button type="submit">{isPending?"Creating...":"Create Admin"}</Button>
-                                 <Button textOnly to="/">Cancel</Button>
+                                 <Button textOnly to={AppRoute.Home}>Cancel</Button>
                   </div>
               </>
       )}

@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { SignUpFormData } from "../../auth/validation/SignUpForm";
 import { signUp } from "../../../core/services/authService"
 import toast from "react-hot-toast";
+import { ToastError } from "../../../shared/enums/toasts";
 
 export function useSignUpUser(onSuccess?: () => void) {
   return useMutation<
@@ -24,7 +25,7 @@ export function useSignUpUser(onSuccess?: () => void) {
       },
       onError: (err: any) => {
         console.error(err);
-        toast.error(err.message || "Something went wrong!");
+        toast.error(err.message || ToastError.Unknown);
       },
     }
   );

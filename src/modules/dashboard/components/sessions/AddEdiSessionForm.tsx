@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { Session } from "../../../sessions/interfaces/session";
 import { ZodUUID } from "zod/v4";
 import { useEditAddSession } from "../../hooks/sessions/useEditAddSession";
+import { AppRoute } from "../../../../app/enums/routes";
 
 
 
@@ -138,7 +139,7 @@ const handleSubmit = (data: AddEditSessionFormData) => {
                    < div className="modal-actions">
                              <Button type="submit">{isEditMode?"Edit Session" :'Add Session'}</Button>
                              <div className="half-width">
-                             <Button textOnly to="/">Cancel</Button>
+                             <Button textOnly to={AppRoute.Home}>Cancel</Button>
                              </div>
                </div>
             </>

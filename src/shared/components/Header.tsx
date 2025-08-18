@@ -12,15 +12,16 @@ import Spinner from '../ui/Spinner';
 import { DropDownMenu } from '../ui/DropDownMenu';
 import DropDownItem from '../ui/DropDownItem';
 import { UserRole } from '../../modules/user/enums/users';
+import { AppRoute } from '../../app/enums/routes';
 
 const NAV_ITEMS = [
-  { to: '/', label: 'Our Mission' },
-  { to: '/sessions', label: 'Browse Sessions' },
+  { to: AppRoute.Home, label: 'Our Mission' },
+  { to: AppRoute.Sessions, label: 'Browse Sessions' },
 ];
 
 const USER_DROPDOWN_ITEMS = [
-  { label: 'My Profile', to: '/profile' },
-  { label: 'Upcoming Sessions', to: '/upcoming' },
+  { label: 'My Profile', to: AppRoute.Profile },
+  { label: 'Upcoming Sessions', to: AppRoute.Upcoming },
   { label: 'Logout', action: 'logout' },
 ];
 
@@ -46,7 +47,7 @@ export default function SmartHeader() {
   return (
     <header className={`header ${isAdmin ? 'header--admin' : 'header--user'}`}>
       <div className="header__inner">
-        <Button to="/" className="header__logo">
+        <Button to={AppRoute.Home} className="header__logo">
           {isAdmin ? 'Admin Dashboard' : 'ReactMentoring'}
         </Button>
 

@@ -2,6 +2,11 @@ import { ReactNode } from "react";
 import { UserProfile } from "../../modules/user/interface/user";
 import { Session } from "@supabase/supabase-js";
 
+export enum AuthStatus {
+  Loading = "loading",
+  Authenticated = "authenticated",
+  Unauthenticated = "unauthenticated",
+}
 
 
 

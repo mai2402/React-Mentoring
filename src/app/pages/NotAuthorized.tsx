@@ -1,7 +1,8 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthenticationContext } from "../../core/store/authContext";
 import Button from "../../shared/ui/Button";
 import { UserRole } from "../../modules/user/enums/users";
+import { AppRoute } from "../enums/routes";
 
 
 
@@ -14,10 +15,10 @@ export default  function NotAuthorizedPage (){
   const handleRedirection = () => {
 
       if (userProfile?.role === UserRole.ADMIN) {
-        return navigate("/dashboard");
+        return navigate(AppRoute.Dashboard);
       }
 
-     return navigate("/");
+     return navigate(AppRoute.Home);
 };
 
           
