@@ -1,6 +1,7 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuthenticationContext } from "../../core/store/authContext";
 import Button from "../../shared/ui/Button";
+import { UserRole } from "../../modules/user/enums/users";
 
 
 
@@ -12,7 +13,7 @@ export default  function NotAuthorizedPage (){
      
   const handleRedirection = () => {
 
-      if (userProfile?.role === "admin") {
+      if (userProfile?.role === UserRole.ADMIN) {
         return navigate("/dashboard");
       }
 

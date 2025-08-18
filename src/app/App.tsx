@@ -9,6 +9,7 @@ import { userRoutes } from '../modules/user/routes/routes';
 import { dashboardRoutes } from '../modules/dashboard/routes/routes';
 import NotAuthorizedPage from './pages/NotAuthorized';
 import RestrictedToRole from '../modules/auth/components/RestrictedToRole';
+import { UserRole } from '../modules/user/enums/users';
 
 
 
@@ -22,7 +23,7 @@ const Router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <RestrictedToRole blockedRoles={['admin']}>
+        element: <RestrictedToRole blockedRoles={[UserRole.ADMIN]}>
                  <HomePage/>
                 </RestrictedToRole> ,
       },

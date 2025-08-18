@@ -1,3 +1,4 @@
+import { UserRole } from "../../modules/user/enums/users";
 import { UserProfile } from "../../modules/user/interface/user";
 
 
@@ -47,10 +48,10 @@ export function getModals({
       type: "changeRole",
       isOpen: modalType === "changeRole",
       title: "Change User Role",
-      message: targetUser?.role === 'admin'
+      message: targetUser?.role === UserRole.ADMIN
         ? "Are you sure you want to make this user a regular user?"
         : "Are you sure you want to make this user an admin?",
-      confirmLabel: targetUser?.role === 'admin' ? "Yes, Make User" : "Yes, Make Admin",
+      confirmLabel: targetUser?.role === UserRole.ADMIN ? "Yes, Make User" : "Yes, Make Admin",
       cancelLabel: "Cancel",
       onConfirm: handleChangeRole,
       onCancel: () => setModalType(null),

@@ -4,6 +4,7 @@ import {deleteUser, toggleUserActive, updateUserRole} from "../../services/users
 import {useQueryClient} from "@tanstack/react-query";
 import {getModals} from "../../../../shared/utils/getModalType";
 import toast from "react-hot-toast";
+import { UserRole } from "../../../user/enums/users";
 
 export function useUsersTableActions() {
 
@@ -62,9 +63,12 @@ export function useUsersTableActions() {
      * If an error occurs, it shows an error message.
      */
     const handleChangeRole = useCallback( async() => {
+           if (!targetUser) return;
+
+       const newRole = targetUser.role === UserRole.ADMIN? UserRole.USER : UserRole.ADMIN;
         try {
             if (targetUser) {
-                await updateUserRole(targetUser.id, targetUser.role);
+                await updateUserRole(targetUser.id, newRole);
                 toast.success("User role updated successfully");
                 setTargetUser(null);
                 queryClient.invalidateQueries({queryKey: ['profiles']});

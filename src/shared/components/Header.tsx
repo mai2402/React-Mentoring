@@ -11,6 +11,7 @@ import { FaMoon, FaBell, FaUserCircle } from 'react-icons/fa';
 import Spinner from '../ui/Spinner';
 import { DropDownMenu } from '../ui/DropDownMenu';
 import DropDownItem from '../ui/DropDownItem';
+import { UserRole } from '../../modules/user/enums/users';
 
 const NAV_ITEMS = [
   { to: '/', label: 'Our Mission' },
@@ -27,8 +28,8 @@ export default function SmartHeader() {
   const { isAuthenticated, userProfile, isLoading } = useAuthenticationContext();
   const navigate = useNavigate();
 
-  const isAdmin = userProfile?.role === 'admin';
-  const isUser = userProfile?.role === 'user';
+  const isAdmin = userProfile?.role === UserRole.ADMIN;
+  const isUser = userProfile?.role === UserRole.USER;
 
   const handleLogout = async () => {
     try {
