@@ -2,11 +2,13 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 const COLORS = ['#14B8A6', '#6366F1', '#F59E0B', '#EF4444'];
 
-interface Props {
-  data: { name: string; value: number }[];
+export  type ChartData = { name: string; value: number };
+
+ export type UserRoleProps = {
+   data: ChartData[];
 }
 
-export default function UsersDonutChart({ data }: Props) {
+export default function UsersDonutChart({ data }: UserRoleProps) {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <PieChart>

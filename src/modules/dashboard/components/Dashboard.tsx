@@ -2,7 +2,7 @@ import {FaClipboardCheck, FaRegCalendarAlt, FaUser} from "react-icons/fa";
 import Spinner from "../../../shared/ui/Spinner";
 import StatCard from "../../../shared/ui/StatCard";
 import Chart from "../../../shared/ui/Chart";
-import SessionsBarChart from "./charts/SessionsBarChart";
+import BookingsBarChart from "./charts/BookingsBarChart";
 import {useDashboardData} from "../hooks/useDashboardData";
 import EmptyContent from "../../../shared/ui/EmptyContent";
 import UsersDonutChart from "./charts/UserDonutChart";
@@ -17,9 +17,7 @@ export default function Dashboard() {
         sessionBarData,
         userRoleData
     } = useDashboardData();
-
-
-    console.log(sessionBarData,"sessionBarData");
+   
 
     if (isLoading) 
         return <Spinner/>;
@@ -72,7 +70,7 @@ export default function Dashboard() {
                 <h3 className="dashboard__title">Bookings Over Time</h3>
                 <div className="chart-container">
                     <Chart title="Bookings Over Time" description="Number of bookings per month">
-                        <SessionsBarChart data={sessionBarData}/>
+                        <BookingsBarChart data={sessionBarData}/>
                     </Chart>
                 </div>
             </section>

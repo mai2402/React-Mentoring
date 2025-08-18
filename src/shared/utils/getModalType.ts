@@ -47,8 +47,10 @@ export function getModals({
       type: "changeRole",
       isOpen: modalType === "changeRole",
       title: "Change User Role",
-      message: "Are you sure you want to change the role of this user?",
-      confirmLabel: "Yes, Change Role",
+      message: targetUser?.role === 'admin'
+        ? "Are you sure you want to make this user a regular user?"
+        : "Are you sure you want to make this user an admin?",
+      confirmLabel: targetUser?.role === 'admin' ? "Yes, Make User" : "Yes, Make Admin",
       cancelLabel: "Cancel",
       onConfirm: handleChangeRole,
       onCancel: () => setModalType(null),

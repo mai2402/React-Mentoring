@@ -20,8 +20,8 @@ interface Props {
     data : SessionData[];
 }
 
-export default function SessionsBarChart({data} : Props) {
-    const {data: sessions, isLoading} = useGetSessions();
+export default function BookingsBarChart({data} : Props) {
+    const {data: sessions, isLoading} = useGetSessions({},"");
       const {data: bookings} = useGetMyBookings();
 
 

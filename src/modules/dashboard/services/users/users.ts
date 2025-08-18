@@ -52,7 +52,7 @@ export async function toggleUserActive(userId: UserProfile["id"], isActive: bool
 }
 
 export async function deleteUser(userId: UserProfile["id"]) {
-  console.log("🔍 Deleting user with ID:", userId); // Add this
+
   const { error } = await supabase.from(TABLE).delete().eq("id", userId);
 
   if (error) {
