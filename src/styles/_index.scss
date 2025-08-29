@@ -8,7 +8,7 @@
 @use 'components/input';
 @use 'components/forms';
 @use 'components/modal';
-@use 'components/profile';
+// @use 'components/profile';
 @use 'components/session-card';
 @use 'components/upcoming';
 @use 'components/spinner';
@@ -31,3 +31,4 @@
 @use 'pages/not-found';
 @use 'pages/sessions';
 @use 'pages/session-detail';
+@use 'pages/profile';

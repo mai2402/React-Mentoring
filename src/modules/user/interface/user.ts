@@ -13,7 +13,7 @@ export interface UserProfile {
     name: string;
     created_at: string;
     role:string;
-    avatar_url?: string;
+    avatar_path?: string | null;
     bio?: string;
     website?: string;
     location?: string;
