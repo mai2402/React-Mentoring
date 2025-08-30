@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getSignedAvatarUrl } from "../../../utils/getSignedAvatarUrl";
-import fallback from "../../../../../assets/students.jpg";
 import { FiCamera } from "react-icons/fi";
 import { AvatarVariant } from "../../../enums/avatar";
+import { getInitials } from "../../../utils/getInitials";
 
 interface AvatarCardProps {
     name?: string;
@@ -17,6 +17,8 @@ export default function AvatarCard({name, avatarPath, size = 160, onSelect, uplo
   
     const [src, setSrc] = useState<string | null>(null);
 
+    const initials = getInitials(name || "");
+    
 
     useEffect(()=>{
       let isMounted = true;
@@ -41,7 +43,17 @@ export default function AvatarCard({name, avatarPath, size = 160, onSelect, uplo
 
     return(
      <div className={`profile__avatar profile__avatar--${variant}  ${uploading ? "is-uploading" : ""}`}>
-         <img alt={name} src={src || fallback} />
+       <div className="profile__avatar--fallback" aria-hidden={!!src}>
+        {initials}
+      </div>
+
+        { src && 
+                  <img 
+                      alt={name || initials}
+                      src={src} 
+                      onError={(e)=>e.currentTarget.remove()} // if it fails → reveal fallback
+                    />}  
+
             <button
                 type="button"
                 className="camera-btn"
