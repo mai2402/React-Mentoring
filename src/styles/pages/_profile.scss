@@ -68,8 +68,8 @@ $neutral-9: map.get(vars.$colors, neutral-9);
     .camera-btn {
       z-index: 10000;
       position: absolute;
-      right: map.get(vars.$space, sm);  
-      bottom: map.get(vars.$space, sm);  
+      right: 1px; 
+      bottom: 1px;  
       width:3rem;
       height:3rem;
       border-radius: 9999px;
