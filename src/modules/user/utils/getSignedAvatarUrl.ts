@@ -11,21 +11,21 @@ import { supabase } from "../../../core/supabase/client";
  * 
  */
 
+export type AvatarInfo = { path: string | null; version: number | null };
 
-export async function getSignedAvatarUrl(
-    path: string |null ,
-    size: number = 150) : Promise<string | null> {
+export async function getSignedAvatarUrl( path: string | null , expiresInSec : number = 60) {
 
-    if (!path) return null;
+    if (!path)  throw new Error("Path is required");
+
     const { data, error } = await supabase
         .storage
         .from("avatars")
-        .createSignedUrl(path, 3600, {transform: {width: size, height: size, resize: "cover"}});
+        .createSignedUrl(path,expiresInSec);
 
     if (error || !data.signedUrl) {
         throw new Error(error?.message || "Could not get signed URL");
     }
 
-    return data.signedUrl;
+    return `${data.signedUrl}&cb=${Date.now()}`;
 
 }

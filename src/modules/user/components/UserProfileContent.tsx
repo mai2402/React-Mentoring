@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 
 
 export default function UserProfileContent(profile: UserCard) {
-  const { name, avatar_path, email, phone, bio, created_at,isActive } =
+  const { name, email, phone, bio, created_at,isActive, id } =
   
    profile.profile?? {} as UserProfile;
 
@@ -35,7 +35,7 @@ export default function UserProfileContent(profile: UserCard) {
         onEdit={handleEditProfile}
         onCopy={handleCopyEmail}
         name={name}
-        avatarPath={avatar_path}
+        userId={id}
         >
     
         <ShortcutsList/>

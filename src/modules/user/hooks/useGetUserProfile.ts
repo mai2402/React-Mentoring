@@ -4,7 +4,7 @@ import { getUserProfile } from "../services/userServices";
 
 export function useGetUserProfile(id:string){
  return useQuery({
-    queryKey: ["profiles"],
+    queryKey: ["profiles", id],
     queryFn: ()=> getUserProfile(id),
   });
 

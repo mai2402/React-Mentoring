@@ -1,30 +1,30 @@
-import { useRef, useState } from "react";
 import { updateAvatarPath, uploadAvatar } from "../services/userServices";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { getSignedAvatarUrl } from "../utils/getSignedAvatarUrl";
 
 
+export type UploadResult = { newPath: string; url: string };
 
-export function useUpdateAvatar (intialAvatar: string | null){
-  
-        const [avatarPath, setAvatarPath] = useState<string | null>(intialAvatar ?? null);
-         const [uploading, setUploading] = useState(false);
-         const fileRef = useRef<HTMLInputElement>(null);   
+export function useUpdateAvatar(userId: string) {
+  const qc = useQueryClient();
+
+  return useMutation<UploadResult, Error, File>({
+    mutationFn: async (file: File) => {
     
-       async function onPick() {
-        const file = fileRef.current?.files?.[0];
-        if (!file) return;
-        setUploading(true);
-        try {
-          const { path } = await uploadAvatar(file);   // storage
-          await updateAvatarPath(path);                // DB + cleanup old
-          setAvatarPath(path);                         // local state
-        } catch (err: any) {
-          alert(err.message ?? "Avatar change failed");
-        } finally {
-          if (fileRef.current) fileRef.current.value = ""; // reset safely
-          setUploading(false);
-        }
-      }
+      const { path } = await uploadAvatar(userId, file);
+      await updateAvatarPath(path);
+      const url = await getSignedAvatarUrl(path);
+      return { newPath: path, url };
+    },
+    onSuccess: ({ newPath, url }) => {
+      // snap UI to the new image immediately
+      qc.setQueryData(["avatar_path", userId], url);
 
-   return {avatarPath,uploading,onPick,fileRef}
- 
+      // if you also cache the full profile elsewhere, update its path
+      qc.setQueryData(["profiles", userId], (old: any) =>
+        old ? { ...old, avatar_path: newPath } : old
+      );
+    },
+    
+  });
 }
