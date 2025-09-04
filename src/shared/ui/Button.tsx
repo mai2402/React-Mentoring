@@ -1,5 +1,6 @@
 import {  NavLink } from "react-router-dom";
 import { CustomButtonProps } from "../interface/button";
+import { JSX } from "react";
 
 
 export default function Button(props: CustomButtonProps): JSX.Element {

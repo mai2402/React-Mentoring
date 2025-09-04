@@ -1,0 +1,142 @@
+@use '../base/variables' as vars;
+@use 'sass:map';
+
+.section-editor {
+  &__title {
+    margin: 0 0 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color:  map.get(vars.$colors, neutral-1);
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Generic field */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &__label {
+    font-size: 12px;
+    color: #6b7280; // gray-500
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e5e7eb; // gray-200
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s ease;
+
+    &:focus {
+      border-color:  map.get(vars.$colors, accent); 
+    }
+
+    &.is-invalid {
+      border-color: #dc2626; // red-600
+    }
+  }
+
+  &__textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+
+  &__error {
+    font-size: 12px;
+    color: #dc2626;
+  }
+}
+
+/* Array field (social links) */
+.array-field {
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  &__title {
+    margin: 0;
+    font-size: 12px;
+    color: #6b7280 ;
+    font-weight: 600;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 8px;
+    padding: 10px;
+    border: 1px dashed #e5e7eb;
+    border-radius: 12px;
+    background: #fafafa;
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__actions {
+    align-self: end;
+  }
+}
+
+/* Actions + buttons */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+
+  &--primary {
+    background: map.get(vars.$colors, primary) ;
+    color: #fff;
+    border: none;
+    
+  }
+
+  &--ghost {
+    border: none;
+    background:transparent;
+    color: map.get(vars.$colors, neutral-1);
+  }
+
+  &--danger {
+    border-color: #dc2626;
+    color: #dc2626;
+    background: #fff;
+    
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

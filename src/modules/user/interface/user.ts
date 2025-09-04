@@ -5,7 +5,7 @@ export interface NewUser {
   role?: string;
 }
 
-export type profileLink ={
+export type ProfileLink ={
     label: string;
     url: string;
 }
@@ -21,7 +21,7 @@ export interface UserProfile {
     bio?: string;
     website?: string;
     location?: string;
-    social_links?: profileLink[];
+    social_links?: ProfileLink[];
     is_verified?: boolean;
     isActive?: boolean;
 
