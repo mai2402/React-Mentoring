@@ -1,13 +1,20 @@
+
 import { ReactNode } from "react";
-import { CustomButtonType } from "../types/button";
+import { ButtonSizes, ButtonVariations } from "../enums/buttons";
 
 
- export interface CustomButtonProps {
-    to?: string;
-    onClick?: () => void;
-    type?: CustomButtonType;
-    children: ReactNode;
-    textOnly?: boolean;
-    disabled?: boolean;
-    className?: string;
- }
+
+export interface CustomButtonStyle {
+  variation: ButtonVariations;
+  size?: ButtonSizes;
+}
+
+export interface BaseProps {
+  ui?: CustomButtonStyle;                 
+  block?: boolean;
+  textOnly?: boolean;
+  className?: string;
+  children: ReactNode;
+   disabled?: boolean;
+}
+

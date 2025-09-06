@@ -9,6 +9,7 @@ import Button from "../../../shared/ui/Button";
 import { FormFieldType } from "../enums/signUpForm";
 import { ToastSuccess } from "../../../shared/enums/toasts";
 import { AppRoute } from "../../../app/enums/routes";
+import { ButtonVariations } from "../../../shared/enums/buttons"; // <-- add this
 
 export interface SignUpField {
   name: FormField;
@@ -18,36 +19,29 @@ export interface SignUpField {
 }
 
 const signUpFields: ReadonlyArray<SignUpField> = [
-  { name: "name",     label: "Full Name",   type: FormFieldType.Text,     required: true },
-  { name: "email",    label: "Email",       type: FormFieldType.Email,    required: true },
-  { name: "password", label: "Password",    type: FormFieldType.Password, required: true },
-  { name: "phone",    label: "Phone Number",type: FormFieldType.Tel,      required: false },
+  { name: "name", label: "Full Name", type: FormFieldType.Text, required: true },
+  { name: "email", label: "Email", type: FormFieldType.Email, required: true },
+  { name: "password", label: "Password", type: FormFieldType.Password, required: true },
+  { name: "phone", label: "Phone Number", type: FormFieldType.Tel, required: false },
 ] as const;
-
 
 export default function SignUpForm() {
   const navigate = useNavigate();
-  const { mutate: signUp, isPending} = useSignUpUser(() => {
-            toast.success(ToastSuccess.Created);
-            navigate(AppRoute.Profile);
-    }
-  ) 
+  const { mutate: signUp, isPending } = useSignUpUser(() => {
+    toast.success(ToastSuccess.Created);
+    navigate(AppRoute.Profile);
+  });
   const defaultValues = { name: "", email: "", password: "", phone: "" };
 
-  if(isPending) return <Spinner/>
+  if (isPending) return <Spinner />;
 
-  const handleSubmit =  (data: SignUpFormData) => {
-    signUp(data)
+  const handleSubmit = (data: SignUpFormData) => {
+    signUp(data);
   };
 
   return (
-   <div className="signup-form">
-
-      <Form<SignUpFormData>
-        onSubmit={handleSubmit}
-        defaultValues={defaultValues}
-        schema={signUpSchema}
-      >
+    <div className="signup-form">
+      <Form<SignUpFormData> onSubmit={handleSubmit} defaultValues={defaultValues} schema={signUpSchema}>
         {({ register, formState: { errors } }) => (
           <>
             {signUpFields.map((field) => (
@@ -59,25 +53,28 @@ export default function SignUpForm() {
                 error={errors[field.name as keyof SignUpFormData]?.message}
               />
             ))}
-              <p 
-               style={{ textAlign: "justify" , marginTop: "1rem" , color: "var(--color-text-secondary)"}}>
+
+            <p style={{ textAlign: "justify", marginTop: "1rem", color: "var(--color-text-secondary)" }}>
               Already have an account?{" "}
-              <Button textOnly to={AppRoute.Login} className="login-link">
+              <Button ui={{ variation: ButtonVariations.Link }} to={AppRoute.Login} className="login-link">
                 Log in
               </Button>
-              </p>
+            </p>
 
-              <div className="signup-actions modal-actions">
-                <Button type="submit">Sign Up</Button>
-                <div className="half-width">
-                <Button textOnly to={AppRoute.Home}>Cancel</Button>
-              </div>
-              </div>
-            
+            <div className="signup-actions ">
+              {/* submit the form */}
+              <Button ui={{ variation: ButtonVariations.Primary }} htmlType="submit" >
+                Sign Up
+              </Button>
+
+              {/* go home */}
+              <Button ui={{ variation: ButtonVariations.Link }} to={AppRoute.Home}>
+                Cancel
+              </Button>
+            </div>
           </>
-          )}
+        )}
       </Form>
-</div>
-
+    </div>
   );
 }

@@ -1,32 +1,157 @@
 @use '../base/variables' as vars;
 @use 'sass:map';
+@use 'sass:color';
+
+$primary:   map.get(vars.$colors, primary);
+$accent:    map.get(vars.$colors, accent);
+$neutral-1: map.get(vars.$colors, neutral-1);
+$neutral-9: map.get(vars.$colors, neutral-9);
+$border:    map.get(vars.$colors, border);
+$surface:   map.get(vars.$colors, surface);
+$surface-h: map.get(vars.$colors, surface-hover);
 
 .btn {
-  background-color: map.get(vars.$colors, primary);
-  color: map.get(vars.$colors, neutral-1);
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1.5rem;
-  cursor: pointer;
-  text-decoration: none;
-  font: inherit;
+  /* base tokens (variants override these) */
+  --btn-bg: #{$primary};
+  --btn-fg: #{$neutral-1};
+  --btn-bd: transparent;
+  --btn-bd-w: 1px;
 
-  &:hover,
-  &:active {
-    background-color: darken(map.get(vars.$colors, primary), 10%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+
+  padding: .625rem 1rem;     // md default
+  min-height: 2.75rem;       // ~44px tap target
+  border-radius: .5rem;
+
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: var(--btn-bd-w) solid var(--btn-bd);
+  text-decoration: none;
+  white-space: nowrap;
+  font: inherit;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+
+  &:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 .2rem color.adjust($accent, $alpha: -0.7);
   }
 
-  &--text-only {
-    background-color: transparent;
-    color: map.get(vars.$colors, accent);
-    border-bottom: 2px solid transparent;
-    width: 100%;
-    text-align: center;
+  &:disabled,
+  &[aria-disabled="true"] {
+    opacity: .6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &.active {
+    box-shadow: inset 0 0 0 1px color.scale($accent, $lightness: -25%);
+  }
+
+  /* sizes (sm|md|lg) */
+  &--sm { padding: .5rem .75rem;  min-height: 2.25rem; font-size: .9rem; }
+  &--md { padding: .625rem 1rem;  min-height: 2.75rem; font-size: 1rem; }
+  &--lg { padding: .875rem 1.25rem;min-height: 3.25rem; font-size: 1.05rem; }
+
+  &--block { width: 100%; }
+
+  /* variants — keep names in sync with ButtonVariations */
+  &--primary {
+    --btn-bg: #{$primary};
+    --btn-fg: #{$neutral-1};
+    &:hover  { background: color.scale($primary, $lightness: -10%); }
+    &:active { background: color.scale($primary, $lightness: -15%); }
+  }
+
+  &--secondary {
+    --btn-bg: #{$accent};
+    --btn-fg: #{$neutral-1};
+    &:hover  { background: color.scale($accent, $lightness: -10%); }
+    &:active { background: color.scale($accent, $lightness: -15%); }
+  }
+
+  &--outline {
+    --btn-bg: transparent;
+    --btn-fg: #{$primary};
+    --btn-bd: #{$border};
+    --btn-bd-w: 1px;
+    &:hover { background: $surface-h; }
+  }
+
+  &--ghost {
+    --btn-bg: transparent;
+    --btn-fg: #{$neutral-9};
+    --btn-bd: transparent;
+    --btn-bd-w: 0;
+    &:hover { background: $surface; }
+  }
+
+  &--link {
+    /* hard reset for links */
+    --btn-bg: transparent;
+    --btn-fg: #{$accent};
+    --btn-bd: transparent;
+    --btn-bd-w: 0;
+
+    padding-inline: 0;
+    min-height: auto;
+    font-weight: 600;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
 
     &:hover,
     &:active {
-      color: darken(map.get(vars.$colors, accent), 10%);
-      border-color: darken(map.get(vars.$colors, accent), 10%);
+      text-decoration: underline;
+      color: color.scale($accent, $lightness: -10%);
+      background: transparent;
+      border: 0;
+      box-shadow: none;
     }
+
+    &.active { box-shadow: none; background: transparent; border: 0; }
   }
+
+  &--danger {
+    --btn-bg: #e11d48; // rose-600 vibe
+    --btn-fg: #fff;
+    &:hover  { background: color.scale(#e11d48, $lightness: -10%); }
+    &:active { background: color.scale(#e11d48, $lightness: -15%); }
+  }
+
+  /* legacy alias for your old prop */
+  &.btn--text-only { @extend .btn--link; }
+}
+
+/* ===== final hard overrides (keep these at the very end) ===== */
+.btn.btn--link,
+a.btn.btn--link {
+  --btn-bg: transparent;
+  --btn-bd: transparent;
+  --btn-bd-w: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding-inline: 0;
+  min-height: auto;
+}
+
+.btn.btn--link:hover,
+.btn.btn--link:active,
+.btn.btn--link:focus {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  text-decoration: underline;
+}
+
+.btn.btn--link.active {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }

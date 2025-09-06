@@ -4,8 +4,7 @@ import { logout } from '../../core/services/authService';
 import toast from 'react-hot-toast';
 
 import Button from '../ui/Button';
-
-
+import { ButtonVariations, ButtonSizes } from '../enums/buttons'; // ⬅️ adjust path if needed
 
 import { FaMoon, FaBell, FaUserCircle } from 'react-icons/fa';
 import Spinner from '../ui/Spinner';
@@ -47,7 +46,12 @@ export default function SmartHeader() {
   return (
     <header className={`header ${isAdmin ? 'header--admin' : 'header--user'}`}>
       <div className="header__inner">
-        <Button to={AppRoute.Home} className="header__logo">
+        {/* Brand / Logo */}
+        <Button
+          to={AppRoute.Home}
+          ui={{ variation: ButtonVariations.Link, size: ButtonSizes.Md }}
+          className="header__logo"
+        >
           {isAdmin ? 'Admin Dashboard' : 'ReactMentoring'}
         </Button>
 
@@ -55,7 +59,12 @@ export default function SmartHeader() {
           {!isAdmin && (
             <nav className="header__nav">
               {NAV_ITEMS.map(({ to, label }) => (
-                <Button key={to} to={to} className="header__link" textOnly>
+                <Button
+                  key={to}
+                  to={to}
+                  ui={{ variation: ButtonVariations.Link, size: ButtonSizes.Md }}
+                  className="header__link"
+                >
                   {label}
                 </Button>
               ))}
@@ -65,10 +74,17 @@ export default function SmartHeader() {
           <div className="header__actions">
             {isAdmin && (
               <>
-                <Button className="header__icon">
+                <Button
+                  ui={{ variation: ButtonVariations.Ghost, size: ButtonSizes.Sm }}
+                  className="header__icon"
+                >
                   <FaMoon />
                 </Button>
-                <Button className="header__icon header__icon--notification">
+
+                <Button
+                  ui={{ variation: ButtonVariations.Ghost, size: ButtonSizes.Sm }}
+                  className="header__icon header__icon--notification"
+                >
                   <FaBell />
                   <span className="header__badge">3</span>
                 </Button>
@@ -80,16 +96,18 @@ export default function SmartHeader() {
                 align="right"
                 trigger={
                   <Button
-                    textOnly
+                    ui={{ variation: ButtonVariations.Ghost, size: ButtonSizes.Sm }}
                     className={`header__icon ${isAdmin ? 'header__icon--profile' : ''}`}
                   >
-                    {!userProfile.avatar_url ? (
+                    {!userProfile.avatar_path ? (
                       <FaUserCircle />
                     ) : (
                       <img
-                        src={userProfile.avatar_url}
+                        src={userProfile.avatar_path}
                         alt={userProfile.name || 'user avatar'}
                         className="header__avatar"
+                          referrerPolicy="no-referrer"
+          decoding="async"
                       />
                     )}
                   </Button>
@@ -115,7 +133,11 @@ export default function SmartHeader() {
               </DropDownMenu>
             ) : (
               !isAdmin && (
-                <Button to={AppRoute.Login} textOnly className="header__link">
+                <Button
+                  to={AppRoute.Login}
+                  ui={{ variation: ButtonVariations.Link, size: ButtonSizes.Md }}
+                  className="header__link"
+                >
                   Login
                 </Button>
               )
