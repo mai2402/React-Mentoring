@@ -1,3 +1,5 @@
+import { LinksFormValues } from "../validations/profileSections";
+
 export interface NewUser {
     id: string;
   name: string;
@@ -19,7 +21,7 @@ export interface UserProfile {
     role:string;
     avatar_path?: string | null;
     bio?: string;
-    website?: string;
+    shortcuts?: LinksFormValues[];
     location?: string;
     social_links?: ProfileLink[];
     is_verified?: boolean;

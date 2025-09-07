@@ -89,6 +89,8 @@ export async function getMyBookings(): Promise<BookingDTO[]> {
     return [];
   }
 
+ 
+
   return data || [];
 }
 

@@ -14,6 +14,8 @@ import ProfileTabs from "./profile-main/profile-main-content/ProfileTabs";
 import ProfileBio from "./profile-main/profile-main-content/ProfileBio";
 import Modal from "../../../shared/ui/Modal";
 import { SectionEditorForm } from "./section-editor-form/SectionEditorForm";
+import { useGetMyBookings } from "../../bookings/hooks/useGetMyBookings";
+import Spinner from "../../../shared/ui/Spinner";
 
 
 
@@ -22,11 +24,17 @@ export default function UserProfileContent(card: UserCard) {
   const initial = (card.profile ?? null) as UserProfile | null;
   const { data } = useGetUserProfile(initial?.id as string);
 
-  // single source of truth for the whole tree
-  const profile = data ?? initial;
-  if (!profile) return null; // or a skeleton
+  const {data: myBookings, isLoading} = useGetMyBookings();
 
   const { isOpenModal, payload, open, close } = useModal<EditorPayload>();
+
+  const myBookingsCount = myBookings?.length ?? 0;
+
+   // single source of truth for the whole tree
+  const profile = data ?? initial;
+  if (!profile) return null; 
+
+
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(profile.email ?? '');
@@ -35,6 +43,12 @@ export default function UserProfileContent(card: UserCard) {
 
   const openEditor = (section: SectionKeyEnum) =>
     open({ section, snapshot: profile, title: `Edit ${section}` });
+
+
+  
+  if (isLoading) {
+    return <Spinner/>;
+  }
 
   return (
     <div className="profile">
@@ -45,8 +59,10 @@ export default function UserProfileContent(card: UserCard) {
         name={profile.name}
         userId={profile.id}
       >
-        <ShortcutsList onEdit={() => openEditor(SectionKeyEnum.SHORTCUTS)} />
-        <LinksList onEdit={() => openEditor(SectionKeyEnum.LINKS)} />
+        <ShortcutsList/>
+        <LinksList onEdit={()=> openEditor(SectionKeyEnum.LINKS)} 
+                   linkList={profile.social_links}
+        />
       </ProfileSidebar>
 
       <ProfileMainContent>
@@ -56,7 +72,7 @@ export default function UserProfileContent(card: UserCard) {
           phone={profile.phone}
           created_at={profile.created_at}
         />
-        <ProfileKPIs />
+        <ProfileKPIs  numberOfBookings={myBookingsCount}/>
         <ProfileTabs />
         <ProfileBio onEdit={() => openEditor(SectionKeyEnum.BIO)} bio={profile.bio} />
       </ProfileMainContent>

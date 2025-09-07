@@ -86,7 +86,7 @@ $surface-h: map.get(vars.$colors, surface-hover);
   &--ghost {
     --btn-bg: transparent;
     --btn-fg: #{$neutral-9};
-    --btn-bd: transparent;
+    --btn-bd: none;
     --btn-bd-w: 0;
     &:hover { background: $surface; }
   }

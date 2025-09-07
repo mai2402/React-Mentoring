@@ -10,6 +10,9 @@ export enum AppRoute {
   // User
   Profile = "/profile",
   Upcoming = "/upcoming",
+  Notifications = "/notifications",
+  Privacy = "/privacy",
+  Security = "/security",
 
   // Sessions
   Sessions = "/sessions",

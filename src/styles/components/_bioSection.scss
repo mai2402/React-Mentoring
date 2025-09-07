@@ -1,0 +1,42 @@
+@use '../base/variables' as vars;
+@use 'sass:map';
+
+.profile__bio {
+   margin-top: map.get(vars.$space, lg);
+    width: 100%;
+    display: block;
+  // header row: title + edit button
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: map.get(vars.$space, sm);
+    margin-bottom: map.get(vars.$space, md);
+
+    h4 {
+      margin: 0;              // keep tight with the icon button
+      line-height: 1.2;
+      flex: 1 1 auto;         // take the remaining space
+    }
+
+    // don't let the button stretch
+    .btn { flex: 0 0 auto; }
+  }
+
+  p {
+    margin: 0;
+    color: map.get(vars.$colors, neutral-9);
+    white-space: pre-line;     // preserve line breaks in bio
+  }
+}
+
+/* compact round icon button used next to the heading */
+.icon-fab {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;                  // tighter hit area for icon-only button
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

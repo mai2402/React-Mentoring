@@ -62,6 +62,9 @@ export function useOptimisticMutation<TData, TError, TVars, TCache>(
         onError: (err, vars, ctx) => {
             // If the server call failed, put the cache back exactly as it was
             // before onMutate changed it.
+            /// <Summary>
+            // Note: if you have multiple concurrent mutations of the same data,
+            ///</Summary>
             if (ctx?.prev) {
                 queryClient.setQueryData<TCache>(params.queryKeyOf(vars), ctx.prev);
             }

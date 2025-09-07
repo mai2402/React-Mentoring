@@ -3,6 +3,7 @@ import { useAuthenticationContext } from "../../../core/store/authContext";
 import { Navigate, useLocation } from "react-router-dom";
 import Spinner from "../../../shared/ui/Spinner";
 import { AppRoute } from "../../../app/enums/routes";
+import { JSX } from "react";
 
 type ProtectedRouteProps ={
    children:JSX.Element;

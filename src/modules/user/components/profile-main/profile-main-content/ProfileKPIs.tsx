@@ -1,16 +1,20 @@
 
+export interface ProfileKPIsProps {
 
+    numberOfBookings: number;
+    numberOfSaved?: number;
+}
 
-export default function ProfileKPIs() {
+export default function ProfileKPIs({ numberOfBookings, numberOfSaved = 0 }: ProfileKPIsProps) {
 
     return (
         <div className="profile__kpis">
             <div className="profile__kpis-card">
-                <strong>0</strong>
+                <strong>{numberOfBookings}</strong>
                 <span>Bookings</span>
             </div>
             <div className="profile__kpis-card">
-                <strong>0</strong>
+                <strong>{numberOfSaved}</strong>
                 <span>Saved</span>
             </div>
         </div>

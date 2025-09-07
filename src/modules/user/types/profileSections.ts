@@ -8,7 +8,7 @@ export type SectionFields = {
   [SectionKeyEnum.HEADER]: Pick<UserProfile, "name" | "email" | "phone">;
   [SectionKeyEnum.BIO]: Pick<UserProfile, "bio">;
   [SectionKeyEnum.LINKS]: Pick<UserProfile, "social_links">;
-  [SectionKeyEnum.SHORTCUTS]: Pick<UserProfile, "website">;
+  [SectionKeyEnum.SHORTCUTS]: Pick<UserProfile, "shortcuts">;
 };
 
 export type SectionPayload =
