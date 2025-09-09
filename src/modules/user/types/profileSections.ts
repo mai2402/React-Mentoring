@@ -7,15 +7,15 @@ import { UserProfile } from "../interface/user";
 export type SectionFields = {
   [SectionKeyEnum.HEADER]: Pick<UserProfile, "name" | "email" | "phone">;
   [SectionKeyEnum.BIO]: Pick<UserProfile, "bio">;
-  [SectionKeyEnum.LINKS]: Pick<UserProfile, "social_links">;
-  [SectionKeyEnum.SHORTCUTS]: Pick<UserProfile, "shortcuts">;
+  [SectionKeyEnum.SOCIAL_LINKS]: Pick<UserProfile, "social_links">;
+
 };
 
 export type SectionPayload =
   | { section: SectionKeyEnum.HEADER; data: SectionFields[SectionKeyEnum.HEADER] }
   | { section: SectionKeyEnum.BIO; data: SectionFields[SectionKeyEnum.BIO] }
-  | { section: SectionKeyEnum.LINKS; data: SectionFields[SectionKeyEnum.LINKS] }
-  | { section: SectionKeyEnum.SHORTCUTS; data: SectionFields[SectionKeyEnum.SHORTCUTS] };
+  | { section: SectionKeyEnum.SOCIAL_LINKS; data: SectionFields[SectionKeyEnum.SOCIAL_LINKS] }
+
 
 
 type BaseField = {
@@ -44,6 +44,7 @@ export type ArrayFieldSpec = {
   itemFields: Array<{
     name: LinkItemFieldName;
     label: string;
+    kind?: string;
     type?: string;
     placeholder?: string;
   }>;

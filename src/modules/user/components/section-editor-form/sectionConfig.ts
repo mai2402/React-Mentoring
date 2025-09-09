@@ -1,6 +1,7 @@
 import { FieldKind, LinkItemFieldName, SectionKeyEnum } from "../../enums/profile-section"
 import { SectionConfig } from "../../types/profileSections"
-import { BioSchema, HeaderSchema, LinksSchema } from "../../validations/profileSections"
+import { ensureSocialLinksExist } from "../../utils/ensureSocialLinksExist";
+import { BioSchema, HeaderSchema, SocialLinksSchema } from "../../validations/profileSections"
 
 
 
@@ -28,27 +29,33 @@ export const sectionConfigs: Record<SectionKeyEnum, SectionConfig> = {
     toPayload: (v) => ({ section: SectionKeyEnum.BIO, data: { bio: v.bio } }),
   },
 
-  [SectionKeyEnum.LINKS]: {
-    title: "Edit Links",
-    schema: LinksSchema,
-    defaults: (p) => ({ social_links: p.social_links ?? [{ label: "", url: "" }] }),
-    fields: [{
+[SectionKeyEnum.SOCIAL_LINKS]: {
+  title: "Edit Links",
+  schema: SocialLinksSchema,
+  defaults: (p) => ({
+    social_links: ensureSocialLinksExist(p?.social_links ?? []),
+  }),
+  fields: [
+    {
       kind: FieldKind.Array,
       name: "social_links",
       label: "Links",
-      itemFields: [
-        { name: LinkItemFieldName.Label, label: "Label", placeholder: "GitHub" },
-        { name: LinkItemFieldName.Url,   label: "URL", type: "url", placeholder: "https://github.com/…" },
+        itemFields: [
+        {
+          name: LinkItemFieldName.Url,     
+          label: "URL",
+          kind: FieldKind.Text,
+          type: "url",
+          placeholder: "https://…",
+        },
       ],
-    }],
-    toPayload: (v) => ({ section: SectionKeyEnum.LINKS, data: { social_links: v.social_links } }),
-  },
-  
-  [SectionKeyEnum.SHORTCUTS]: {
-    title: "Edit Shortcuts",
-    schema: LinksSchema,
-    defaults: (p) => ({ website: p.website ?? "" }),
-    fields: [{ kind: FieldKind.Text, name: "website", label: "Website", type: "url", placeholder: "https://…" }],
-    toPayload: (v) => ({ section: SectionKeyEnum.SHORTCUTS, data: { website: v.website } }),
-  },
+    },
+  ],
+  toPayload: (v) => ({
+    section: SectionKeyEnum.SOCIAL_LINKS,
+    data: { social_links: v.social_links },
+  }),
+},
+
 };
+

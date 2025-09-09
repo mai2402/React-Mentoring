@@ -60,7 +60,7 @@ export default function UserProfileContent(card: UserCard) {
         userId={profile.id}
       >
         <ShortcutsList/>
-        <LinksList onEdit={()=> openEditor(SectionKeyEnum.LINKS)} 
+        <LinksList onEdit={()=> openEditor(SectionKeyEnum.SOCIAL_LINKS)} 
                    linkList={profile.social_links}
         />
       </ProfileSidebar>

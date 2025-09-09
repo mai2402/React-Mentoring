@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
 import Button from "../../../../../shared/ui/Button";
 import {  } from "../../../validations/profileSections";
 import { ProfileLink } from "../../../interface/user";
 import { ButtonSizes, ButtonVariations } from "../../../../../shared/enums/buttons";
-import { FiEdit2 } from "react-icons/fi";
+import { FiEdit2, FiExternalLink } from "react-icons/fi";
+import { ORDER } from "../../section-editor-form/ArrayField";
 
 
 interface LinksListProps {
@@ -11,8 +11,11 @@ interface LinksListProps {
     linkList?: ProfileLink[];
 }
 
+const pretty = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
 export default function LinksList({ onEdit , linkList}:LinksListProps) {
-  console.log('linkList', linkList);
+
+  
 
     return(
    
@@ -33,12 +36,32 @@ export default function LinksList({ onEdit , linkList}:LinksListProps) {
                         </Button>
                       )}
                     </div>
-              <ul>
-                <li><Link to="">Website</Link></li>
-                <li><Link to="">GitHub</Link></li>
-                <li><Link to="">LinkedIn</Link></li>
-                <li><Link to="">Twitter</Link></li>
-              </ul>
-            </div>
-    );
+               <ul>
+                 {ORDER.map((label) => {
+                    const item = linkList!!.find((l) => l.label === label);
+                    const url = item?.url?.trim();
+
+                           return (
+            <li key={label} className="profile-links__item">
+              {url ? (
+                <a
+                  className="profile-link"
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={url}
+                >
+                  {pretty(label)}
+                  <FiExternalLink className="profile-link__icon" aria-hidden="true" />
+                </a>
+              ) : (
+                <span className="profile-link profile-link--muted">{pretty(label)}</span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+
 }

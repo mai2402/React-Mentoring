@@ -6,11 +6,12 @@ import Form from "../../../../shared/ui/Form";
 import toast from "react-hot-toast";
 import { ToastError, ToastSuccess } from "../../../../shared/enums/toasts";
 import { FieldRenderer } from "./FieldRerender";
-import { EnumValues } from "zod";
+import { z as ZOD } from "zod";
 
 // ⬇️ new imports
 import Button from "../../../../shared/ui/Button";
 import { ButtonVariations, ButtonSizes } from "../../../../shared/enums/buttons";
+import { useMemo } from "react";
 
 interface SectionEditorFormProps  {
   section: SectionKeyEnum;
@@ -20,9 +21,13 @@ interface SectionEditorFormProps  {
 
 export function SectionEditorForm({ section, snapshot, onDone }: SectionEditorFormProps) {
   const cfg = sectionConfigs[section];
-  const { mutateAsync, isPending } = useUpdateProfileSection();
 
-  const onSubmit = async (values: EnumValues) => {
+  const { mutateAsync, isPending } = useUpdateProfileSection();
+  const defaults = useMemo(() => cfg.defaults(snapshot), [cfg, snapshot]);
+  type FormValues = ZOD.infer<typeof cfg.schema>;
+
+
+  const onSubmit = async (values: FormValues) => {
     try {
       await mutateAsync(cfg.toPayload(values));
       toast.success(ToastSuccess.Updated);
@@ -37,7 +42,7 @@ export function SectionEditorForm({ section, snapshot, onDone }: SectionEditorFo
     <div className="section-editor">
       <h3 className="section-editor__title">{cfg.title}</h3>
 
-      <Form<any> schema={cfg.schema} defaultValues={snapshot} onSubmit={onSubmit}>
+      <Form<any> schema={cfg.schema} defaultValues={defaults} onSubmit={onSubmit}>
         {() => (
           <div className="section-editor__form">
             {cfg.fields.map((f, i) => (

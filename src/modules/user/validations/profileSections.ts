@@ -1,4 +1,5 @@
 import { z  as ZOD} from "zod";
+import { SocialLinksEnum } from "../enums/profile-section";
 
 
 
@@ -29,3 +30,23 @@ links: ZOD.array(LinkItemSchema).min(1, "Add at least one link"),
 });
 export type LinksFormValues = ZOD.infer<typeof LinksSchema>;
 
+
+const urlOrEmpty = ZOD.string()
+  .trim()
+  .optional()
+  .transform(v => (v === "" ? undefined : v))
+  .refine(v => !v || /^https?:\/\//i.test(v), "Start with http(s)://");
+
+export const SocialLinkItemSchema = ZOD.object({
+  label: ZOD.nativeEnum(SocialLinksEnum),
+  url: urlOrEmpty,
+});
+
+export const SocialLinksSchema = ZOD.object({
+  social_links: ZOD.array(SocialLinkItemSchema)
+    .length(4, "Exactly 4 links")
+    .refine(arr => new Set(arr.map(a => a.label)).size === arr.length, "Labels must be unique"),
+});
+
+
+export type SocialLinksFormValues = ZOD.infer<typeof SocialLinksSchema>;

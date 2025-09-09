@@ -1,4 +1,5 @@
-import { LinksFormValues } from "../validations/profileSections";
+import {  SocialLinksEnum } from "../enums/profile-section";
+
 
 export interface NewUser {
     id: string;
@@ -7,9 +8,10 @@ export interface NewUser {
   role?: string;
 }
 
+
 export type ProfileLink ={
-    label: string;
-    url: string;
+    label: SocialLinksEnum;
+    url?: string | null;
 }
 
 export interface UserProfile {
@@ -21,7 +23,6 @@ export interface UserProfile {
     role:string;
     avatar_path?: string | null;
     bio?: string;
-    shortcuts?: LinksFormValues[];
     location?: string;
     social_links?: ProfileLink[];
     is_verified?: boolean;

@@ -3,8 +3,8 @@
 export enum SectionKeyEnum {
      HEADER = "header",
      BIO = "bio",
-     LINKS = "links",
-     SHORTCUTS= "shortcuts",
+     SOCIAL_LINKS = "social_links",
+     
 
 }
 
@@ -12,6 +12,7 @@ export enum FieldKind {
   Text = "text",
   Textarea = "textarea",
   Array = "array",
+  Select = "select",
 }
 
 
@@ -20,5 +21,10 @@ export enum LinkItemFieldName {
   Url = "url",
 }
 
-
+export enum SocialLinksEnum {
+     WEBSITE = "website",
+     GITHUB = "github",
+     LINKEDIN = "linkedin",
+     TWITTER = "twitter",
+};
 

@@ -16,7 +16,15 @@
   }
 }
 
+.modal-container .chip {
+  background: lighten(map.get(vars.$colors, neutral-1), 8%);
+  color: map.get(vars.$colors, neutral-9) !important; // simple, wins over inherited color
+  font-size: .85rem;  // safety in case a parent sets 0
+  opacity: 1;         // safety in case a parent reduces opacity
+}
+
 .modal-container {
+
   background-color: map.get(vars.$colors, primary);
   color: map.get(vars.$colors, neutral-1);
   padding: map.get(vars.$space, lg);
